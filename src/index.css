@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 248 250 252;     /* slate-50 */
+    --foreground: 30 41 59;        /* slate-800 */
+    --primary: 37 48 139;          /* insurance-darkblue */
+    --muted: 241 245 249;          /* slate-100 */
+    --border: 226 232 240;         /* slate-200 */
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8fafc; /* Slate-50 - premium light bg */
+    color: #1e293b; /* Slate-800 - professional dark text */
+  }
+  
+  h1, h2, h3, h4, h5, h6, .font-sans {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+/* --- Premium Animations & Custom Utility Classes --- */
+
+/* Smooth fade-in and slide-up */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes blob-bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-blob {
+  animation: blob-bounce 6s ease-in-out infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Header panel styling */
+.glass-panel {
+  background: #ffffff; /* Completely solid background */
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Custom interactive service hover card styles */
+.service-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Custom hover underlines for navigation links */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #25308b; /* dark blue */
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Automatic hover dropdown wrapper */
+.dropdown-trigger:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-content {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom Webkit scrollbar for premium desktop feel */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* --- Marquee Animations --- */
+.animate-marquee {
+  animation: marquee var(--duration) linear infinite;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration) linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+
+/* --- Floating Animations for Hero Grid --- */
+@keyframes float-1 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes float-2 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes float-3 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes float-4 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-11px); }
+}
+
+.animate-float-1 {
+  animation: float-1 5s ease-in-out infinite;
+}
+.animate-float-2 {
+  animation: float-2 6.5s ease-in-out infinite;
+}
+.animate-float-3 {
+  animation: float-3 5.5s ease-in-out infinite;
+}
+.animate-float-4 {
+  animation: float-4 7s ease-in-out infinite;
+}
+
+
