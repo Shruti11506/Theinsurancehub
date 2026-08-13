@@ -34,18 +34,21 @@ export default function App() {
         const qRect = qEl.getBoundingClientRect();
         const sRect = sEl.getBoundingClientRect();
 
+        const isSmallMobile = vW < 480;
+        const isMobile = vW < 768;
+
         setOffsets({
           logo: {
             x: cX - (lRect.left + lRect.width / 2),
-            y: (cY - 220) - (lRect.top + lRect.height / 2)
+            y: (cY - (isSmallMobile ? 140 : isMobile ? 170 : 220)) - (lRect.top + lRect.height / 2)
           },
           question: {
             x: cX - (qRect.left + qRect.width / 2),
-            y: (cY - 45) - (qRect.top + qRect.height / 2)
+            y: (cY - (isSmallMobile ? 20 : isMobile ? 32 : 45)) - (qRect.top + qRect.height / 2)
           },
           statement: {
             x: cX - (sRect.left + sRect.width / 2),
-            y: (cY + 160) - (sRect.top + sRect.height / 2)
+            y: (cY + (isSmallMobile ? 100 : isMobile ? 130 : 160)) - (sRect.top + sRect.height / 2)
           }
         });
       }
@@ -170,7 +173,7 @@ export default function App() {
                   duration: introPhase === 'move' ? 1.4 : 0,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-50 min-h-[2.4em] text-left"
+                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-50 min-h-[2.4em] text-left"
                 style={{ willChange: 'transform' }}
               >
                 <TypewriterText duration={0.8}>
@@ -204,13 +207,13 @@ export default function App() {
                 style={{ willChange: 'transform, opacity' }}
               >
                 {/* Answer */}
-                <p id="hero-answer" className="text-xl sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-l-4 border-insurance-orange pl-5">
+                <p id="hero-answer" className="text-lg sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-l-4 border-insurance-orange pl-4 sm:pl-5">
                   All companies, insurance and mutual funds <br className="hidden sm:inline" />
                   under one roof.
                 </p>
 
                 {/* Italic Quote */}
-                <p id="hero-quote" className="text-[17px] sm:text-[19px] italic font-medium text-slate-500 pl-1 border-l-2 border-insurance-darkblue/30 tracking-wide font-serif">
+                <p id="hero-quote" className="text-[15px] sm:text-[19px] italic font-medium text-slate-500 pl-1 border-l-2 border-insurance-darkblue/30 tracking-wide font-serif">
                   &ldquo;Secure today, protect tomorrow.&rdquo;
                 </p>
               </motion.div>
@@ -226,37 +229,37 @@ export default function App() {
                 duration: 1.4,
                 ease: [0.22, 1, 0.36, 1]
               }}
-              className="flex-shrink-0 w-full lg:w-[460px] xl:w-[540px] h-[380px] sm:h-[450px] xl:h-[580px] relative overflow-hidden rounded-[40px] flex justify-center items-center shadow-2xl shadow-blue-900/10 border-[6px] sm:border-[8px] border-white/60 bg-white/30 backdrop-blur-3xl"
+              className="flex-shrink-0 w-full lg:w-[460px] xl:w-[540px] h-[340px] sm:h-[450px] xl:h-[580px] relative overflow-hidden rounded-[32px] sm:rounded-[40px] flex justify-center items-center shadow-2xl shadow-blue-900/10 border-4 sm:border-[8px] border-white/60 bg-white/30 backdrop-blur-3xl"
             >
               {/* Glow background */}
               <div className="absolute inset-0 bg-gradient-to-br from-insurance-darkblue/20 via-insurance-orange/10 to-insurance-green/20 blur-3xl z-0"></div>
               
-              <div className="relative z-10 flex gap-4 w-full h-full p-4">
+              <div className="relative z-10 flex gap-2 sm:gap-4 w-full h-full p-2 sm:p-4">
                  {/* Left Column (Moves Up) */}
                  <Marquee vertical className="w-1/2 h-full" repeat={3} pauseOnHover>
-                    <div className="w-full h-[220px] sm:h-[280px] bg-white p-2 rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
-                      <div className="w-full h-full relative rounded-2xl overflow-hidden">
+                    <div className="w-full h-[200px] sm:h-[280px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
+                      <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
                         <img src="/health_card.png" alt="Health Guard" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
-                        <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-5 right-4 sm:right-5">
-                           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-blue-500/30 backdrop-blur-md flex items-center justify-center mb-2 sm:mb-3 border border-blue-400/30">
-                              <HeartPulse size={18} className="text-white" />
+                        <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5">
+                           <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-blue-500/30 backdrop-blur-md flex items-center justify-center mb-1.5 sm:mb-3 border border-blue-400/30">
+                              <HeartPulse size={16} className="text-white" />
                            </div>
-                           <h3 className="text-white font-bold text-[15px] sm:text-lg font-sans leading-tight">Health Guard</h3>
-                           <p className="text-blue-100 text-[10px] sm:text-[11px] font-semibold mt-1">Cashless & Comprehensive</p>
+                           <h3 className="text-white font-bold text-[13px] sm:text-lg font-sans leading-tight">Health Guard</h3>
+                           <p className="text-blue-100 text-[9px] sm:text-[11px] font-semibold mt-0.5 sm:mt-1">Cashless &amp; Comprehensive</p>
                         </div>
                       </div>
                     </div>
-                    <div className="w-full h-[220px] sm:h-[280px] bg-white p-2 rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
-                      <div className="w-full h-full relative rounded-2xl overflow-hidden">
+                    <div className="w-full h-[200px] sm:h-[280px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
+                      <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
                         <img src="/wealth_card.png" alt="Wealth SIP" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
-                        <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-5 right-4 sm:right-5">
-                           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-purple-500/30 backdrop-blur-md flex items-center justify-center mb-2 sm:mb-3 border border-purple-400/30">
-                              <BarChart2 size={18} className="text-white" />
+                        <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5">
+                           <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-purple-500/30 backdrop-blur-md flex items-center justify-center mb-1.5 sm:mb-3 border border-purple-400/30">
+                              <BarChart2 size={16} className="text-white" />
                            </div>
-                           <h3 className="text-white font-bold text-[15px] sm:text-lg font-sans leading-tight">Wealth SIP</h3>
-                           <p className="text-purple-100 text-[10px] sm:text-[11px] font-semibold mt-1">Smart Mutual Funds</p>
+                           <h3 className="text-white font-bold text-[13px] sm:text-lg font-sans leading-tight">Wealth SIP</h3>
+                           <p className="text-purple-100 text-[9px] sm:text-[11px] font-semibold mt-0.5 sm:mt-1">Smart Mutual Funds</p>
                         </div>
                       </div>
                     </div>
@@ -264,29 +267,29 @@ export default function App() {
 
                  {/* Right Column (Moves Down) */}
                  <Marquee vertical reverse className="w-1/2 h-full" repeat={3} pauseOnHover>
-                    <div className="w-full h-[220px] sm:h-[280px] bg-white p-2 rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
-                      <div className="w-full h-full relative rounded-2xl overflow-hidden">
+                    <div className="w-full h-[200px] sm:h-[280px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
+                      <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
                         <img src="/life_card.png" alt="Life Shield" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
-                        <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-5 right-4 sm:right-5">
-                           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-orange-500/30 backdrop-blur-md flex items-center justify-center mb-2 sm:mb-3 border border-orange-400/30">
-                              <Award size={18} className="text-white" />
+                        <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5">
+                           <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-orange-500/30 backdrop-blur-md flex items-center justify-center mb-1.5 sm:mb-3 border border-orange-400/30">
+                              <Award size={16} className="text-white" />
                            </div>
-                           <h3 className="text-white font-bold text-[15px] sm:text-lg font-sans leading-tight">Life Shield</h3>
-                           <p className="text-orange-100 text-[10px] sm:text-[11px] font-semibold mt-1">Term & Protection</p>
+                           <h3 className="text-white font-bold text-[13px] sm:text-lg font-sans leading-tight">Life Shield</h3>
+                           <p className="text-orange-100 text-[9px] sm:text-[11px] font-semibold mt-0.5 sm:mt-1">Term &amp; Protection</p>
                         </div>
                       </div>
                     </div>
-                    <div className="w-full h-[220px] sm:h-[280px] bg-white p-2 rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
-                      <div className="w-full h-full relative rounded-2xl overflow-hidden">
+                    <div className="w-full h-[200px] sm:h-[280px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
+                      <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
                         <img src="/motor_card.png" alt="Motor Safe" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
-                        <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-5 right-4 sm:right-5">
-                           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-emerald-500/30 backdrop-blur-md flex items-center justify-center mb-2 sm:mb-3 border border-emerald-400/30">
-                              <Car size={18} className="text-white" />
+                        <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5">
+                           <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-emerald-500/30 backdrop-blur-md flex items-center justify-center mb-1.5 sm:mb-3 border border-emerald-400/30">
+                              <Car size={16} className="text-white" />
                            </div>
-                           <h3 className="text-white font-bold text-[15px] sm:text-lg font-sans leading-tight">Motor Safe</h3>
-                           <p className="text-emerald-100 text-[10px] sm:text-[11px] font-semibold mt-1">Zero Dep Covers</p>
+                           <h3 className="text-white font-bold text-[13px] sm:text-lg font-sans leading-tight">Motor Safe</h3>
+                           <p className="text-emerald-100 text-[9px] sm:text-[11px] font-semibold mt-0.5 sm:mt-1">Zero Dep Covers</p>
                         </div>
                       </div>
                     </div>
@@ -299,68 +302,46 @@ export default function App() {
       </section>
 
       {/* 3. About Us Section */}
-      <section className="relative py-24 overflow-hidden bg-white/70 backdrop-blur-md">
+      <section className="relative py-16 sm:py-24 overflow-hidden bg-white/70 backdrop-blur-md">
         {/* Subtle background texture */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 pointer-events-none"></div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-insurance-darkblue via-insurance-orange via-insurance-green to-insurance-violet"></div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
           {/* Stats Badges */}
-          <div className="flex flex-wrap justify-center gap-8 mb-16">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-12 sm:mb-16">
             {/* 25 Years Badge */}
             <div className="relative group">
-              <div className="w-44 h-44 rounded-full bg-gradient-to-br from-insurance-darkblue to-blue-700 flex flex-col items-center justify-center shadow-2xl shadow-blue-300/40 border-4 border-white ring-4 ring-insurance-darkblue/10 transition-transform duration-500 group-hover:scale-105">
-                {/* Leaf accents */}
-                <div className="absolute -top-3 -left-3 w-8 h-12 bg-insurance-green/80 rounded-full rotate-[-30deg] blur-[1px] opacity-80"></div>
-                <div className="absolute -top-4 left-2 w-5 h-10 bg-emerald-400/70 rounded-full rotate-[-10deg] opacity-70"></div>
-                <div className="absolute -top-2 left-8 w-6 h-9 bg-insurance-green/60 rounded-full rotate-[20deg] opacity-60"></div>
-                <div className="absolute -bottom-3 -right-3 w-8 h-12 bg-insurance-green/80 rounded-full rotate-[30deg] blur-[1px] opacity-80"></div>
-                <div className="absolute -bottom-4 right-2 w-5 h-10 bg-emerald-400/70 rounded-full rotate-[10deg] opacity-70"></div>
-                <span className="text-5xl font-black text-white leading-none">25+</span>
-                <span className="text-[11px] font-bold text-blue-200 uppercase tracking-widest mt-1">Years of</span>
-                <span className="text-[13px] font-extrabold text-white uppercase tracking-wide">Experience</span>
+              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-br from-insurance-darkblue to-blue-700 flex flex-col items-center justify-center shadow-2xl shadow-blue-300/40 border-4 border-white ring-4 ring-insurance-darkblue/10 transition-transform duration-500 group-hover:scale-105">
+                <span className="text-4xl sm:text-5xl font-black text-white leading-none">25+</span>
+                <span className="text-[11px] sm:text-sm font-bold text-blue-100 tracking-wider uppercase mt-1">Years</span>
+                <span className="text-[9px] sm:text-[10px] font-semibold text-blue-200 uppercase tracking-widest">Experience</span>
               </div>
             </div>
 
-            {/* Decorative connector */}
-            <div className="hidden lg:flex items-center gap-3 self-center">
-              <div className="w-3 h-3 rounded-full bg-insurance-orange"></div>
-              <div className="w-16 h-0.5 bg-gradient-to-r from-insurance-orange to-insurance-violet"></div>
-              <div className="w-3 h-3 rounded-full bg-insurance-violet"></div>
-            </div>
-
-            {/* 5 Crore+ Portfolio Badge */}
+            {/* 30000+ Customers Badge */}
             <div className="relative group">
-              <div className="w-44 h-44 rounded-full bg-gradient-to-br from-insurance-orange to-amber-600 flex flex-col items-center justify-center shadow-2xl shadow-orange-300/40 border-4 border-white ring-4 ring-insurance-orange/10 transition-transform duration-500 group-hover:scale-105">
-                {/* Leaf accents */}
-                <div className="absolute -top-3 -right-3 w-8 h-12 bg-insurance-green/80 rounded-full rotate-[30deg] blur-[1px] opacity-80"></div>
-                <div className="absolute -top-4 right-2 w-5 h-10 bg-emerald-400/70 rounded-full rotate-[10deg] opacity-70"></div>
-                <div className="absolute -top-2 right-8 w-6 h-9 bg-insurance-green/60 rounded-full rotate-[-20deg] opacity-60"></div>
-                <div className="absolute -bottom-3 -left-3 w-8 h-12 bg-insurance-green/80 rounded-full rotate-[-30deg] blur-[1px] opacity-80"></div>
-                <div className="absolute -bottom-4 left-2 w-5 h-10 bg-emerald-400/70 rounded-full rotate-[-10deg] opacity-70"></div>
-                {/* Dark overlay to improve text contrast */}
-                <div className="absolute inset-0 bg-black/20 rounded-full pointer-events-none"></div>
-                {/* Text content */}
-                <span className="text-3xl font-black text-white leading-none drop-shadow-md relative z-10">5 Cr+</span>
-                <span className="text-[10px] font-bold text-white/90 uppercase tracking-widest drop-shadow-sm relative z-10 mt-1">Portfolio</span>
-                <span className="text-[10px] font-extrabold text-white uppercase tracking-wide drop-shadow-sm relative z-10">Under Management</span>
+              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-br from-insurance-orange to-amber-600 flex flex-col items-center justify-center shadow-2xl shadow-orange-300/40 border-4 border-white ring-4 ring-insurance-orange/10 transition-transform duration-500 group-hover:scale-105">
+                <span className="text-3xl sm:text-4xl font-black text-white leading-none">30,000+</span>
+                <span className="text-[11px] sm:text-sm font-bold text-orange-100 tracking-wider uppercase mt-1">Happy</span>
+                <span className="text-[9px] sm:text-[10px] font-semibold text-orange-200 uppercase tracking-widest">Customers</span>
               </div>
             </div>
           </div>
 
           {/* Description Text */}
-          <div className="max-w-4xl mx-auto text-center mb-20">
-            <p className="text-[17px] sm:text-[19px] leading-[1.9] text-slate-700 font-medium font-sans tracking-wide">
+          <div className="max-w-4xl mx-auto text-center mb-16 sm:mb-20">
+            <p className="text-[15px] sm:text-[19px] leading-[1.8] sm:leading-[1.9] text-slate-700 font-medium font-sans tracking-wide">
               At <span className="font-extrabold text-insurance-darkblue">The Insurance Hub</span>, we are committed to helping individuals, families, and businesses make confident and informed insurance decisions through trusted guidance and years of industry experience. With expertise across life, health, and general insurance, we simplify complex policies and provide honest, transparent advice tailored to every client's unique needs.
             </p>
-            <p className="text-[17px] sm:text-[19px] leading-[1.9] text-slate-700 font-medium font-sans tracking-wide mt-6">
+            <p className="text-[15px] sm:text-[19px] leading-[1.8] sm:leading-[1.9] text-slate-700 font-medium font-sans tracking-wide mt-4 sm:mt-6">
               Our team works with reputed insurance providers to offer unbiased plan comparisons, personalized recommendations, and complete support from choosing the right policy to claim assistance. We believe insurance is not just about coverage, but about protecting what matters most and building long-term trust through <span className="font-extrabold text-insurance-orange">clarity</span>, <span className="font-extrabold text-insurance-green">reliability</span>, and <span className="font-extrabold text-insurance-violet">dedicated service</span>.
             </p>
           </div>
 
           {/* Profile Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch max-w-[90rem] mx-auto lg:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch max-w-[90rem] mx-auto lg:px-6">
 
             {/* Card 1 - Adarsh & Vaishali Bafna */}
             <div className="relative w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100 flex flex-col lg:flex-row group hover:shadow-2xl hover:shadow-blue-200/80 hover:bg-blue-50/20 transition-all duration-500">

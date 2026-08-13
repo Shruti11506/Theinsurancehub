@@ -46,7 +46,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
         boxShadow: '0 0 0 0 rgba(0, 0, 0, 0)'
       }}
       animate={{
-        backgroundColor: introPhase === 'center' ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 0.75)',
+        backgroundColor: introPhase === 'center' ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 0.85)',
         backdropFilter: introPhase === 'center' ? 'blur(0px)' : 'blur(16px)',
         borderBottomColor: introPhase === 'center' ? 'rgba(226, 232, 240, 0)' : 'rgba(226, 232, 240, 0.5)',
         boxShadow: introPhase === 'center' ? '0 0 0 0 rgba(0, 0, 0, 0)' : '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
@@ -57,10 +57,10 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
       }}
       style={{ borderBottomWidth: '1px', borderBottomStyle: 'solid' }}
     >
-      <div className="max-w-[1600px] mx-auto px-6 h-28 flex items-center justify-between relative">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-20 sm:h-24 lg:h-28 flex items-center justify-between relative">
         
         {/* Left Side: Logo & Main Navigation */}
-        <div className="w-2/3 flex items-center justify-start gap-24 xl:gap-40">
+        <div className="flex items-center justify-start gap-4 sm:gap-12 xl:gap-40">
           <a 
             id="header-logo-link"
             href="/" 
@@ -78,7 +78,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   ? {
                       x: logoOffset?.x || 0,
                       y: logoOffset?.y || 0,
-                      scale: 1.25,
+                      scale: 1.15,
                       opacity: logoOffset ? 1 : 0
                     }
                   : { x: 0, y: 0, scale: 1, opacity: 1 }
@@ -90,7 +90,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               }}
               style={{ willChange: 'transform, opacity' }}
             >
-              <Logo id="header-logo" className="h-16" />
+              <Logo id="header-logo" className="h-12 sm:h-14 lg:h-16" />
             </motion.div>
           </a>
           
@@ -114,10 +114,21 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
           initial={{ opacity: 0 }}
           animate={{ opacity: introPhase === 'center' ? 0 : 1 }}
           transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center justify-end gap-6 w-1/3 relative z-20"
+          className="flex items-center justify-end gap-3 sm:gap-6 relative z-20"
         >
-          {/* Social Direct Links */}
-          <div className="hidden sm:flex items-center gap-5">
+          {/* Mobile Quick WhatsApp Action */}
+          <a 
+            href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="sm:hidden p-2 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-sm border border-emerald-100/50"
+            title="Chat on WhatsApp"
+          >
+            <WhatsAppIcon className="h-5 w-5" />
+          </a>
+
+          {/* Social Direct Links (Desktop & Tablet) */}
+          <div className="hidden sm:flex items-center gap-3 md:gap-5">
             <a 
               href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
               target="_blank" 
@@ -125,7 +136,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               className="p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:scale-110 transition-all duration-300 shadow-md border border-emerald-100/50"
               title="Chat on WhatsApp"
             >
-              <WhatsAppIcon className="h-7 w-7" />
+              <WhatsAppIcon className="h-6 w-6 lg:h-7 lg:w-7" />
             </a>
             <a 
               href="https://www.instagram.com/theinsurancehub__?utm_source=qr&igsh=bGJzOGM2M3JmaTF1" 
@@ -134,7 +145,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               className="p-2.5 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 hover:scale-110 transition-all duration-300 shadow-md border border-pink-100/50"
               title="Follow on Instagram"
             >
-              <InstagramIcon className="h-7 w-7" />
+              <InstagramIcon className="h-6 w-6 lg:h-7 lg:w-7" />
             </a>
             <a 
               href="https://q.me-qr.com/5pildkmv" 
@@ -143,7 +154,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               className="p-2.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-110 transition-all duration-300 shadow-md border border-blue-100/50"
               title="Get Directions"
             >
-              <LocationPinIcon className="h-7 w-7" />
+              <LocationPinIcon className="h-6 w-6 lg:h-7 lg:w-7" />
             </a>
             <a 
               href="https://www.linkedin.com/company/the-insurance-hub001/" 
@@ -152,69 +163,75 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               className="p-2.5 rounded-full bg-sky-50 text-sky-600 hover:bg-sky-100 hover:scale-110 transition-all duration-300 shadow-md border border-sky-100/50"
               title="Follow on LinkedIn"
             >
-              <svg className="h-7 w-7" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="h-6 w-6 lg:h-7 lg:w-7" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
             </a>
           </div>
-          {/* Floating Menu beside icons */}
-          <MenuContainer>
-            {/* Toggle Icon */}
-            <MenuItem
-              icon={
-                <div className="relative w-8 h-8 flex items-center justify-center">
-                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-100 scale-100 rotate-0 [div[data-expanded=true]_&]:opacity-0 [div[data-expanded=true]_&]:scale-0 [div[data-expanded=true]_&]:rotate-180">
-                    <MenuIcon size={28} strokeWidth={2} />
+
+          {/* Floating Menu (Desktop Only) */}
+          <div className="hidden lg:block">
+            <MenuContainer>
+              {/* Toggle Icon */}
+              <MenuItem
+                icon={
+                  <div className="relative w-8 h-8 flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-100 scale-100 rotate-0 [div[data-expanded=true]_&]:opacity-0 [div[data-expanded=true]_&]:scale-0 [div[data-expanded=true]_&]:rotate-180">
+                      <MenuIcon size={28} strokeWidth={2} />
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-0 scale-0 -rotate-180 [div[data-expanded=true]_&]:opacity-100 [div[data-expanded=true]_&]:scale-100 [div[data-expanded=true]_&]:rotate-0">
+                      <X size={28} strokeWidth={2} />
+                    </div>
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-0 scale-0 -rotate-180 [div[data-expanded=true]_&]:opacity-100 [div[data-expanded=true]_&]:scale-100 [div[data-expanded=true]_&]:rotate-0">
-                    <X size={28} strokeWidth={2} />
-                  </div>
-                </div>
-              }
-            />
-            <MenuItem
-              className="text-indigo-600 hover:text-indigo-800"
-              icon={<PhoneCall size={24} strokeWidth={2.2} />}
-              onClick={() => onNavigate && onNavigate('home', 'contact')}
-              label="Contact Us"
-            />
-            <MenuItem 
-              className="text-gray-600 hover:text-gray-800" 
-              icon={<Info size={24} strokeWidth={2.2} />}
-              onClick={() => onNavigate && onNavigate('about')}
-              label="About Us"
-            />
-            <MenuItem 
-              className="text-emerald-600 hover:text-emerald-800" 
-              icon={<Settings size={24} strokeWidth={2.2} />}
-              onClick={() => onNavigate && onNavigate('home', 'services')}
-              label="Services"
-            />
-            <MenuItem 
-              className="text-red-600 hover:text-red-800" 
-              icon={<FileText size={24} strokeWidth={2.2} />}
-              onClick={() => onNavigate && onNavigate('home', 'contact')}
-              label="Claims"
-            />
-            <MenuItem 
-              className="text-amber-500 hover:text-amber-700" 
-              icon={<MessageSquare size={24} strokeWidth={2.2} />}
-              onClick={() => onNavigate && onNavigate('home', 'testimonials')}
-              label="Feedbacks"
-            />
-            <MenuItem 
-              className="text-blue-600 hover:text-blue-800" 
-              icon={<HelpCircle size={24} strokeWidth={2.2} />}
-              onClick={() => onNavigate && onNavigate('home', 'faqs')}
-              label="FAQs"
-            />
-          </MenuContainer>
+                }
+              />
+              <MenuItem
+                className="text-indigo-600 hover:text-indigo-800"
+                icon={<PhoneCall size={24} strokeWidth={2.2} />}
+                onClick={() => onNavigate && onNavigate('home', 'contact')}
+                label="Contact Us"
+              />
+              <MenuItem 
+                className="text-gray-600 hover:text-gray-800" 
+                icon={<Info size={24} strokeWidth={2.2} />}
+                onClick={() => onNavigate && onNavigate('about')}
+                label="About Us"
+              />
+              <MenuItem 
+                className="text-emerald-600 hover:text-emerald-800" 
+                icon={<Settings size={24} strokeWidth={2.2} />}
+                onClick={() => onNavigate && onNavigate('home', 'services')}
+                label="Services"
+              />
+              <MenuItem 
+                className="text-red-600 hover:text-red-800" 
+                icon={<FileText size={24} strokeWidth={2.2} />}
+                onClick={() => onNavigate && onNavigate('home', 'contact')}
+                label="Claims"
+              />
+              <MenuItem 
+                className="text-amber-500 hover:text-amber-700" 
+                icon={<MessageSquare size={24} strokeWidth={2.2} />}
+                onClick={() => onNavigate && onNavigate('home', 'testimonials')}
+                label="Feedbacks"
+              />
+              <MenuItem 
+                className="text-blue-600 hover:text-blue-800" 
+                icon={<HelpCircle size={24} strokeWidth={2.2} />}
+                onClick={() => onNavigate && onNavigate('home', 'faqs')}
+                label="FAQs"
+              />
+            </MenuContainer>
+          </div>
+
+          {/* Mobile Hamburger Toggle Button */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-slate-700 hover:text-insurance-darkblue p-2 rounded-xl hover:bg-slate-100/50 transition-colors"
+            className="lg:hidden text-slate-700 hover:text-insurance-darkblue p-2 rounded-xl bg-slate-100/90 hover:bg-slate-200/90 transition-colors"
             title="Toggle Menu"
+            aria-label="Toggle Navigation Menu"
           >
-            {mobileMenuOpen ? <X className="h-7 w-7" /> : <MenuIcon className="h-7 w-7" />}
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
           </button>
         </motion.div>
 
@@ -222,16 +239,16 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
 
       {/* Mobile Drawer menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden w-full bg-white border-t border-slate-100 px-6 py-6 space-y-6 shadow-lg animate-fade-in">
+        <div className="lg:hidden w-full bg-white/95 backdrop-blur-2xl border-t border-slate-100 px-6 py-6 space-y-6 shadow-2xl animate-fade-in fixed top-20 sm:top-24 left-0 right-0 z-50 max-h-[calc(100vh-5rem)] overflow-y-auto">
           <div className="space-y-4">
             <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Navigation</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <button 
                 onClick={() => {
                   setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('home');
                 }}
-                className="flex items-center justify-center p-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-[14px] transition-colors"
+                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
                 Home
               </button>
@@ -240,7 +257,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('home', 'services');
                 }}
-                className="flex items-center justify-center p-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-[14px] transition-colors"
+                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
                 Services
               </button>
@@ -249,7 +266,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('about');
                 }}
-                className="flex items-center justify-center p-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-[14px] transition-colors"
+                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
                 About Us
               </button>
@@ -258,30 +275,39 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('home', 'contact');
                 }}
-                className="flex items-center justify-center p-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-[14px] transition-colors"
+                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
                 Contact Us
               </button>
               <button 
                 onClick={() => {
                   setMobileMenuOpen(false);
+                  if (onNavigate) onNavigate('home', 'testimonials');
+                }}
+                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
+              >
+                Feedbacks
+              </button>
+              <button 
+                onClick={() => {
+                  setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('home', 'faqs');
                 }}
-                className="col-span-2 flex items-center justify-center p-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-[14px] transition-colors"
+                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
                 FAQs
               </button>
             </div>
           </div>
 
-          <div className="space-y-3">
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Social Channels</p>
-            <div className="flex gap-4">
+          <div className="space-y-3 pt-2 border-t border-slate-100">
+            <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Direct Connect</p>
+            <div className="grid grid-cols-2 gap-3">
               <a 
                 href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-50 text-emerald-600 font-bold text-[13px] border border-emerald-100/50"
+                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-50 text-emerald-700 font-bold text-[13px] border border-emerald-100/60"
               >
                 <WhatsAppIcon className="h-5 w-5" />
                 WhatsApp
@@ -290,10 +316,30 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                 href="https://www.instagram.com/theinsurancehub__?utm_source=qr&igsh=bGJzOGM2M3JmaTF1" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-pink-50 text-pink-600 font-bold text-[13px] border border-pink-100/50"
+                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-pink-50 text-pink-700 font-bold text-[13px] border border-pink-100/60"
               >
                 <InstagramIcon className="h-5 w-5" />
                 Instagram
+              </a>
+              <a 
+                href="https://q.me-qr.com/5pildkmv" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-blue-50 text-blue-700 font-bold text-[13px] border border-blue-100/60"
+              >
+                <LocationPinIcon className="h-5 w-5" />
+                Directions
+              </a>
+              <a 
+                href="https://www.linkedin.com/company/the-insurance-hub001/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-sky-50 text-sky-700 font-bold text-[13px] border border-sky-100/60"
+              >
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                LinkedIn
               </a>
             </div>
           </div>

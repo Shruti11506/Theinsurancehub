@@ -180,6 +180,9 @@ export default function AboutUsPage({ onBack }) {
   ];
 
   useEffect(() => {
+    // Pre-reveal top items so mobile screens load smoothly without blank cards
+    setVisibleNodes(new Set([0, 1]));
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
@@ -189,7 +192,7 @@ export default function AboutUsPage({ onBack }) {
           }
         });
       },
-      { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px 100px 0px' }
     );
     nodeRefs.current.forEach(ref => { if (ref) observer.observe(ref); });
     return () => observer.disconnect();
