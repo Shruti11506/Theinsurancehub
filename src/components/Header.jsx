@@ -155,11 +155,11 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               <InstagramIcon className="h-6 w-6 lg:h-7 lg:w-7" />
             </a>
             <a 
-              href="https://q.me-qr.com/5pildkmv" 
+              href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="p-2.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-110 transition-all duration-300 shadow-md border border-blue-100/50"
-              title="Get Directions"
+              title="Get Directions on Google Maps"
             >
               <LocationPinIcon className="h-6 w-6 lg:h-7 lg:w-7" />
             </a>
@@ -335,10 +335,10 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                 Instagram
               </a>
               <a 
-                href="https://q.me-qr.com/5pildkmv" 
+                href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-blue-50 text-blue-700 font-bold text-[13px] border border-blue-100/60"
+                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-blue-50 text-blue-700 font-bold text-[13px] border border-blue-100/60 hover:bg-blue-100 transition-colors"
               >
                 <LocationPinIcon className="h-5 w-5" />
                 Directions

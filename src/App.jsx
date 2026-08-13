@@ -813,12 +813,12 @@ export default function App() {
                     The Insurance Hub, Shop no. 57, Sanman Prestige, Beside Zilla Parishad, Railway station road, Nanded - 431601
                   </p>
                   <a 
-                    href="https://q.me-qr.com/5pildkmv" 
+                    href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="inline-flex items-center gap-1.5 text-xs font-black text-insurance-orange mt-3 hover:underline"
                   >
-                    Get Directions on Map <ArrowRight size={12} />
+                    Open in Google Maps <ArrowRight size={12} />
                   </a>
                 </div>
               </div>
@@ -863,11 +863,17 @@ export default function App() {
             <div className="space-y-4">
               <div>
                 <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider mb-1">Registered Corporate Office</p>
-                <p className="text-[13px] text-slate-300 font-medium leading-relaxed">
+                <a 
+                  href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[13px] text-slate-300 font-medium leading-relaxed hover:text-insurance-orange transition-colors block"
+                  title="View on Google Maps"
+                >
                   The Insurance Hub, Shop no. 57, Sanman Prestige,<br />
                   Beside Zilla Parishad, Railway Station Road,<br />
                   Nanded - 431601
-                </p>
+                </a>
               </div>
               <div>
                 <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider mb-1">Contact</p>
