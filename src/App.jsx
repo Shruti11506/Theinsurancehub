@@ -124,7 +124,7 @@ export default function App() {
           initial={{ opacity: 1 }}
           animate={{ opacity: introPhase === 'move' ? 0 : 1 }}
           transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-30 bg-slate-50/95 backdrop-blur-2xl pointer-events-none"
+          className="fixed inset-0 z-20 bg-slate-50/95 backdrop-blur-2xl pointer-events-none"
         >
           {/* Ambient Brand Glows */}
           <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-300/25 blur-[120px] pointer-events-none" />
@@ -149,7 +149,7 @@ export default function App() {
       ) : (
         <>
           {/* 2. Hero Section */}
-      <section className="relative z-40 overflow-hidden pt-2 pb-16 lg:pt-4 lg:pb-24 flex-grow flex items-center">
+      <section className="relative z-10 overflow-hidden pt-2 pb-16 lg:pt-4 lg:pb-24 flex-grow flex items-center">
         {/* Background decorative elements */}
         <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-100/30 blur-3xl animate-blob"></div>
         <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-purple-100/30 blur-3xl animate-blob animation-delay-2000"></div>
@@ -159,7 +159,7 @@ export default function App() {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
             {/* LEFT: Question, Answer & Quote */}
-            <div id="hero-text-block" className="flex-1 text-left space-y-7 relative z-50">
+            <div id="hero-text-block" className="flex-1 text-left space-y-7 relative z-10">
               
               {/* Core Question -> Single-source continuous motion directly to its home position */}
               <motion.h1
@@ -173,7 +173,7 @@ export default function App() {
                   duration: introPhase === 'move' ? 1.4 : 0,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-50 min-h-[2.4em] text-left"
+                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-10 min-h-[2.4em] text-left"
                 style={{ willChange: 'transform' }}
               >
                 <TypewriterText duration={0.8}>
@@ -203,7 +203,7 @@ export default function App() {
                   ease: [0.22, 1, 0.36, 1],
                   opacity: { duration: 0.5, ease: "easeOut" }
                 }}
-                className="space-y-7 relative z-50 flex flex-col items-start text-left"
+                className="space-y-7 relative z-10 flex flex-col items-start text-left"
                 style={{ willChange: 'transform, opacity' }}
               >
                 {/* Answer */}

@@ -38,18 +38,16 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
 
   return (
     <motion.header 
-      className="sticky top-0 z-40 w-full"
+      className="sticky top-0 z-[100] w-full"
       initial={{
         backgroundColor: 'rgba(255, 255, 255, 0)',
-        backdropFilter: 'blur(0px)',
         borderBottomColor: 'rgba(226, 232, 240, 0)',
-        boxShadow: '0 0 0 0 rgba(0, 0, 0, 0)'
+        boxShadow: 'none'
       }}
       animate={{
-        backgroundColor: introPhase === 'center' ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 0.85)',
-        backdropFilter: introPhase === 'center' ? 'blur(0px)' : 'blur(16px)',
-        borderBottomColor: introPhase === 'center' ? 'rgba(226, 232, 240, 0)' : 'rgba(226, 232, 240, 0.5)',
-        boxShadow: introPhase === 'center' ? '0 0 0 0 rgba(0, 0, 0, 0)' : '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
+        backgroundColor: introPhase === 'center' ? 'rgba(255, 255, 255, 0)' : '#ffffff',
+        borderBottomColor: introPhase === 'center' ? 'rgba(226, 232, 240, 0)' : '#e2e8f0',
+        boxShadow: introPhase === 'center' ? 'none' : '0 4px 20px -2px rgba(0, 0, 0, 0.08)'
       }}
       transition={{
         duration: 1.4,
@@ -114,14 +112,23 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
           initial={{ opacity: 0 }}
           animate={{ opacity: introPhase === 'center' ? 0 : 1 }}
           transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center justify-end gap-3 sm:gap-6 relative z-20"
+          className="flex items-center justify-end gap-2.5 sm:gap-6 relative z-20"
         >
+          {/* Mobile Quick Call Button */}
+          <a 
+            href="tel:+919423924568" 
+            className="sm:hidden p-2 rounded-full bg-blue-50 text-insurance-darkblue hover:bg-blue-100 transition-all shadow-sm border border-blue-100"
+            title="Call Us"
+          >
+            <Phone className="h-5 w-5" />
+          </a>
+
           {/* Mobile Quick WhatsApp Action */}
           <a 
             href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="sm:hidden p-2 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-sm border border-emerald-100/50"
+            className="sm:hidden p-2 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-sm border border-emerald-100/60"
             title="Chat on WhatsApp"
           >
             <WhatsAppIcon className="h-5 w-5" />
@@ -227,7 +234,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
           {/* Mobile Hamburger Toggle Button */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-slate-700 hover:text-insurance-darkblue p-2 rounded-xl bg-slate-100/90 hover:bg-slate-200/90 transition-colors"
+            className="lg:hidden text-slate-800 hover:text-insurance-darkblue p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200/60"
             title="Toggle Menu"
             aria-label="Toggle Navigation Menu"
           >
@@ -239,7 +246,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
 
       {/* Mobile Drawer menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden w-full bg-white/95 backdrop-blur-2xl border-t border-slate-100 px-6 py-6 space-y-6 shadow-2xl animate-fade-in fixed top-20 sm:top-24 left-0 right-0 z-50 max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <div className="lg:hidden w-full bg-white border-t border-slate-200 px-6 py-6 space-y-6 shadow-2xl animate-fade-in fixed top-20 sm:top-24 left-0 right-0 z-[100] max-h-[calc(100vh-5rem)] overflow-y-auto">
           <div className="space-y-4">
             <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Navigation</p>
             <div className="grid grid-cols-2 gap-3">
@@ -248,8 +255,9 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('home');
                 }}
-                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
+                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
+                <Home className="h-4 w-4 text-insurance-darkblue flex-shrink-0" />
                 Home
               </button>
               <button 
@@ -257,8 +265,9 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('home', 'services');
                 }}
-                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
+                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
+                <Briefcase className="h-4 w-4 text-insurance-green flex-shrink-0" />
                 Services
               </button>
               <button 
@@ -266,8 +275,9 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('about');
                 }}
-                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
+                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
+                <Users className="h-4 w-4 text-insurance-orange flex-shrink-0" />
                 About Us
               </button>
               <button 
@@ -275,8 +285,9 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('home', 'contact');
                 }}
-                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
+                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
+                <PhoneCall className="h-4 w-4 text-insurance-violet flex-shrink-0" />
                 Contact Us
               </button>
               <button 
@@ -284,8 +295,9 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('home', 'testimonials');
                 }}
-                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
+                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
+                <MessageSquare className="h-4 w-4 text-amber-500 flex-shrink-0" />
                 Feedbacks
               </button>
               <button 
@@ -293,8 +305,9 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   setMobileMenuOpen(false);
                   if (onNavigate) onNavigate('home', 'faqs');
                 }}
-                className="flex items-center justify-center p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
+                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
               >
+                <HelpCircle className="h-4 w-4 text-blue-500 flex-shrink-0" />
                 FAQs
               </button>
             </div>
