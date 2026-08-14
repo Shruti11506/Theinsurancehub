@@ -57,7 +57,7 @@ export default function App() {
 
         setOffsets({
           logo: {
-            x: cX - (lWRect.left + lWRect.width / 2) - (isMobile ? 20 : 0),
+            x: cX - (lWRect.left + lWRect.width / 2) - (isMobile ? 30 : 0),
             y: logoCenter - (lWRect.top + lWRect.height / 2)
           },
           question: {
