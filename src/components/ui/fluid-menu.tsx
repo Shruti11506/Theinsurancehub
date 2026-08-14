@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useRef, useEffect } from "react"
-import { ChevronDown, X, Phone } from "lucide-react"
+import { ChevronDown, ChevronRight, X, Phone } from "lucide-react"
 
 // WhatsApp SVG icon component
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -18,16 +18,53 @@ interface MenuItemProps {
   isActive?: boolean
   className?: string
   label?: string
+  isDesktopView?: boolean
 }
 
-export function MenuItem({ children, onClick, disabled = false, icon, isActive = false, className = "", label }: MenuItemProps) {
+export function MenuItem({ children, onClick, disabled = false, icon, isActive = false, className = "", label, isDesktopView = false }: MenuItemProps) {
   const displayLabel = label || (typeof children === "string" ? children : undefined)
 
+  if (isDesktopView) {
+    // Proper desktop/laptop vertical dropdown list item
+    return (
+      <button
+        type="button"
+        className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl group cursor-pointer transition-all duration-200 outline-none select-none text-left hover:bg-blue-50/90 active:scale-[0.98]
+          ${disabled ? "text-gray-400 cursor-not-allowed" : "text-slate-700 hover:text-insurance-darkblue"}
+          ${isActive ? "bg-blue-50 text-insurance-darkblue font-bold shadow-xs" : ""}
+          ${className}`}
+        role="menuitem"
+        onClick={onClick}
+        disabled={disabled}
+        title={displayLabel}
+        aria-label={displayLabel}
+      >
+        {icon && (
+          <span className="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center transition-transform duration-200 group-hover:scale-105 flex-shrink-0 shadow-2xs">
+            {icon}
+          </span>
+        )}
+        {displayLabel && (
+          <span className="text-[13.5px] font-bold leading-tight tracking-tight text-slate-800 group-hover:text-insurance-darkblue flex-1 truncate font-sans">
+            {displayLabel}
+          </span>
+        )}
+        {children && !icon && !displayLabel && (
+          <span className="text-[13.5px] font-bold leading-tight truncate flex-1">
+            {children}
+          </span>
+        )}
+        <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-insurance-darkblue ml-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200" />
+      </button>
+    )
+  }
+
+  // Mobile bottom action sheet tile
   return (
     <button
       type="button"
-      className={`relative w-full flex flex-col items-center justify-center p-2.5 sm:p-2 rounded-2xl md:rounded-xl group cursor-pointer transition-all duration-200 outline-none select-none text-center bg-slate-50 md:bg-transparent hover:bg-blue-50/80 active:scale-95 border border-slate-100 md:border-transparent
-        ${disabled ? "text-gray-400 dark:text-gray-500 cursor-not-allowed" : "text-slate-700 hover:text-insurance-darkblue"}
+      className={`relative w-full flex flex-col items-center justify-center p-3 rounded-2xl group cursor-pointer transition-all duration-200 outline-none select-none text-center bg-slate-50 hover:bg-blue-50/80 active:scale-95 border border-slate-100
+        ${disabled ? "text-gray-400 cursor-not-allowed" : "text-slate-700 hover:text-insurance-darkblue"}
         ${isActive ? "bg-blue-50 text-insurance-darkblue font-bold shadow-inner" : ""}
         ${className}`}
       role="menuitem"
@@ -37,12 +74,12 @@ export function MenuItem({ children, onClick, disabled = false, icon, isActive =
       aria-label={displayLabel}
     >
       {icon && (
-        <span className="w-9 h-9 md:w-7 md:h-7 rounded-xl md:rounded-full bg-white md:bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center transition-transform duration-200 group-hover:scale-110 flex-shrink-0 shadow-xs mb-1 md:mb-0.5">
+        <span className="w-10 h-10 rounded-xl bg-white group-hover:bg-blue-100 flex items-center justify-center transition-transform duration-200 group-hover:scale-110 flex-shrink-0 shadow-xs mb-1.5 border border-slate-100/60">
           {icon}
         </span>
       )}
       {displayLabel && (
-        <span className="text-[12px] md:text-[9.5px] font-bold leading-tight tracking-tight text-slate-800 md:text-slate-700 group-hover:text-insurance-darkblue truncate">
+        <span className="text-[12.5px] font-bold leading-tight tracking-tight text-slate-800 group-hover:text-insurance-darkblue truncate font-sans">
           {displayLabel}
         </span>
       )}
@@ -123,10 +160,10 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* ── 1. Mobile Bottom Action Sheet (Thumb-friendly, Zero Top Interruption) ── */}
+      {/* ── 1. Mobile Bottom Action Sheet ── */}
       {isExpanded && (
         <div 
-          className="md:hidden fixed inset-0 z-[100] bg-slate-900/30 transition-opacity duration-300"
+          className="md:hidden fixed inset-0 z-[100] bg-slate-900/35 backdrop-blur-[1px] transition-opacity duration-300"
           onClick={closeMenu}
           aria-hidden="true"
         />
@@ -141,11 +178,20 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
         {/* Drag Handle */}
         <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-4" />
 
-        {/* Sheet Title & Close */}
+        {/* Company Branding & Close (No 'Navigation Menu' heading) */}
         <div className="flex items-center justify-between mb-4 px-1">
-          <div>
-            <p className="text-[11px] font-black uppercase tracking-widest text-insurance-darkblue">Navigation Menu</p>
-            <p className="text-[13px] font-bold text-slate-500">The Insurance Hub</p>
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-insurance-darkblue to-insurance-orange flex items-center justify-center text-white font-black text-sm shadow-sm">
+              H
+            </div>
+            <div>
+              <p className="text-[16px] font-black tracking-tight text-insurance-darkblue leading-tight font-sans">
+                The Insurance Hub
+              </p>
+              <p className="text-[11px] font-bold text-slate-400">
+                All Solutions Under One Roof
+              </p>
+            </div>
           </div>
           <button 
             onClick={closeMenu}
@@ -156,7 +202,7 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
           </button>
         </div>
 
-        {/* 6 Grid items */}
+        {/* 6 Grid items for Mobile */}
         <div className="grid grid-cols-3 gap-2.5 mb-5">
           {childrenArray.slice(1).map((child, index) => {
             const childElement = child as React.ReactElement<MenuItemProps>
@@ -164,6 +210,7 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
             return React.isValidElement(childElement)
               ? React.cloneElement(childElement, {
                   key: index,
+                  isDesktopView: false,
                   onClick: (e?: React.MouseEvent) => {
                     closeMenu()
                     if (childElement.props.onClick) {
@@ -207,9 +254,9 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Trigger button */}
+        {/* Properly Shaped Trigger Button (Mobile & Desktop) */}
         <div 
-          className="relative w-11 h-11 sm:w-14 sm:h-14 bg-white shadow-md sm:shadow-lg dark:bg-gray-800 cursor-pointer rounded-full group will-change-transform z-50 flex items-center justify-center text-insurance-darkblue border border-slate-200/90 hover:border-insurance-darkblue/40 transition-all duration-300 hover:shadow-xl active:scale-95"
+          className="relative w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-white shadow-sm sm:shadow-md dark:bg-gray-800 cursor-pointer rounded-full group z-50 flex items-center justify-center text-insurance-darkblue border border-slate-200/90 hover:border-insurance-darkblue/40 transition-all duration-300 hover:shadow-lg active:scale-95 flex-shrink-0"
           onClick={handleToggle}
           role="button"
           aria-label={isExpanded ? "Close navigation menu" : "Open navigation menu"}
@@ -218,31 +265,30 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
           {childrenArray[0]}
         </div>
 
-        {/* Desktop dropdown card */}
+        {/* Proper Desktop Vertical Dropdown Menu */}
         <div 
-          className={`hidden md:block absolute right-0 top-[calc(100%+8px)] w-[210px] bg-white/98 backdrop-blur-xl border border-slate-200/90 shadow-2xl rounded-2xl p-1.5 z-50 origin-top-right transition-all duration-200 ease-out ${
+          className={`hidden md:block absolute right-0 top-[calc(100%+10px)] w-56 bg-white/98 backdrop-blur-xl border border-slate-200/90 shadow-2xl rounded-2xl p-2 z-50 origin-top-right transition-all duration-200 ease-out space-y-1 ${
             isExpanded 
               ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' 
-              : 'opacity-0 scale-90 -translate-y-2 pointer-events-none'
+              : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
           }`}
         >
-          <div className="grid grid-cols-3 gap-1">
-            {childrenArray.slice(1).map((child, index) => {
-              const childElement = child as React.ReactElement<MenuItemProps>
-              
-              return React.isValidElement(childElement)
-                ? React.cloneElement(childElement, {
-                    key: index,
-                    onClick: (e?: React.MouseEvent) => {
-                      closeMenu()
-                      if (childElement.props.onClick) {
-                        childElement.props.onClick(e)
-                      }
+          {childrenArray.slice(1).map((child, index) => {
+            const childElement = child as React.ReactElement<MenuItemProps>
+            
+            return React.isValidElement(childElement)
+              ? React.cloneElement(childElement, {
+                  key: index,
+                  isDesktopView: true,
+                  onClick: (e?: React.MouseEvent) => {
+                    closeMenu()
+                    if (childElement.props.onClick) {
+                      childElement.props.onClick(e)
                     }
-                  })
-                : child
-            })}
-          </div>
+                  }
+                })
+              : child
+          })}
         </div>
       </div>
     </>

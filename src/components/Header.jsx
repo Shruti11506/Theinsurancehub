@@ -186,19 +186,19 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               {/* Toggle Icon */}
               <MenuItem
                 icon={
-                  <div className="relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center pointer-events-none">
+                  <div className="relative w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center pointer-events-none">
                     <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-100 scale-100 rotate-0 [div[data-expanded=true]_&]:opacity-0 [div[data-expanded=true]_&]:scale-0 [div[data-expanded=true]_&]:rotate-180">
-                      <MenuIcon className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2} />
+                      <MenuIcon className="w-5 h-5 sm:w-6 sm:h-6 text-insurance-darkblue" strokeWidth={2.3} />
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-0 scale-0 -rotate-180 [div[data-expanded=true]_&]:opacity-100 [div[data-expanded=true]_&]:scale-100 [div[data-expanded=true]_&]:rotate-0">
-                      <X className="w-6 h-6 sm:w-7 sm:h-7 text-red-500" strokeWidth={2.2} />
+                      <X className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" strokeWidth={2.3} />
                     </div>
                   </div>
                 }
               />
               <MenuItem
                 className="text-blue-600 hover:text-blue-800"
-                icon={<Home size={18} strokeWidth={2.3} />}
+                icon={<Home size={19} strokeWidth={2.2} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('Home');
                   if (onNavigate) onNavigate('home');
@@ -207,7 +207,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               />
               <MenuItem
                 className="text-emerald-600 hover:text-emerald-800"
-                icon={<Briefcase size={18} strokeWidth={2.3} />}
+                icon={<Briefcase size={19} strokeWidth={2.2} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('Services');
                   if (onNavigate) onNavigate('home', 'services');
@@ -216,34 +216,34 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               />
               <MenuItem 
                 className="text-amber-500 hover:text-amber-700" 
-                icon={<Users size={18} strokeWidth={2.3} />}
+                icon={<Users size={19} strokeWidth={2.2} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('About Us');
                   if (onNavigate) onNavigate('about');
                 }}
-                label="About"
+                label="About Us"
               />
               <MenuItem
                 className="text-indigo-600 hover:text-indigo-800"
-                icon={<PhoneCall size={18} strokeWidth={2.3} />}
+                icon={<PhoneCall size={19} strokeWidth={2.2} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('Contact Us');
                   if (onNavigate) onNavigate('home', 'contact');
                 }}
-                label="Contact"
+                label="Contact Us"
               />
               <MenuItem 
                 className="text-violet-600 hover:text-violet-800" 
-                icon={<MessageSquare size={18} strokeWidth={2.3} />}
+                icon={<MessageSquare size={19} strokeWidth={2.2} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('Feedbacks');
                   if (onNavigate) onNavigate('home', 'testimonials');
                 }}
-                label="Feedback"
+                label="Feedbacks"
               />
               <MenuItem 
                 className="text-sky-600 hover:text-sky-800" 
-                icon={<HelpCircle size={18} strokeWidth={2.3} />}
+                icon={<HelpCircle size={19} strokeWidth={2.2} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('FAQs');
                   if (onNavigate) onNavigate('home', 'faqs');
