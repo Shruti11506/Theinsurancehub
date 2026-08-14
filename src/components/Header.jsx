@@ -35,7 +35,12 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
   ];
 
   return (
-    <header className="sticky top-0 z-[100] w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+    <motion.header
+      className="sticky top-0 z-[100] w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs"
+      initial={false}
+      animate={{ opacity: introPhase === 'center' ? 0 : 1, pointerEvents: introPhase === 'center' ? 'none' : 'auto' }}
+      transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-20 sm:h-24 lg:h-28 flex items-center justify-between relative">
         
         {/* Left Side: Logo & Main Navigation */}
@@ -221,6 +226,6 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
 
       </div>
 
-    </header>
+    </motion.header>
   );
 }

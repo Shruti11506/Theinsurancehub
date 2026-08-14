@@ -36,23 +36,33 @@ export default function App() {
         const isSmallMobile = vW < 480;
         const isMobile = vW < 768;
 
-        // Distinct, balanced vertical positions with ample gaps between each section
-        const targetCenterLogoY = cY - (isSmallMobile ? 180 : isMobile ? 190 : 210);
-        const targetCenterQuestionY = cY - (isSmallMobile ? 30 : isMobile ? 30 : 35);
-        const targetCenterStatementY = cY + (isSmallMobile ? 135 : isMobile ? 145 : 155);
+        // Full viewport centering — header is hidden during intro so full vH is available
+        // Logo sits comfortably above center, Question in middle, Statement below with clear gaps
+        const logoH = lRect.height;
+        const qH = qRect.height;
+        const sH = sRect.height;
+        const gap = isSmallMobile ? 32 : isMobile ? 40 : 48;
+
+        // Total block height: logo + gap + question + gap + statement
+        const totalH = logoH + gap + qH + gap + sH;
+        const blockTop = cY - totalH / 2;
+
+        const logoCenter = blockTop + logoH / 2;
+        const qCenter = blockTop + logoH + gap + qH / 2;
+        const sCenter = blockTop + logoH + gap + qH + gap + sH / 2;
 
         setOffsets({
           logo: {
             x: cX - (lRect.left + lRect.width / 2),
-            y: targetCenterLogoY - (lRect.top + lRect.height / 2)
+            y: logoCenter - (lRect.top + lRect.height / 2)
           },
           question: {
             x: cX - (qRect.left + qRect.width / 2),
-            y: targetCenterQuestionY - (qRect.top + qRect.height / 2)
+            y: qCenter - (qRect.top + qRect.height / 2)
           },
           statement: {
             x: cX - (sRect.left + sRect.width / 2),
-            y: targetCenterStatementY - (sRect.top + sRect.height / 2)
+            y: sCenter - (sRect.top + sRect.height / 2)
           }
         });
       }
@@ -160,7 +170,7 @@ export default function App() {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
             {/* LEFT: Question, Answer & Quote */}
-            <div id="hero-text-block" className="flex-1 space-y-7 relative z-30 w-full text-center sm:text-left">
+            <div id="hero-text-block" className="flex-1 space-y-7 relative z-30 w-full text-center">
               
               {/* Core Question -> Single-source continuous motion directly into its fixed home position */}
               <motion.h1
@@ -175,7 +185,7 @@ export default function App() {
                   duration: introPhase === 'move' ? 1.35 : 0,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 text-center sm:text-left max-w-2xl mx-auto sm:mx-0"
+                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 text-center max-w-2xl mx-auto"
                 style={{ willChange: 'transform' }}
               >
                 <TypewriterText duration={0.8}>
@@ -196,17 +206,17 @@ export default function App() {
                   duration: introPhase === 'move' ? 1.35 : 0,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="space-y-4 sm:space-y-7 relative z-30 flex flex-col items-center sm:items-start text-center sm:text-left max-w-xl mx-auto sm:mx-0"
+                className="space-y-4 sm:space-y-7 relative z-30 flex flex-col items-center text-center max-w-xl mx-auto"
                 style={{ willChange: 'transform' }}
               >
                 {/* Answer */}
-                <p id="hero-answer" className="text-base sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-l-0 sm:border-l-4 border-insurance-orange pl-0 sm:pl-5 text-center sm:text-left">
+                <p id="hero-answer" className="text-base sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-insurance-orange text-center">
                   All companies, insurance and mutual funds <br className="hidden sm:inline" />
                   under one roof.
                 </p>
 
                 {/* Italic Quote */}
-                <p id="hero-quote" className="text-[14px] sm:text-[19px] italic font-medium text-slate-500 pl-0 sm:pl-1 border-l-0 sm:border-l-2 border-insurance-darkblue/30 tracking-wide font-serif text-center sm:text-left">
+                <p id="hero-quote" className="text-[14px] sm:text-[19px] italic font-medium text-slate-500 tracking-wide font-serif text-center">
                   &ldquo;Secure today, protect tomorrow.&rdquo;
                 </p>
               </motion.div>
