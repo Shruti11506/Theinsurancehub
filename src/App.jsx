@@ -57,11 +57,13 @@ export default function App() {
             y: logoCenter - (lRect.top + lRect.height / 2)
           },
           question: {
-            x: cX - (qRect.left + qRect.width / 2),
+            // On mobile, question spans full width so x is already at cX — force 0 to avoid sub-pixel drift
+            x: isMobile ? 0 : cX - (qRect.left + qRect.width / 2),
             y: qCenter - (qRect.top + qRect.height / 2)
           },
           statement: {
-            x: cX - (sRect.left + sRect.width / 2),
+            // On mobile, statement spans full width so x is already at cX — force 0 to avoid sub-pixel drift
+            x: isMobile ? 0 : cX - (sRect.left + sRect.width / 2),
             y: sCenter - (sRect.top + sRect.height / 2)
           }
         });
@@ -185,7 +187,7 @@ export default function App() {
                   duration: introPhase === 'move' ? 1.35 : 0,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 text-center max-w-2xl mx-auto"
+                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 text-center w-full"
                 style={{ willChange: 'transform' }}
               >
                 <TypewriterText duration={0.8}>
@@ -206,7 +208,7 @@ export default function App() {
                   duration: introPhase === 'move' ? 1.35 : 0,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="space-y-4 sm:space-y-7 relative z-30 flex flex-col items-center text-center max-w-xl mx-auto"
+                className="space-y-4 sm:space-y-7 relative z-30 flex flex-col items-center text-center w-full"
                 style={{ willChange: 'transform' }}
               >
                 {/* Answer */}
