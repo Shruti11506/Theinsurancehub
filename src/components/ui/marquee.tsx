@@ -47,18 +47,22 @@ export function Marquee({
   speed = "normal",
   ...props
 }: MarqueeProps) {
-  const speedVariants = {
-    slow: "[--duration:120s]",
-    normal: "[--duration:40s]",
-    fast: "[--duration:10s]",
+  const durationMap = {
+    slow: "120s",
+    normal: "40s",
+    fast: "10s",
   };
 
   return (
     <div
       {...props}
+      style={{
+        ["--duration" as any]: durationMap[speed],
+        ["--gap" as any]: "6px",
+        ...props.style,
+      }}
       className={cn(
-        "group flex overflow-hidden p-1 [--gap:6px] [gap:var(--gap)]",
-        speedVariants[speed],
+        "group flex overflow-hidden p-1 [gap:var(--gap)]",
         {
           "flex-row": !vertical,
           "flex-col": vertical,
@@ -74,7 +78,7 @@ export function Marquee({
             className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
               "animate-marquee flex-row": !vertical,
               "animate-marquee-vertical flex-col": vertical,
-              "group-hover:[animation-play-state:paused]": pauseOnHover,
+              "lg:group-hover:[animation-play-state:paused]": pauseOnHover,
               "[animation-direction:reverse]": reverse,
             })}
           >

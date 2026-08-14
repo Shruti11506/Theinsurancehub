@@ -486,7 +486,7 @@ export default function App() {
                 </p>
               </div>
               <div className="mt-8 flex items-center justify-between border-t border-slate-200/50 pt-4">
-                <span className="text-[12px] font-bold text-insurance-darkblue/70">ALL LEADING COMPANIES</span>
+                <span className="text-[12px] font-bold text-insurance-darkblue/70">STAR HEALTH</span>
                 <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="text-slate-400 group-hover:text-insurance-darkblue flex items-center gap-1.5 text-xs font-bold transition-colors">
                   Get Quote <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </a>
