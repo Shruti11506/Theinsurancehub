@@ -57,8 +57,7 @@ export default function App() {
 
         setOffsets({
           logo: {
-            // Use wrapper rect for accurate x centering on all screen sizes
-            x: cX - (lWRect.left + lWRect.width / 2),
+            x: cX - (lWRect.left + lWRect.width / 2) - (isMobile ? 20 : 0),
             y: logoCenter - (lWRect.top + lWRect.height / 2)
           },
           question: {
