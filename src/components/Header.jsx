@@ -35,24 +35,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
   ];
 
   return (
-    <motion.header 
-      className="sticky top-0 z-[100] w-full"
-      initial={{
-        backgroundColor: 'rgba(255, 255, 255, 0)',
-        borderBottomColor: 'rgba(226, 232, 240, 0)',
-        boxShadow: 'none'
-      }}
-      animate={{
-        backgroundColor: introPhase === 'center' ? 'rgba(255, 255, 255, 0)' : '#ffffff',
-        borderBottomColor: introPhase === 'center' ? 'rgba(226, 232, 240, 0)' : '#e2e8f0',
-        boxShadow: introPhase === 'center' ? 'none' : '0 4px 20px -2px rgba(0, 0, 0, 0.08)'
-      }}
-      transition={{
-        duration: 1.4,
-        ease: [0.22, 1, 0.36, 1]
-      }}
-      style={{ borderBottomWidth: '1px', borderBottomStyle: 'solid' }}
-    >
+    <header className="sticky top-0 z-[100] w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-20 sm:h-24 lg:h-28 flex items-center justify-between relative">
         
         {/* Left Side: Logo & Main Navigation */}
@@ -67,51 +50,21 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
             }}
             className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
           >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={
-                introPhase === 'center'
-                  ? {
-                      x: logoOffset?.x || 0,
-                      y: logoOffset?.y || 0,
-                      scale: 1.15,
-                      opacity: logoOffset ? 1 : 0
-                    }
-                  : { x: 0, y: 0, scale: 1, opacity: 1 }
-              }
-              transition={{
-                duration: introPhase === 'move' ? 1.4 : 0,
-                ease: [0.22, 1, 0.36, 1],
-                opacity: { duration: 0.25, ease: "easeOut" }
-              }}
-              style={{ willChange: 'transform, opacity' }}
-            >
-              <Logo id="header-logo" className="h-12 sm:h-14 lg:h-16" />
-            </motion.div>
+            <Logo id="header-logo" className="h-12 sm:h-14 lg:h-16" />
           </a>
           
           {/* Main Navigation - Tubelight NavBar (Desktop) */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: introPhase === 'center' ? 0 : 1 }}
-            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden lg:block scale-90 origin-left relative z-20"
-          >
+          <div className="hidden lg:block scale-90 origin-left relative z-20">
             <NavBar 
               items={navItems}
               activeTab={activeTab}
               onTabChange={onTabChange}
             />
-          </motion.div>
+          </div>
         </div>
           
         {/* Right Side: Social Icons & Dropdown Menu */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: introPhase === 'center' ? 0 : 1 }}
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center justify-end gap-2.5 sm:gap-6 relative z-20"
-        >
+        <div className="flex items-center justify-end gap-2.5 sm:gap-6 relative z-20">
           {/* Mobile Quick Call Button */}
           <a 
             href="tel:+919423924568" 
@@ -240,10 +193,10 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
             </MenuContainer>
           </div>
 
-        </motion.div>
+        </div>
 
       </div>
 
-    </motion.header>
+    </header>
   );
 }

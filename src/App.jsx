@@ -14,66 +14,6 @@ import TypewriterText from './components/ui/typewriter-text';
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [activeTab, setActiveTab] = useState('Home');
-  const [introPhase, setIntroPhase] = useState('center'); // 'center' -> 'move' -> 'done'
-  const [statementVisible, setStatementVisible] = useState(true);
-  const [offsets, setOffsets] = useState(null);
-
-  useLayoutEffect(() => {
-    const calculateOffsets = () => {
-      const vW = window.innerWidth;
-      const vH = window.innerHeight;
-      const cX = vW / 2;
-      const cY = vH / 2;
-
-      const logoEl = document.getElementById('header-logo');
-      const qEl = document.getElementById('hero-question');
-      const sEl = document.getElementById('hero-statement');
-
-      if (logoEl && qEl && sEl) {
-        const lRect = logoEl.getBoundingClientRect();
-        const qRect = qEl.getBoundingClientRect();
-        const sRect = sEl.getBoundingClientRect();
-
-        const isSmallMobile = vW < 480;
-        const isMobile = vW < 768;
-
-        setOffsets({
-          logo: {
-            x: cX - (lRect.left + lRect.width / 2),
-            y: (cY - (isSmallMobile ? 120 : isMobile ? 150 : 180)) - (lRect.top + lRect.height / 2)
-          },
-          question: {
-            x: cX - (qRect.left + qRect.width / 2),
-            y: (cY - (isSmallMobile ? 10 : isMobile ? 15 : 20)) - (qRect.top + qRect.height / 2)
-          },
-          statement: {
-            x: cX - (sRect.left + sRect.width / 2),
-            y: (cY + (isSmallMobile ? 95 : isMobile ? 115 : 140)) - (sRect.top + sRect.height / 2)
-          }
-        });
-      }
-    };
-
-    calculateOffsets();
-    window.addEventListener('resize', calculateOffsets);
-
-    // 1. Logo, Question & Statement are visible immediately at start (0.0s)
-    // 2. Continuous fluid move begins at 2.4s
-    const moveTimer = setTimeout(() => {
-      setIntroPhase('move');
-    }, 2400);
-
-    // 3. Completes naturally at 3.8s
-    const doneTimer = setTimeout(() => {
-      setIntroPhase('done');
-    }, 3800);
-
-    return () => {
-      clearTimeout(moveTimer);
-      clearTimeout(doneTimer);
-      window.removeEventListener('resize', calculateOffsets);
-    };
-  }, []);
 
   const handleNavigate = (page, targetId) => {
     // 1. Immediately update the tab state so the tubelight animates smoothly
@@ -93,7 +33,7 @@ export default function App() {
       }
     }
 
-    // 2. Delay the heavy DOM replacement (page change) to prevent layout shifts from breaking Framer Motion
+    // 2. Page navigation with smooth scroll
     setTimeout(() => {
       setCurrentPage(page);
       
@@ -112,28 +52,12 @@ export default function App() {
 
   return (
     <div className="flex flex-col min-h-screen w-full bg-zinc-50 antialiased font-sans relative">
-      {/* ── Background Veil Backdrop (Dissolves softly on move) ── */}
-      {introPhase !== 'done' && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: introPhase === 'move' ? 0 : 1 }}
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-20 bg-slate-50/95 backdrop-blur-2xl pointer-events-none"
-        >
-          {/* Ambient Brand Glows */}
-          <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-300/25 blur-[120px] pointer-events-none" />
-          <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] rounded-full bg-orange-300/25 blur-[120px] pointer-events-none" />
-        </motion.div>
-      )}
-      
       {/* 1. Header Navigation */}
       <Header
         onNavigate={handleNavigate}
         currentPage={currentPage}
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        introPhase={introPhase}
-        logoOffset={offsets?.logo}
       />
 
       {currentPage === 'about' ? (
@@ -143,7 +67,7 @@ export default function App() {
       ) : (
         <>
           {/* 2. Hero Section */}
-      <section className="relative z-10 overflow-hidden pt-2 pb-16 lg:pt-4 lg:pb-24 flex-grow flex items-center">
+      <section className="relative z-10 overflow-hidden pt-4 pb-16 lg:pt-8 lg:pb-24 flex-grow flex items-center">
         {/* Background decorative elements */}
         <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-100/30 blur-3xl animate-blob"></div>
         <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-purple-100/30 blur-3xl animate-blob animation-delay-2000"></div>
@@ -153,53 +77,22 @@ export default function App() {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
             {/* LEFT: Question, Answer & Quote */}
-            <div id="hero-text-block" className="flex-1 text-left space-y-7 relative z-30">
+            <div id="hero-text-block" className="flex-1 text-left space-y-7 relative z-10">
               
-              {/* Core Question -> Single-source continuous motion directly to its home position */}
-              <motion.h1
+              {/* Core Question */}
+              <h1
                 id="hero-question"
-                initial={{ opacity: 1 }}
-                animate={
-                  introPhase === 'center' && offsets
-                    ? { x: offsets.question.x, y: offsets.question.y, opacity: 1 }
-                    : { x: 0, y: 0, opacity: 1 }
-                }
-                transition={{
-                  duration: introPhase === 'move' ? 1.4 : 0,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 min-h-[2.4em] text-left"
-                style={{ willChange: 'transform, opacity' }}
+                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-10 text-left"
               >
                 <TypewriterText duration={0.8}>
                   Confused about choosing the right insurance?
                 </TypewriterText>
-              </motion.h1>
+              </h1>
               
-              {/* Statement Block -> Single-source continuous motion directly to its home position */}
-              <motion.div
+              {/* Statement Block */}
+              <div
                 id="hero-statement"
-                initial={{ opacity: 1 }}
-                animate={
-                  introPhase === 'center' && offsets
-                    ? {
-                        x: offsets.statement.x,
-                        y: offsets.statement.y,
-                        opacity: 1,
-                      }
-                    : {
-                        x: 0,
-                        y: 0,
-                        opacity: 1,
-                      }
-                }
-                transition={{
-                  duration: introPhase === 'move' ? 1.4 : 0,
-                  ease: [0.22, 1, 0.36, 1],
-                  opacity: { duration: 0.3, ease: "easeOut" }
-                }}
-                className="space-y-7 relative z-30 flex flex-col items-start text-left"
-                style={{ willChange: 'transform, opacity' }}
+                className="space-y-7 relative z-10 flex flex-col items-start text-left"
               >
                 {/* Answer */}
                 <p id="hero-answer" className="text-lg sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-l-4 border-insurance-orange pl-4 sm:pl-5">
@@ -211,19 +104,11 @@ export default function App() {
                 <p id="hero-quote" className="text-[15px] sm:text-[19px] italic font-medium text-slate-500 pl-1 border-l-2 border-insurance-darkblue/30 tracking-wide font-serif">
                   &ldquo;Secure today, protect tomorrow.&rdquo;
                 </p>
-              </motion.div>
+              </div>
             </div>
 
             {/* RIGHT: Moving Floating Cards Gallery */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: introPhase === 'center' ? 0 : 1
-              }}
-              transition={{
-                duration: 1.4,
-                ease: [0.22, 1, 0.36, 1]
-              }}
+            <div
               className="flex-shrink-0 w-full lg:w-[460px] xl:w-[540px] h-[340px] sm:h-[450px] xl:h-[580px] relative overflow-hidden rounded-[32px] sm:rounded-[40px] flex justify-center items-center shadow-2xl shadow-blue-900/10 border-4 sm:border-[8px] border-white/60 bg-white/30 backdrop-blur-3xl"
             >
               {/* Glow background */}
@@ -290,7 +175,7 @@ export default function App() {
                     </div>
                  </Marquee>
               </div>
-            </motion.div>
+            </div>
 
           </div>
         </div>
