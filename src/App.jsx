@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 import Header from './components/Header';
 import Logo from './components/Logo';
 import AboutUsPage from './components/AboutUsPage';
+import BrandIntroSplash from './components/BrandIntroSplash';
 import { ImageAutoSlider } from './components/ui/image-auto-slider';
 import { Component as Testimonials } from './components/ui/marquee-card';
 import { Phone, Mail, HeartPulse, Award, Car, BarChart2, Building, ShieldCheck, ArrowRight, MessageSquare, Send } from 'lucide-react';
@@ -14,6 +14,7 @@ import TypewriterText from './components/ui/typewriter-text';
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [activeTab, setActiveTab] = useState('Home');
+  const [introDone, setIntroDone] = useState(false);
 
   const handleNavigate = (page, targetId) => {
     // 1. Immediately update the tab state so the tubelight animates smoothly
@@ -52,6 +53,11 @@ export default function App() {
 
   return (
     <div className="flex flex-col min-h-screen w-full bg-zinc-50 antialiased font-sans relative">
+      {/* ── Brand Intro Splash (Presents Logo, Question, and Statement together in center, then glides to place) ── */}
+      {!introDone && (
+        <BrandIntroSplash onComplete={() => setIntroDone(true)} />
+      )}
+
       {/* 1. Header Navigation */}
       <Header
         onNavigate={handleNavigate}
