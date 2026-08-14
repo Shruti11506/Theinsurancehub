@@ -57,8 +57,8 @@ export default function App() {
 
         setOffsets({
           logo: {
-            // Use wrapper rect for x. On mobile add a nudge to compensate for left-padding offset in header
-            x: cX - (lWRect.left + lWRect.width / 2) + (isMobile ? (isSmallMobile ? 24 : 20) : 0),
+            // Use wrapper rect for accurate x centering on all screen sizes
+            x: cX - (lWRect.left + lWRect.width / 2),
             y: logoCenter - (lWRect.top + lWRect.height / 2)
           },
           question: {
