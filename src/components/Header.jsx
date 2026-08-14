@@ -26,7 +26,7 @@ const LocationPinIcon = ({ className }) => (
   </svg>
 );
 
-export default function Header({ onNavigate, currentPage, activeTab = 'Home', onTabChange, introPhase = 'center', logoOffset = { x: 0, y: 0 } }) {
+export default function Header({ onNavigate, currentPage, activeTab = 'Home', onTabChange, introPhase = 'done', logoOffset = null }) {
   const navItems = [
     { name: 'Home', url: '#', icon: Home, onClick: () => { onTabChange && onTabChange('Home'); onNavigate && onNavigate('home'); } },
     { name: 'Services', url: '#', icon: Briefcase, onClick: () => { onTabChange && onTabChange('Services'); onNavigate && onNavigate('home', 'services'); } },
@@ -50,21 +50,45 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
             }}
             className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
           >
-            <Logo id="header-logo" className="h-12 sm:h-14 lg:h-16" />
+            <motion.div
+              initial={false}
+              animate={
+                introPhase === 'center' && logoOffset
+                  ? { x: logoOffset.x, y: logoOffset.y, scale: 1.12, opacity: 1 }
+                  : { x: 0, y: 0, scale: 1, opacity: 1 }
+              }
+              transition={{
+                duration: introPhase === 'move' ? 1.35 : 0,
+                ease: [0.22, 1, 0.36, 1]
+              }}
+              style={{ willChange: 'transform' }}
+            >
+              <Logo id="header-logo" className="h-12 sm:h-14 lg:h-16" />
+            </motion.div>
           </a>
           
           {/* Main Navigation - Tubelight NavBar (Desktop) */}
-          <div className="hidden lg:block scale-90 origin-left relative z-20">
+          <motion.div
+            initial={false}
+            animate={{ opacity: introPhase === 'center' ? 0 : 1 }}
+            transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden lg:block scale-90 origin-left relative z-20"
+          >
             <NavBar 
               items={navItems}
               activeTab={activeTab}
               onTabChange={onTabChange}
             />
-          </div>
+          </motion.div>
         </div>
           
         {/* Right Side: Social Icons & Dropdown Menu */}
-        <div className="flex items-center justify-end gap-2.5 sm:gap-6 relative z-20">
+        <motion.div
+          initial={false}
+          animate={{ opacity: introPhase === 'center' ? 0 : 1 }}
+          transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+          className="flex items-center justify-end gap-2.5 sm:gap-6 relative z-20"
+        >
           {/* Mobile Quick Call Button */}
           <a 
             href="tel:+919423924568" 
@@ -193,7 +217,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
             </MenuContainer>
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
 
