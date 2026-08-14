@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState, useRef, useEffect } from "react"
-import { ChevronDown, ChevronRight, X, Phone, Menu as MenuIcon } from "lucide-react"
+import { createPortal } from "react-dom"
+import { ChevronRight, X, Phone, Menu as MenuIcon } from "lucide-react"
 
 // WhatsApp SVG icon component
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -25,7 +26,6 @@ export function MenuItem({ children, onClick, disabled = false, icon, isActive =
   const displayLabel = label || (typeof children === "string" ? children : undefined)
 
   if (isDesktopView) {
-    // Solid desktop/laptop vertical dropdown item
     return (
       <button
         type="button"
@@ -94,12 +94,17 @@ export function MenuItem({ children, onClick, disabled = false, icon, isActive =
 
 export function MenuContainer({ children }: { children: React.ReactNode }) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const menuRef = useRef<HTMLDivElement | null>(null)
   const childrenArray = React.Children.toArray(children)
 
+  // Ensure portal target exists (client-side only)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   const handleMouseEnter = () => {
-    // Auto-expand on hover on desktop only
     if (window.innerWidth >= 1024) {
       if (leaveTimerRef.current) {
         clearTimeout(leaveTimerRef.current)
@@ -133,57 +138,63 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
     setIsExpanded(false)
   }
 
-  // Auto-close menu when user scrolls the page
+  // Auto-close on scroll
   useEffect(() => {
     if (!isExpanded) return
-
-    const handleScroll = () => {
-      closeMenu()
-    }
-
+    const handleScroll = () => closeMenu()
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [isExpanded])
 
-  // Close on Escape key press
+  // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        closeMenu()
-      }
+      if (e.key === "Escape") closeMenu()
     }
-    if (isExpanded) {
-      window.addEventListener("keydown", handleKeyDown)
-    }
+    if (isExpanded) window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [isExpanded])
 
-  return (
-    <>
-      {/* ── 1. Mobile Bottom Action Sheet ── */}
-      {isExpanded && (
-        <div 
-          className="md:hidden fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-[1px] transition-opacity duration-300"
-          onClick={closeMenu}
-          aria-hidden="true"
-        />
-      )}
+  // Lock body scroll when mobile sheet is open
+  useEffect(() => {
+    if (isExpanded && window.innerWidth < 768) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [isExpanded])
 
-      {/* Mobile Bottom Sheet Drawer */}
-      <div 
-        className={`md:hidden fixed bottom-0 left-0 right-0 z-[110] bg-white rounded-t-[32px] border-t border-slate-200 shadow-2xl p-5 pb-8 transition-transform duration-300 ease-out max-w-lg mx-auto ${
-          isExpanded ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
+  // ── Mobile Portal Content (renders directly into body, escaping all stacking contexts) ──
+  const mobilePortalContent = isMounted ? createPortal(
+    <>
+      {/* Backdrop overlay */}
+      <div
+        className={`md:hidden fixed inset-0 bg-slate-900/50 backdrop-blur-[2px] transition-opacity duration-300 ${
+          isExpanded ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
+        style={{ zIndex: 9998 }}
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
+
+      {/* Bottom Sheet Drawer */}
+      <div
+        className={`md:hidden fixed bottom-0 left-0 right-0 bg-white rounded-t-[32px] border-t border-slate-200 shadow-2xl p-5 pb-8 transition-all duration-300 ease-out max-w-lg mx-auto ${
+          isExpanded ? 'translate-y-0 opacity-100 pointer-events-auto' : 'translate-y-full opacity-0 pointer-events-none'
+        }`}
+        style={{ zIndex: 9999 }}
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Drag Handle */}
         <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-4" />
 
-        {/* Company Title Only & Close Button */}
+        {/* Header */}
         <div className="flex items-center justify-between mb-4 px-1">
           <p className="text-[18px] font-black tracking-tight text-insurance-darkblue font-sans">
             The Insurance Hub
           </p>
-          <button 
+          <button
             onClick={closeMenu}
             className="p-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors active:scale-95"
             aria-label="Close menu"
@@ -192,11 +203,10 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
           </button>
         </div>
 
-        {/* 6 Grid items for Mobile */}
+        {/* 3-column grid of menu items */}
         <div className="grid grid-cols-3 gap-2.5 mb-5">
           {childrenArray.map((child, index) => {
             const childElement = child as React.ReactElement<MenuItemProps>
-            
             return React.isValidElement(childElement)
               ? React.cloneElement(childElement, {
                   key: index,
@@ -212,7 +222,7 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
           })}
         </div>
 
-        {/* Direct Connect Quick Action Bar */}
+        {/* Quick Action Bar */}
         <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-3">
           <a
             href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr"
@@ -234,18 +244,25 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
           </a>
         </div>
       </div>
+    </>,
+    document.body
+  ) : null
 
+  return (
+    <>
+      {/* Mobile portal sheet (renders directly in body) */}
+      {mobilePortalContent}
 
-      {/* ── 2. Desktop Dropdown Menu ── */}
-      <div 
+      {/* Desktop dropdown trigger + menu */}
+      <div
         ref={menuRef}
-        className="relative select-none z-50" 
+        className="relative select-none z-50"
         data-expanded={isExpanded}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Crisp Razor-Sharp Circular Trigger Button */}
-        <button 
+        {/* Trigger Button */}
+        <button
           type="button"
           className="relative w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-blue-50/80 hover:bg-blue-100/80 cursor-pointer rounded-full z-50 flex items-center justify-center text-insurance-darkblue border border-blue-100 transition-all duration-150 hover:shadow-sm active:scale-95 flex-shrink-0 outline-none"
           onClick={handleToggle}
@@ -259,17 +276,16 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
           )}
         </button>
 
-        {/* 100% Solid White Desktop Dropdown Menu */}
-        <div 
+        {/* Desktop Dropdown */}
+        <div
           className={`hidden md:block absolute right-0 top-[calc(100%+10px)] w-56 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.18)] border border-slate-200 rounded-2xl p-2 z-50 origin-top-right transition-all duration-150 ease-out space-y-1 ${
-            isExpanded 
-              ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' 
+            isExpanded
+              ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
               : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
           }`}
         >
           {childrenArray.map((child, index) => {
             const childElement = child as React.ReactElement<MenuItemProps>
-            
             return React.isValidElement(childElement)
               ? React.cloneElement(childElement, {
                   key: index,
