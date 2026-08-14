@@ -159,10 +159,10 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* Soft backdrop blur overlay when menu is open for intuitive tap-outside to close */}
+      {/* Transparent overlay to dismiss menu on tap-outside without any background blur or darkening */}
       {isExpanded && (
         <div 
-          className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[2px] transition-opacity duration-300"
+          className="fixed inset-0 z-40 bg-transparent"
           onClick={closeMenu}
           aria-hidden="true"
         />

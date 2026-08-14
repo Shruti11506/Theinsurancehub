@@ -320,12 +320,12 @@ export default function App() {
               </div>
             </div>
 
-            {/* 30000+ Customers Badge */}
+            {/* 5 Crore+ Portfolio Badge */}
             <div className="relative group">
               <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-br from-insurance-orange to-amber-600 flex flex-col items-center justify-center shadow-2xl shadow-orange-300/40 border-4 border-white ring-4 ring-insurance-orange/10 transition-transform duration-500 group-hover:scale-105">
-                <span className="text-3xl sm:text-4xl font-black text-white leading-none">30,000+</span>
-                <span className="text-[11px] sm:text-sm font-bold text-orange-100 tracking-wider uppercase mt-1">Happy</span>
-                <span className="text-[9px] sm:text-[10px] font-semibold text-orange-200 uppercase tracking-widest">Customers</span>
+                <span className="text-3xl sm:text-4xl font-black text-white leading-none">5 Cr+</span>
+                <span className="text-[11px] sm:text-sm font-bold text-orange-100 tracking-wider uppercase mt-1">Portfolio</span>
+                <span className="text-[9px] sm:text-[10px] font-semibold text-orange-200 uppercase tracking-widest">Under Management</span>
               </div>
             </div>
           </div>
@@ -349,13 +349,13 @@ export default function App() {
               <div className="absolute top-0 left-0 right-0 lg:bottom-0 lg:right-auto lg:w-1 lg:h-full h-1 bg-gradient-to-r lg:bg-gradient-to-b from-insurance-darkblue to-insurance-orange z-10"></div>
 
               {/* Photo */}
-              <div className="w-full lg:w-[240px] xl:w-[280px] flex-shrink-0 relative overflow-hidden bg-slate-50">
+              <div className="w-full lg:w-[260px] xl:w-[290px] flex-shrink-0 relative overflow-hidden bg-slate-50 flex items-center justify-center">
                 <img
                   src="/founders_new.jpg"
                   alt="Adarsh and Vaishali Bafna"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-64 lg:h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-[320px] sm:h-[380px] lg:h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
 
@@ -399,13 +399,13 @@ export default function App() {
               <div className="absolute top-0 left-0 right-0 lg:bottom-0 lg:right-auto lg:w-1 lg:h-full h-1 bg-gradient-to-r lg:bg-gradient-to-b from-insurance-orange to-insurance-violet z-10"></div>
 
               {/* Photo */}
-              <div className="w-full lg:w-[240px] xl:w-[280px] flex-shrink-0 relative overflow-hidden bg-slate-50">
+              <div className="w-full lg:w-[260px] xl:w-[290px] flex-shrink-0 relative overflow-hidden bg-slate-50 flex items-center justify-center">
                 <img
                   src="/divyesh_new.jpg"
                   alt="Divyesh Bafna"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-64 lg:h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-[320px] sm:h-[380px] lg:h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
 
