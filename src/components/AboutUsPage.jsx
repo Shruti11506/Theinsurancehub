@@ -256,11 +256,11 @@ export default function AboutUsPage({ onBack }) {
         </div>
 
         {/* ═══════════════════════════════════════════════════════
-            CURVED ROADMAP WITH POLES — inspired by reference image
+            CURVED ROADMAP WITH POLES & HIGHWAY (Desktop & Mobile)
             ═══════════════════════════════════════════════════════ */}
         <div className="relative mt-6">
 
-          {/* ── The winding road SVG (visible on md+) ── */}
+          {/* ── The winding road SVG (visible on md+ screens) ── */}
           <svg
             className="hidden md:block absolute inset-0 w-full h-full pointer-events-none"
             viewBox="0 0 1000 3600"
@@ -296,8 +296,16 @@ export default function AboutUsPage({ onBack }) {
             />
           </svg>
 
+          {/* ── Mobile Roadmap Highway Track (visible on mobile screens) ── */}
+          <div className="md:hidden absolute left-[22px] top-2 bottom-4 w-7 -translate-x-1/2 rounded-full bg-gradient-to-b from-slate-200 via-slate-300 to-slate-200 shadow-inner flex items-center justify-center z-0 border border-slate-300/80">
+            {/* Asphalt center stripe */}
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="w-0.5 h-full border-r-2 border-dashed border-white/90"></div>
+            </div>
+          </div>
+
           {/* ── Timeline Nodes ── */}
-          <div className="relative z-10 space-y-8 md:space-y-0">
+          <div className="relative z-10 space-y-7 md:space-y-0">
             {timelineData.map((node, idx) => {
               const IconComponent = node.icon;
               const isEven = idx % 2 === 0;
@@ -317,7 +325,7 @@ export default function AboutUsPage({ onBack }) {
                   `}
                   style={{ transitionDelay: `${idx * 80}ms` }}
                 >
-                  {/* Milestone circle laying on the road (hidden on mobile) */}
+                  {/* Desktop Milestone circle laying on central road */}
                   <div
                     className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full items-center justify-center bg-white border-[3px] shadow-lg z-20 transition-transform duration-500 hover:scale-110"
                     style={{ borderColor: node.accentColor, boxShadow: `0 4px 20px ${node.accentColor}33` }}
@@ -329,46 +337,57 @@ export default function AboutUsPage({ onBack }) {
                     </div>
                   </div>
 
+                  {/* Mobile Milestone circle laying directly on the roadmap */}
+                  <div
+                    className="md:hidden absolute left-[22px] top-6 -translate-x-1/2 w-11 h-11 rounded-full flex items-center justify-center bg-white border-[2.5px] shadow-md z-20"
+                    style={{ borderColor: node.accentColor, boxShadow: `0 4px 14px ${node.accentColor}40` }}
+                  >
+                    <div
+                      className={`w-7 h-7 rounded-full bg-gradient-to-br ${node.gradient} flex items-center justify-center text-white shadow-inner`}
+                    >
+                      <IconComponent className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+
+                  {/* Mobile Connector arm from roadmap to card */}
+                  <div 
+                    className="md:hidden absolute left-[28px] top-[46px] w-6 h-[2px] z-10"
+                    style={{ background: `linear-gradient(to right, ${node.accentColor}, ${node.accentColor}40)` }}
+                  ></div>
+
                   {/* ── Content Card ── */}
                   <div
                     className={`
-                      relative w-full md:w-[43%]
+                      relative w-[calc(100%-2.6rem)] ml-auto md:ml-0 md:w-[43%]
                       ${isEven ? 'md:ml-[2%]' : 'md:mr-[2%]'}
                     `}
                   >
-                    <div className="group relative bg-white rounded-2xl border border-slate-100/80 shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden">
+                    <div className="group relative bg-white rounded-2xl border border-slate-100/90 shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden">
 
                       {/* Top accent bar */}
                       <div
-                        className={`h-1 w-full bg-gradient-to-r ${node.gradient}`}
+                        className={`h-1.5 w-full bg-gradient-to-r ${node.gradient}`}
                       ></div>
 
-                      <div className="p-5 sm:p-6">
+                      <div className="p-4 sm:p-6">
 
-                        {/* Mobile: icon + year row */}
-                        <div className="flex items-center gap-3 mb-4 md:mb-3">
-                          {/* Mobile icon circle */}
-                          <div className={`md:hidden w-10 h-10 rounded-full bg-gradient-to-br ${node.gradient} flex items-center justify-center text-white shadow-md flex-shrink-0`}>
-                            <IconComponent className="h-4 w-4" />
-                          </div>
-
-                          <div className="flex flex-wrap items-center gap-2 flex-1">
-                            <span className={`px-3 py-1 rounded-full ${node.bgColor} ${node.textColor} font-black text-[12px] border ${node.borderColor} tracking-wider`}>
-                              {node.year}
-                            </span>
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                              {node.phase}
-                            </span>
-                          </div>
+                        {/* Year + Phase Row */}
+                        <div className="flex flex-wrap items-center gap-2 mb-3">
+                          <span className={`px-3 py-1 rounded-full ${node.bgColor} ${node.textColor} font-black text-[12px] border ${node.borderColor} tracking-wider shadow-sm`}>
+                            {node.year}
+                          </span>
+                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                            {node.phase}
+                          </span>
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-[17px] sm:text-[19px] font-extrabold text-slate-800 group-hover:text-insurance-darkblue transition-colors leading-snug mb-2">
+                        <h3 className="text-[16px] sm:text-[19px] font-extrabold text-slate-800 group-hover:text-insurance-darkblue transition-colors leading-snug mb-2">
                           {node.title}
                         </h3>
 
                         {/* Description */}
-                        <p className="text-[13px] sm:text-[14px] leading-relaxed text-slate-500 font-medium">
+                        <p className="text-[13px] sm:text-[14px] leading-relaxed text-slate-600 font-medium">
                           {node.description}
                         </p>
                       </div>
@@ -384,9 +403,6 @@ export default function AboutUsPage({ onBack }) {
               );
             })}
           </div>
-
-          {/* ── Mobile vertical line (visible on small screens) ── */}
-          <div className="md:hidden absolute left-[22px] top-0 bottom-0 w-[3px] bg-gradient-to-b from-insurance-darkblue via-insurance-orange via-insurance-green to-insurance-violet rounded-full opacity-15 z-0"></div>
 
         </div>
 

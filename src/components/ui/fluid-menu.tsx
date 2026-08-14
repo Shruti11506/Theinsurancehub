@@ -62,8 +62,8 @@ export function MenuItem({ children, onClick, disabled = false, icon, isActive =
   return (
     <button
       type="button"
-      className={`relative w-full h-full flex flex-col items-center justify-center rounded-full group cursor-pointer transition-all duration-200 outline-none p-1 select-none
-        ${disabled ? "text-gray-400 dark:text-gray-500 cursor-not-allowed" : "text-slate-700 hover:text-insurance-darkblue"}
+      className={`relative w-full flex flex-col items-center justify-center p-1.5 rounded-xl group cursor-pointer transition-all duration-200 outline-none select-none text-center
+        ${disabled ? "text-gray-400 dark:text-gray-500 cursor-not-allowed" : "text-slate-700 hover:text-insurance-darkblue hover:bg-slate-100/90 active:bg-slate-200/90"}
         ${isActive ? "bg-blue-50 text-insurance-darkblue font-bold shadow-inner" : ""}
         ${className}`}
       role="menuitem"
@@ -73,17 +73,17 @@ export function MenuItem({ children, onClick, disabled = false, icon, isActive =
       aria-label={displayLabel}
     >
       {icon && (
-        <span className="flex items-center justify-center transition-transform duration-200 group-hover:scale-110 flex-shrink-0">
+        <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center transition-transform duration-200 group-hover:scale-110 flex-shrink-0 shadow-xs">
           {icon}
         </span>
       )}
       {displayLabel && (
-        <span className="text-[8.5px] sm:text-[9.5px] font-extrabold text-center leading-none tracking-tight text-slate-700 group-hover:text-insurance-darkblue mt-0.5 max-w-[50px] truncate">
+        <span className="text-[9.5px] sm:text-[10px] font-extrabold leading-none tracking-tight text-slate-700 group-hover:text-insurance-darkblue mt-1 max-w-[56px] truncate">
           {displayLabel}
         </span>
       )}
       {children && !icon && !displayLabel && (
-        <span className="text-[11px] font-semibold text-center leading-tight">
+        <span className="text-[11px] font-semibold leading-tight truncate">
           {children}
         </span>
       )}
@@ -98,7 +98,7 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
   const childrenArray = React.Children.toArray(children)
 
   const handleMouseEnter = () => {
-    // Only auto-expand on hover on larger screens (desktop)
+    // Auto-expand on hover on desktop
     if (window.innerWidth >= 1024) {
       if (leaveTimerRef.current) {
         clearTimeout(leaveTimerRef.current)
@@ -170,62 +170,45 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
 
       <div 
         ref={menuRef}
-        className="relative w-[52px] h-[52px] sm:w-14 sm:h-14 select-none z-50" 
+        className="relative select-none z-50" 
         data-expanded={isExpanded}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Hover area bridge down across the dropdown */}
-        {isExpanded && (
-          <div 
-            className="absolute -left-2 -right-2 top-0 z-30 pointer-events-auto" 
-            style={{ height: `${childrenArray.length * 56 + 10}px` }} 
-          />
-        )}
+        {/* Trigger button */}
+        <div 
+          className="relative w-11 h-11 sm:w-14 sm:h-14 bg-white shadow-md sm:shadow-lg dark:bg-gray-800 cursor-pointer rounded-full group will-change-transform z-50 flex items-center justify-center text-insurance-darkblue border border-slate-200/90 hover:border-insurance-darkblue/40 transition-all duration-300 hover:shadow-xl active:scale-95"
+          onClick={handleToggle}
+          role="button"
+          aria-label={isExpanded ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isExpanded}
+        >
+          {childrenArray[0]}
+        </div>
 
-        {/* Container for trigger & items */}
-        <div className="relative">
-          {/* First item - Trigger button */}
-          <div 
-            className="relative w-[52px] h-[52px] sm:w-14 sm:h-14 bg-white shadow-md sm:shadow-lg dark:bg-gray-800 cursor-pointer rounded-full group will-change-transform z-50 flex items-center justify-center text-insurance-darkblue border border-slate-200/90 hover:border-insurance-darkblue/40 transition-all duration-300 hover:shadow-xl active:scale-95"
-            onClick={handleToggle}
-            role="button"
-            aria-label={isExpanded ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={isExpanded}
-          >
-            {childrenArray[0]}
-          </div>
-
-          {/* Cascading dropdown items */}
-          <div className="absolute top-0 left-0 w-[52px] sm:w-14 pointer-events-none">
+        {/* Ultra-compact 3-Column Dropdown Card: Names below each icon, zero obstruction of central content */}
+        <div 
+          className={`absolute right-0 top-[calc(100%+8px)] w-[195px] sm:w-[215px] bg-white/98 dark:bg-gray-900/98 backdrop-blur-xl border border-slate-200/90 shadow-2xl rounded-2xl p-1.5 z-50 origin-top-right transition-all duration-200 ease-out ${
+            isExpanded 
+              ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' 
+              : 'opacity-0 scale-90 -translate-y-2 pointer-events-none'
+          }`}
+        >
+          <div className="grid grid-cols-3 gap-1">
             {childrenArray.slice(1).map((child, index) => {
               const childElement = child as React.ReactElement<MenuItemProps>
               
-              return (
-                <div 
-                  key={index} 
-                  className={`absolute top-0 left-0 w-[52px] h-[52px] sm:w-14 sm:h-14 bg-white shadow-lg dark:bg-gray-800 rounded-full flex flex-col items-center justify-center border border-slate-200/90 hover:border-insurance-darkblue/40 hover:shadow-2xl transition-all duration-300 ${
-                    isExpanded ? 'pointer-events-auto opacity-100 scale-100' : 'pointer-events-none opacity-0 scale-75'
-                  }`}
-                  style={{
-                    transform: `translateY(${isExpanded ? (index + 1) * 56 : 0}px)`,
-                    zIndex: 40 - index,
-                    transition: `transform ${isExpanded ? '340ms' : '240ms'} cubic-bezier(0.34, 1.56, 0.64, 1) ${isExpanded ? index * 25 : 0}ms, opacity ${isExpanded ? '280ms' : '180ms'} ease-out ${isExpanded ? index * 25 : 0}ms, scale ${isExpanded ? '340ms' : '200ms'} cubic-bezier(0.34, 1.56, 0.64, 1) ${isExpanded ? index * 25 : 0}ms`,
-                    backfaceVisibility: 'hidden',
-                  }}
-                >
-                  {React.isValidElement(childElement)
-                    ? React.cloneElement(childElement, {
-                        onClick: (e?: React.MouseEvent) => {
-                          closeMenu()
-                          if (childElement.props.onClick) {
-                            childElement.props.onClick(e)
-                          }
-                        }
-                      })
-                    : child}
-                </div>
-              )
+              return React.isValidElement(childElement)
+                ? React.cloneElement(childElement, {
+                    key: index,
+                    onClick: (e?: React.MouseEvent) => {
+                      closeMenu()
+                      if (childElement.props.onClick) {
+                        childElement.props.onClick(e)
+                      }
+                    }
+                  })
+                : child
             })}
           </div>
         </div>
