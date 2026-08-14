@@ -15,7 +15,7 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [activeTab, setActiveTab] = useState('Home');
   const [introPhase, setIntroPhase] = useState('center'); // 'center' -> 'move' -> 'done'
-  const [statementVisible, setStatementVisible] = useState(false);
+  const [statementVisible, setStatementVisible] = useState(true);
   const [offsets, setOffsets] = useState(null);
 
   useLayoutEffect(() => {
@@ -40,15 +40,15 @@ export default function App() {
         setOffsets({
           logo: {
             x: cX - (lRect.left + lRect.width / 2),
-            y: (cY - (isSmallMobile ? 140 : isMobile ? 170 : 220)) - (lRect.top + lRect.height / 2)
+            y: (cY - (isSmallMobile ? 120 : isMobile ? 150 : 180)) - (lRect.top + lRect.height / 2)
           },
           question: {
             x: cX - (qRect.left + qRect.width / 2),
-            y: (cY - (isSmallMobile ? 20 : isMobile ? 32 : 45)) - (qRect.top + qRect.height / 2)
+            y: (cY - (isSmallMobile ? 10 : isMobile ? 15 : 20)) - (qRect.top + qRect.height / 2)
           },
           statement: {
             x: cX - (sRect.left + sRect.width / 2),
-            y: (cY + (isSmallMobile ? 100 : isMobile ? 130 : 160)) - (sRect.top + sRect.height / 2)
+            y: (cY + (isSmallMobile ? 95 : isMobile ? 115 : 140)) - (sRect.top + sRect.height / 2)
           }
         });
       }
@@ -57,24 +57,18 @@ export default function App() {
     calculateOffsets();
     window.addEventListener('resize', calculateOffsets);
 
-    // 1. Logo & Question displayed immediately at start (0.0s)
-    // 2. Question words reveal smoothly in ~0.8s, followed by 1.0s gap -> Statement appears at 1.8s
-    const stmtTimer = setTimeout(() => {
-      setStatementVisible(true);
-    }, 1800);
-
-    // 3. Continuous fluid move begins at 3.4s (after user reads statement)
+    // 1. Logo, Question & Statement are visible immediately at start (0.0s)
+    // 2. Continuous fluid move begins at 2.4s
     const moveTimer = setTimeout(() => {
       setIntroPhase('move');
-    }, 3400);
+    }, 2400);
 
-    // 4. Completes naturally at 4.8s
+    // 3. Completes naturally at 3.8s
     const doneTimer = setTimeout(() => {
       setIntroPhase('done');
-    }, 4800);
+    }, 3800);
 
     return () => {
-      clearTimeout(stmtTimer);
       clearTimeout(moveTimer);
       clearTimeout(doneTimer);
       window.removeEventListener('resize', calculateOffsets);
@@ -159,22 +153,23 @@ export default function App() {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
             {/* LEFT: Question, Answer & Quote */}
-            <div id="hero-text-block" className="flex-1 text-left space-y-7 relative z-10">
+            <div id="hero-text-block" className="flex-1 text-left space-y-7 relative z-30">
               
               {/* Core Question -> Single-source continuous motion directly to its home position */}
               <motion.h1
                 id="hero-question"
+                initial={{ opacity: 1 }}
                 animate={
                   introPhase === 'center' && offsets
-                    ? { x: offsets.question.x, y: offsets.question.y }
-                    : { x: 0, y: 0 }
+                    ? { x: offsets.question.x, y: offsets.question.y, opacity: 1 }
+                    : { x: 0, y: 0, opacity: 1 }
                 }
                 transition={{
                   duration: introPhase === 'move' ? 1.4 : 0,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-10 min-h-[2.4em] text-left"
-                style={{ willChange: 'transform' }}
+                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 min-h-[2.4em] text-left"
+                style={{ willChange: 'transform, opacity' }}
               >
                 <TypewriterText duration={0.8}>
                   Confused about choosing the right insurance?
@@ -184,13 +179,13 @@ export default function App() {
               {/* Statement Block -> Single-source continuous motion directly to its home position */}
               <motion.div
                 id="hero-statement"
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 1 }}
                 animate={
                   introPhase === 'center' && offsets
                     ? {
                         x: offsets.statement.x,
                         y: offsets.statement.y,
-                        opacity: statementVisible ? 1 : 0,
+                        opacity: 1,
                       }
                     : {
                         x: 0,
@@ -201,9 +196,9 @@ export default function App() {
                 transition={{
                   duration: introPhase === 'move' ? 1.4 : 0,
                   ease: [0.22, 1, 0.36, 1],
-                  opacity: { duration: 0.5, ease: "easeOut" }
+                  opacity: { duration: 0.3, ease: "easeOut" }
                 }}
-                className="space-y-7 relative z-10 flex flex-col items-start text-left"
+                className="space-y-7 relative z-30 flex flex-col items-start text-left"
                 style={{ willChange: 'transform, opacity' }}
               >
                 {/* Answer */}
