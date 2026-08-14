@@ -36,9 +36,10 @@ export default function App() {
         const isSmallMobile = vW < 480;
         const isMobile = vW < 768;
 
-        const targetCenterLogoY = cY - (isSmallMobile ? 120 : isMobile ? 140 : 170);
-        const targetCenterQuestionY = cY - (isSmallMobile ? 15 : isMobile ? 20 : 25);
-        const targetCenterStatementY = cY + (isSmallMobile ? 95 : isMobile ? 115 : 140);
+        // Distinct, balanced vertical positions with ample gaps between each section
+        const targetCenterLogoY = cY - (isSmallMobile ? 180 : isMobile ? 190 : 210);
+        const targetCenterQuestionY = cY - (isSmallMobile ? 30 : isMobile ? 30 : 35);
+        const targetCenterStatementY = cY + (isSmallMobile ? 135 : isMobile ? 145 : 155);
 
         setOffsets({
           logo: {
@@ -124,18 +125,14 @@ export default function App() {
       onClick={handleSkipIntro}
       className="flex flex-col min-h-screen w-full bg-zinc-50 antialiased font-sans relative"
     >
-      {/* ── Background Veil Backdrop (Dissolves softly on move) ── */}
+      {/* ── Background Veil Backdrop (Uniform, Clean, Dissolves softly on move) ── */}
       {introPhase !== 'done' && (
         <motion.div
           initial={{ opacity: 1 }}
           animate={{ opacity: introPhase === 'move' ? 0 : 1 }}
           transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-20 bg-slate-50/95 backdrop-blur-2xl pointer-events-none"
-        >
-          {/* Ambient Brand Glows */}
-          <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-300/25 blur-[120px] pointer-events-none" />
-          <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] rounded-full bg-orange-300/25 blur-[120px] pointer-events-none" />
-        </motion.div>
+          className="fixed inset-0 z-20 bg-slate-50/98 backdrop-blur-xl pointer-events-none"
+        />
       )}
 
       {/* 1. Header Navigation */}
@@ -156,16 +153,14 @@ export default function App() {
         <>
           {/* 2. Hero Section */}
       <section className="relative z-30 overflow-hidden pt-4 pb-16 lg:pt-8 lg:pb-24 flex-grow flex items-center">
-        {/* Background decorative elements */}
-        <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-100/30 blur-3xl animate-blob"></div>
-        <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-purple-100/30 blur-3xl animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-[-10%] left-[20%] w-[400px] h-[400px] rounded-full bg-orange-100/20 blur-3xl animate-blob animation-delay-4000"></div>
+        {/* Uniform clean background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/30 pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
             {/* LEFT: Question, Answer & Quote */}
-            <div id="hero-text-block" className="flex-1 text-left space-y-7 relative z-30">
+            <div id="hero-text-block" className="flex-1 space-y-7 relative z-30 w-full text-center sm:text-left">
               
               {/* Core Question -> Single-source continuous motion directly into its fixed home position */}
               <motion.h1
@@ -180,7 +175,7 @@ export default function App() {
                   duration: introPhase === 'move' ? 1.35 : 0,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 text-left"
+                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 text-center sm:text-left max-w-2xl mx-auto sm:mx-0"
                 style={{ willChange: 'transform' }}
               >
                 <TypewriterText duration={0.8}>
@@ -201,17 +196,17 @@ export default function App() {
                   duration: introPhase === 'move' ? 1.35 : 0,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="space-y-7 relative z-30 flex flex-col items-start text-left"
+                className="space-y-4 sm:space-y-7 relative z-30 flex flex-col items-center sm:items-start text-center sm:text-left max-w-xl mx-auto sm:mx-0"
                 style={{ willChange: 'transform' }}
               >
                 {/* Answer */}
-                <p id="hero-answer" className="text-lg sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-l-4 border-insurance-orange pl-4 sm:pl-5">
+                <p id="hero-answer" className="text-base sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-l-0 sm:border-l-4 border-insurance-orange pl-0 sm:pl-5 text-center sm:text-left">
                   All companies, insurance and mutual funds <br className="hidden sm:inline" />
                   under one roof.
                 </p>
 
                 {/* Italic Quote */}
-                <p id="hero-quote" className="text-[15px] sm:text-[19px] italic font-medium text-slate-500 pl-1 border-l-2 border-insurance-darkblue/30 tracking-wide font-serif">
+                <p id="hero-quote" className="text-[14px] sm:text-[19px] italic font-medium text-slate-500 pl-0 sm:pl-1 border-l-0 sm:border-l-2 border-insurance-darkblue/30 tracking-wide font-serif text-center sm:text-left">
                   &ldquo;Secure today, protect tomorrow.&rdquo;
                 </p>
               </motion.div>
