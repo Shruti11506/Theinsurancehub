@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import { NavBar } from '@/components/ui/tubelight-navbar';
-import { HeartPulse, ShieldCheck, Car, Home, Activity, Users, HelpCircle, PhoneCall, MapPin, Mail, Award, BookOpen, Briefcase, Building, ChevronDown, Phone, Menu as MenuIcon, X, MessageCircle, Info, Settings, FileText, MessageSquare } from 'lucide-react';
+import { Home, Users, HelpCircle, PhoneCall, Briefcase, Phone, Menu as MenuIcon, X, FileText, MessageSquare } from 'lucide-react';
 import { MenuContainer, MenuItem } from '@/components/ui/fluid-menu';
 
 // WhatsApp SVG icon component
@@ -27,8 +27,6 @@ const LocationPinIcon = ({ className }) => (
 );
 
 export default function Header({ onNavigate, currentPage, activeTab = 'Home', onTabChange, introPhase = 'center', logoOffset = { x: 0, y: 0 } }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const navItems = [
     { name: 'Home', url: '#', icon: Home, onClick: () => { onTabChange && onTabChange('Home'); onNavigate && onNavigate('home'); } },
     { name: 'Services', url: '#', icon: Briefcase, onClick: () => { onTabChange && onTabChange('Services'); onNavigate && onNavigate('home', 'services'); } },
@@ -92,7 +90,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
             </motion.div>
           </a>
           
-          {/* Main Navigation - Tubelight NavBar */}
+          {/* Main Navigation - Tubelight NavBar (Desktop) */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: introPhase === 'center' ? 0 : 1 }}
@@ -107,7 +105,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
           </motion.div>
         </div>
           
-        {/* Right Side: Social Icons & Action */}
+        {/* Right Side: Social Icons & Dropdown Menu */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: introPhase === 'center' ? 0 : 1 }}
@@ -117,8 +115,9 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
           {/* Mobile Quick Call Button */}
           <a 
             href="tel:+919423924568" 
-            className="sm:hidden p-2 rounded-full bg-blue-50 text-insurance-darkblue hover:bg-blue-100 transition-all shadow-sm border border-blue-100"
+            className="sm:hidden p-2.5 rounded-full bg-blue-50 text-insurance-darkblue hover:bg-blue-100 transition-all shadow-sm border border-blue-100 active:scale-95"
             title="Call Us"
+            aria-label="Call Us Directly"
           >
             <Phone className="h-5 w-5" />
           </a>
@@ -128,8 +127,9 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
             href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="sm:hidden p-2 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-sm border border-emerald-100/60"
+            className="sm:hidden p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-sm border border-emerald-100/60 active:scale-95"
             title="Chat on WhatsApp"
+            aria-label="Chat on WhatsApp"
           >
             <WhatsAppIcon className="h-5 w-5" />
           </a>
@@ -142,6 +142,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               rel="noopener noreferrer" 
               className="p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:scale-110 transition-all duration-300 shadow-md border border-emerald-100/50"
               title="Chat on WhatsApp"
+              aria-label="Chat on WhatsApp"
             >
               <WhatsAppIcon className="h-6 w-6 lg:h-7 lg:w-7" />
             </a>
@@ -151,6 +152,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               rel="noopener noreferrer" 
               className="p-2.5 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 hover:scale-110 transition-all duration-300 shadow-md border border-pink-100/50"
               title="Follow on Instagram"
+              aria-label="Follow on Instagram"
             >
               <InstagramIcon className="h-6 w-6 lg:h-7 lg:w-7" />
             </a>
@@ -160,6 +162,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               rel="noopener noreferrer" 
               className="p-2.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-110 transition-all duration-300 shadow-md border border-blue-100/50"
               title="Get Directions on Google Maps"
+              aria-label="Get Directions on Google Maps"
             >
               <LocationPinIcon className="h-6 w-6 lg:h-7 lg:w-7" />
             </a>
@@ -169,6 +172,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               rel="noopener noreferrer" 
               className="p-2.5 rounded-full bg-sky-50 text-sky-600 hover:bg-sky-100 hover:scale-110 transition-all duration-300 shadow-md border border-sky-100/50"
               title="Follow on LinkedIn"
+              aria-label="Follow on LinkedIn"
             >
               <svg className="h-6 w-6 lg:h-7 lg:w-7" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -176,188 +180,91 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
             </a>
           </div>
 
-          {/* Floating Menu (Desktop Only) */}
-          <div className="hidden lg:block">
+          {/* Universal Fluid Dropdown Menu (Mobile & Desktop) */}
+          <div className="relative flex items-center">
             <MenuContainer>
               {/* Toggle Icon */}
               <MenuItem
                 icon={
-                  <div className="relative w-8 h-8 flex items-center justify-center">
+                  <div className="relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center pointer-events-none">
                     <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-100 scale-100 rotate-0 [div[data-expanded=true]_&]:opacity-0 [div[data-expanded=true]_&]:scale-0 [div[data-expanded=true]_&]:rotate-180">
-                      <MenuIcon size={28} strokeWidth={2} />
+                      <MenuIcon className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2} />
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out opacity-0 scale-0 -rotate-180 [div[data-expanded=true]_&]:opacity-100 [div[data-expanded=true]_&]:scale-100 [div[data-expanded=true]_&]:rotate-0">
-                      <X size={28} strokeWidth={2} />
+                      <X className="w-6 h-6 sm:w-7 sm:h-7 text-red-500" strokeWidth={2.2} />
                     </div>
                   </div>
                 }
               />
               <MenuItem
-                className="text-indigo-600 hover:text-indigo-800"
-                icon={<PhoneCall size={24} strokeWidth={2.2} />}
-                onClick={() => onNavigate && onNavigate('home', 'contact')}
-                label="Contact Us"
+                className="text-blue-600 hover:text-blue-800"
+                icon={<Home size={22} strokeWidth={2.2} />}
+                onClick={() => {
+                  if (onTabChange) onTabChange('Home');
+                  if (onNavigate) onNavigate('home');
+                }}
+                label="Home"
               />
-              <MenuItem 
-                className="text-gray-600 hover:text-gray-800" 
-                icon={<Info size={24} strokeWidth={2.2} />}
-                onClick={() => onNavigate && onNavigate('about')}
-                label="About Us"
-              />
-              <MenuItem 
-                className="text-emerald-600 hover:text-emerald-800" 
-                icon={<Settings size={24} strokeWidth={2.2} />}
-                onClick={() => onNavigate && onNavigate('home', 'services')}
+              <MenuItem
+                className="text-emerald-600 hover:text-emerald-800"
+                icon={<Briefcase size={22} strokeWidth={2.2} />}
+                onClick={() => {
+                  if (onTabChange) onTabChange('Services');
+                  if (onNavigate) onNavigate('home', 'services');
+                }}
                 label="Services"
               />
               <MenuItem 
-                className="text-red-600 hover:text-red-800" 
-                icon={<FileText size={24} strokeWidth={2.2} />}
-                onClick={() => onNavigate && onNavigate('home', 'contact')}
+                className="text-amber-500 hover:text-amber-700" 
+                icon={<Users size={22} strokeWidth={2.2} />}
+                onClick={() => {
+                  if (onTabChange) onTabChange('About Us');
+                  if (onNavigate) onNavigate('about');
+                }}
+                label="About Us"
+              />
+              <MenuItem
+                className="text-indigo-600 hover:text-indigo-800"
+                icon={<PhoneCall size={22} strokeWidth={2.2} />}
+                onClick={() => {
+                  if (onTabChange) onTabChange('Contact Us');
+                  if (onNavigate) onNavigate('home', 'contact');
+                }}
+                label="Contact Us"
+              />
+              <MenuItem 
+                className="text-rose-600 hover:text-rose-800" 
+                icon={<FileText size={22} strokeWidth={2.2} />}
+                onClick={() => {
+                  if (onTabChange) onTabChange('Contact Us');
+                  if (onNavigate) onNavigate('home', 'contact');
+                }}
                 label="Claims"
               />
               <MenuItem 
-                className="text-amber-500 hover:text-amber-700" 
-                icon={<MessageSquare size={24} strokeWidth={2.2} />}
-                onClick={() => onNavigate && onNavigate('home', 'testimonials')}
+                className="text-violet-600 hover:text-violet-800" 
+                icon={<MessageSquare size={22} strokeWidth={2.2} />}
+                onClick={() => {
+                  if (onTabChange) onTabChange('Feedbacks');
+                  if (onNavigate) onNavigate('home', 'testimonials');
+                }}
                 label="Feedbacks"
               />
               <MenuItem 
-                className="text-blue-600 hover:text-blue-800" 
-                icon={<HelpCircle size={24} strokeWidth={2.2} />}
-                onClick={() => onNavigate && onNavigate('home', 'faqs')}
+                className="text-sky-600 hover:text-sky-800" 
+                icon={<HelpCircle size={22} strokeWidth={2.2} />}
+                onClick={() => {
+                  if (onTabChange) onTabChange('FAQs');
+                  if (onNavigate) onNavigate('home', 'faqs');
+                }}
                 label="FAQs"
               />
             </MenuContainer>
           </div>
 
-          {/* Mobile Hamburger Toggle Button */}
-          <button 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-slate-800 hover:text-insurance-darkblue p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200/60"
-            title="Toggle Menu"
-            aria-label="Toggle Navigation Menu"
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-          </button>
         </motion.div>
 
       </div>
-
-      {/* Mobile Drawer menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden w-full bg-white border-t border-slate-200 px-6 py-6 space-y-6 shadow-2xl animate-fade-in fixed top-20 sm:top-24 left-0 right-0 z-[100] max-h-[calc(100vh-5rem)] overflow-y-auto">
-          <div className="space-y-4">
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Navigation</p>
-            <div className="grid grid-cols-2 gap-3">
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onNavigate) onNavigate('home');
-                }}
-                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
-              >
-                <Home className="h-4 w-4 text-insurance-darkblue flex-shrink-0" />
-                Home
-              </button>
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onNavigate) onNavigate('home', 'services');
-                }}
-                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
-              >
-                <Briefcase className="h-4 w-4 text-insurance-green flex-shrink-0" />
-                Services
-              </button>
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onNavigate) onNavigate('about');
-                }}
-                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
-              >
-                <Users className="h-4 w-4 text-insurance-orange flex-shrink-0" />
-                About Us
-              </button>
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onNavigate) onNavigate('home', 'contact');
-                }}
-                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
-              >
-                <PhoneCall className="h-4 w-4 text-insurance-violet flex-shrink-0" />
-                Contact Us
-              </button>
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onNavigate) onNavigate('home', 'testimonials');
-                }}
-                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
-              >
-                <MessageSquare className="h-4 w-4 text-amber-500 flex-shrink-0" />
-                Feedbacks
-              </button>
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onNavigate) onNavigate('home', 'faqs');
-                }}
-                className="flex items-center justify-start gap-2.5 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-[14px] transition-colors border border-slate-100"
-              >
-                <HelpCircle className="h-4 w-4 text-blue-500 flex-shrink-0" />
-                FAQs
-              </button>
-            </div>
-          </div>
-
-          <div className="space-y-3 pt-2 border-t border-slate-100">
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Direct Connect</p>
-            <div className="grid grid-cols-2 gap-3">
-              <a 
-                href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-50 text-emerald-700 font-bold text-[13px] border border-emerald-100/60"
-              >
-                <WhatsAppIcon className="h-5 w-5" />
-                WhatsApp
-              </a>
-              <a 
-                href="https://www.instagram.com/theinsurancehub__?utm_source=qr&igsh=bGJzOGM2M3JmaTF1" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-pink-50 text-pink-700 font-bold text-[13px] border border-pink-100/60"
-              >
-                <InstagramIcon className="h-5 w-5" />
-                Instagram
-              </a>
-              <a 
-                href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-blue-50 text-blue-700 font-bold text-[13px] border border-blue-100/60 hover:bg-blue-100 transition-colors"
-              >
-                <LocationPinIcon className="h-5 w-5" />
-                Directions
-              </a>
-              <a 
-                href="https://www.linkedin.com/company/the-insurance-hub001/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-sky-50 text-sky-700 font-bold text-[13px] border border-sky-100/60"
-              >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-                LinkedIn
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
 
     </motion.header>
   );

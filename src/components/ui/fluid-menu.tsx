@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { ChevronDown } from "lucide-react"
 
 interface MenuProps {
@@ -64,12 +64,13 @@ export function MenuItem({ children, onClick, disabled = false, icon, isActive =
       type="button"
       className={`relative w-full h-full flex items-center justify-center rounded-full group cursor-pointer transition-all duration-200 outline-none
         ${disabled ? "text-gray-400 dark:text-gray-500 cursor-not-allowed" : "text-slate-700 hover:text-insurance-darkblue"}
-        ${isActive ? "bg-blue-50 text-insurance-darkblue" : ""}
+        ${isActive ? "bg-blue-50 text-insurance-darkblue font-bold shadow-inner" : ""}
         ${className}`}
       role="menuitem"
       onClick={onClick}
       disabled={disabled}
       title={displayLabel}
+      aria-label={displayLabel}
     >
       <span className="flex items-center justify-center w-full h-full">
         {icon && (
@@ -84,11 +85,17 @@ export function MenuItem({ children, onClick, disabled = false, icon, isActive =
         )}
       </span>
 
-      {/* Floating tooltip label on hover to the left for crystal clear identification */}
+      {/* Floating high-contrast label badge for both mobile and desktop readability */}
       {displayLabel && (
-        <span className="absolute right-[calc(100%+12px)] top-1/2 -translate-y-1/2 px-3.5 py-1.5 bg-slate-900/95 backdrop-blur-md text-white text-[13px] font-bold rounded-xl shadow-2xl whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 translate-x-2 transition-all duration-200 z-50 border border-slate-700/60 font-sans tracking-wide">
+        <span 
+          onClick={(e) => {
+            e.stopPropagation();
+            if (onClick && !disabled) onClick(e);
+          }}
+          className="absolute right-[calc(100%+10px)] sm:right-[calc(100%+12px)] top-1/2 -translate-y-1/2 px-3 sm:px-3.5 py-1.5 bg-slate-900/95 backdrop-blur-md text-white text-[12px] sm:text-[13px] font-bold rounded-xl shadow-2xl whitespace-nowrap opacity-95 group-hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:translate-x-2 sm:group-hover:translate-x-0 transition-all duration-200 z-50 border border-slate-700/60 font-sans tracking-wide pointer-events-auto hover:bg-slate-800"
+        >
           {displayLabel}
-          {/* Tooltip arrow */}
+          {/* Tooltip arrow pointing to icon */}
           <span className="absolute top-1/2 -right-1 -translate-y-1/2 border-4 border-transparent border-l-slate-900/95" />
         </span>
       )}
@@ -99,23 +106,29 @@ export function MenuItem({ children, onClick, disabled = false, icon, isActive =
 export function MenuContainer({ children }: { children: React.ReactNode }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const menuRef = useRef<HTMLDivElement | null>(null)
   const childrenArray = React.Children.toArray(children)
 
   const handleMouseEnter = () => {
-    if (leaveTimerRef.current) {
-      clearTimeout(leaveTimerRef.current)
-      leaveTimerRef.current = null
+    // Only auto-expand on hover on larger screens (desktop)
+    if (window.innerWidth >= 1024) {
+      if (leaveTimerRef.current) {
+        clearTimeout(leaveTimerRef.current)
+        leaveTimerRef.current = null
+      }
+      setIsExpanded(true)
     }
-    setIsExpanded(true)
   }
 
   const handleMouseLeave = () => {
-    if (leaveTimerRef.current) {
-      clearTimeout(leaveTimerRef.current)
+    if (window.innerWidth >= 1024) {
+      if (leaveTimerRef.current) {
+        clearTimeout(leaveTimerRef.current)
+      }
+      leaveTimerRef.current = setTimeout(() => {
+        setIsExpanded(false)
+      }, 250)
     }
-    leaveTimerRef.current = setTimeout(() => {
-      setIsExpanded(false)
-    }, 250)
   }
 
   const handleToggle = (e: React.MouseEvent) => {
@@ -131,69 +144,92 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
     setIsExpanded(false)
   }
 
+  // Close on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeMenu()
+      }
+    }
+    if (isExpanded) {
+      window.addEventListener("keydown", handleKeyDown)
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [isExpanded])
+
   return (
-    <div 
-      className="relative w-[56px] select-none" 
-      data-expanded={isExpanded}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {/* Hover area bridge down across the entire dropdown so cursor never loses hover */}
+    <>
+      {/* Soft backdrop blur overlay when menu is open for intuitive tap-outside to close */}
       {isExpanded && (
         <div 
-          className="absolute -left-3 -right-3 top-0 z-30" 
-          style={{ height: `${childrenArray.length * 62 + 20}px` }} 
+          className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[2px] transition-opacity duration-300"
+          onClick={closeMenu}
+          aria-hidden="true"
         />
       )}
 
-      {/* Container for all items */}
-      <div className="relative">
-        {/* First item - always visible Trigger */}
-        <div 
-          className="relative w-14 h-14 bg-white shadow-lg dark:bg-gray-800 cursor-pointer rounded-full group will-change-transform z-50 flex items-center justify-center text-insurance-darkblue border border-slate-200/80 hover:border-insurance-darkblue/40 transition-all duration-300 hover:shadow-xl"
-          onClick={handleToggle}
-          role="button"
-          aria-label="Toggle Menu"
-          aria-expanded={isExpanded}
-        >
-          {childrenArray[0]}
-        </div>
+      <div 
+        ref={menuRef}
+        className="relative w-12 h-12 sm:w-14 sm:h-14 select-none z-50" 
+        data-expanded={isExpanded}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* Hover area bridge down across the dropdown */}
+        {isExpanded && (
+          <div 
+            className="absolute -left-4 -right-4 top-0 z-30 pointer-events-auto" 
+            style={{ height: `${childrenArray.length * 58 + 20}px` }} 
+          />
+        )}
 
-        {/* Other items - expanding DOWNWARDS */}
-        <div className="absolute top-0 left-0 w-14 pointer-events-none">
-          {childrenArray.slice(1).map((child, index) => {
-            const childElement = child as React.ReactElement<MenuItemProps>
-            
-            return (
-              <div 
-                key={index} 
-                className={`absolute top-0 left-0 w-14 h-14 bg-white shadow-lg dark:bg-gray-800 rounded-full flex items-center justify-center border border-slate-200/80 hover:border-insurance-darkblue/40 hover:shadow-2xl transition-all duration-300 ${
-                  isExpanded ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
-                }`}
-                style={{
-                  transform: `translateY(${isExpanded ? (index + 1) * 62 : 0}px)`,
-                  zIndex: 40 - index,
-                  transition: `transform ${isExpanded ? '320ms' : '260ms'} cubic-bezier(0.34, 1.56, 0.64, 1),
-                               opacity ${isExpanded ? '260ms' : '200ms'} ease-out`,
-                  backfaceVisibility: 'hidden',
-                }}
-              >
-                {React.isValidElement(childElement)
-                  ? React.cloneElement(childElement, {
-                      onClick: (e?: React.MouseEvent) => {
-                        closeMenu()
-                        if (childElement.props.onClick) {
-                          childElement.props.onClick(e)
+        {/* Container for trigger & items */}
+        <div className="relative">
+          {/* First item - Trigger button */}
+          <div 
+            className="relative w-12 h-12 sm:w-14 sm:h-14 bg-white shadow-md sm:shadow-lg dark:bg-gray-800 cursor-pointer rounded-full group will-change-transform z-50 flex items-center justify-center text-insurance-darkblue border border-slate-200/90 hover:border-insurance-darkblue/40 transition-all duration-300 hover:shadow-xl active:scale-95"
+            onClick={handleToggle}
+            role="button"
+            aria-label={isExpanded ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isExpanded}
+          >
+            {childrenArray[0]}
+          </div>
+
+          {/* Cascading dropdown items */}
+          <div className="absolute top-0 left-0 w-12 sm:w-14 pointer-events-none">
+            {childrenArray.slice(1).map((child, index) => {
+              const childElement = child as React.ReactElement<MenuItemProps>
+              
+              return (
+                <div 
+                  key={index} 
+                  className={`absolute top-0 left-0 w-12 h-12 sm:w-14 sm:h-14 bg-white shadow-lg dark:bg-gray-800 rounded-full flex items-center justify-center border border-slate-200/90 hover:border-insurance-darkblue/40 hover:shadow-2xl transition-all duration-300 ${
+                    isExpanded ? 'pointer-events-auto opacity-100 scale-100' : 'pointer-events-none opacity-0 scale-75'
+                  }`}
+                  style={{
+                    transform: `translateY(${isExpanded ? (index + 1) * 56 : 0}px)`,
+                    zIndex: 40 - index,
+                    transition: `transform ${isExpanded ? '340ms' : '240ms'} cubic-bezier(0.34, 1.56, 0.64, 1) ${isExpanded ? index * 25 : 0}ms, opacity ${isExpanded ? '280ms' : '180ms'} ease-out ${isExpanded ? index * 25 : 0}ms, scale ${isExpanded ? '340ms' : '200ms'} cubic-bezier(0.34, 1.56, 0.64, 1) ${isExpanded ? index * 25 : 0}ms`,
+                    backfaceVisibility: 'hidden',
+                  }}
+                >
+                  {React.isValidElement(childElement)
+                    ? React.cloneElement(childElement, {
+                        onClick: (e?: React.MouseEvent) => {
+                          closeMenu()
+                          if (childElement.props.onClick) {
+                            childElement.props.onClick(e)
+                          }
                         }
-                      }
-                    })
-                  : child}
-              </div>
-            )
-          })}
+                      })
+                    : child}
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
-
