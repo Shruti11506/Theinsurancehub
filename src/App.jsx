@@ -562,7 +562,7 @@ export default function App() {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-slate-800 transition-colors">Business Insurance</h3>
                 <p className="text-[14px] text-slate-500 font-medium leading-relaxed">
-                  Mitigate your business liabilities. We distribute marine transit insurance, fire policies, shopkeepers coverage, employee health covers, and customized general commercial risks.
+                  Mitigate your business liabilities. We distribute marine transit insurance, fire policies, jeweller's block insurance, shopkeepers coverage, employee health covers, and customized general commercial risks.
                 </p>
               </div>
               <div className="mt-8 flex items-center justify-between border-t border-slate-200/50 pt-4">
