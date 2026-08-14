@@ -198,7 +198,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               />
               <MenuItem
                 className="text-blue-600 hover:text-blue-800"
-                icon={<Home size={22} strokeWidth={2.2} />}
+                icon={<Home size={18} strokeWidth={2.3} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('Home');
                   if (onNavigate) onNavigate('home');
@@ -207,7 +207,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               />
               <MenuItem
                 className="text-emerald-600 hover:text-emerald-800"
-                icon={<Briefcase size={22} strokeWidth={2.2} />}
+                icon={<Briefcase size={18} strokeWidth={2.3} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('Services');
                   if (onNavigate) onNavigate('home', 'services');
@@ -216,25 +216,25 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               />
               <MenuItem 
                 className="text-amber-500 hover:text-amber-700" 
-                icon={<Users size={22} strokeWidth={2.2} />}
+                icon={<Users size={18} strokeWidth={2.3} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('About Us');
                   if (onNavigate) onNavigate('about');
                 }}
-                label="About Us"
+                label="About"
               />
               <MenuItem
                 className="text-indigo-600 hover:text-indigo-800"
-                icon={<PhoneCall size={22} strokeWidth={2.2} />}
+                icon={<PhoneCall size={18} strokeWidth={2.3} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('Contact Us');
                   if (onNavigate) onNavigate('home', 'contact');
                 }}
-                label="Contact Us"
+                label="Contact"
               />
               <MenuItem 
                 className="text-rose-600 hover:text-rose-800" 
-                icon={<FileText size={22} strokeWidth={2.2} />}
+                icon={<FileText size={18} strokeWidth={2.3} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('Contact Us');
                   if (onNavigate) onNavigate('home', 'contact');
@@ -243,16 +243,16 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               />
               <MenuItem 
                 className="text-violet-600 hover:text-violet-800" 
-                icon={<MessageSquare size={22} strokeWidth={2.2} />}
+                icon={<MessageSquare size={18} strokeWidth={2.3} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('Feedbacks');
                   if (onNavigate) onNavigate('home', 'testimonials');
                 }}
-                label="Feedbacks"
+                label="Feedback"
               />
               <MenuItem 
                 className="text-sky-600 hover:text-sky-800" 
-                icon={<HelpCircle size={22} strokeWidth={2.2} />}
+                icon={<HelpCircle size={18} strokeWidth={2.3} />}
                 onClick={() => {
                   if (onTabChange) onTabChange('FAQs');
                   if (onNavigate) onNavigate('home', 'faqs');

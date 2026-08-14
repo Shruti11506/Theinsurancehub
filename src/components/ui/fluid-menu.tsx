@@ -62,7 +62,7 @@ export function MenuItem({ children, onClick, disabled = false, icon, isActive =
   return (
     <button
       type="button"
-      className={`relative w-full h-full flex items-center justify-center rounded-full group cursor-pointer transition-all duration-200 outline-none
+      className={`relative w-full h-full flex flex-col items-center justify-center rounded-full group cursor-pointer transition-all duration-200 outline-none p-1 select-none
         ${disabled ? "text-gray-400 dark:text-gray-500 cursor-not-allowed" : "text-slate-700 hover:text-insurance-darkblue"}
         ${isActive ? "bg-blue-50 text-insurance-darkblue font-bold shadow-inner" : ""}
         ${className}`}
@@ -72,31 +72,19 @@ export function MenuItem({ children, onClick, disabled = false, icon, isActive =
       title={displayLabel}
       aria-label={displayLabel}
     >
-      <span className="flex items-center justify-center w-full h-full">
-        {icon && (
-          <span className="flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
-            {icon}
-          </span>
-        )}
-        {children && !icon && (
-          <span className="text-[12px] font-semibold text-center leading-tight">
-            {children}
-          </span>
-        )}
-      </span>
-
-      {/* Floating high-contrast label badge for both mobile and desktop readability */}
+      {icon && (
+        <span className="flex items-center justify-center transition-transform duration-200 group-hover:scale-110 flex-shrink-0">
+          {icon}
+        </span>
+      )}
       {displayLabel && (
-        <span 
-          onClick={(e) => {
-            e.stopPropagation();
-            if (onClick && !disabled) onClick(e);
-          }}
-          className="absolute right-[calc(100%+10px)] sm:right-[calc(100%+12px)] top-1/2 -translate-y-1/2 px-3 sm:px-3.5 py-1.5 bg-slate-900/95 backdrop-blur-md text-white text-[12px] sm:text-[13px] font-bold rounded-xl shadow-2xl whitespace-nowrap opacity-95 group-hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:translate-x-2 sm:group-hover:translate-x-0 transition-all duration-200 z-50 border border-slate-700/60 font-sans tracking-wide pointer-events-auto hover:bg-slate-800"
-        >
+        <span className="text-[8.5px] sm:text-[9.5px] font-extrabold text-center leading-none tracking-tight text-slate-700 group-hover:text-insurance-darkblue mt-0.5 max-w-[50px] truncate">
           {displayLabel}
-          {/* Tooltip arrow pointing to icon */}
-          <span className="absolute top-1/2 -right-1 -translate-y-1/2 border-4 border-transparent border-l-slate-900/95" />
+        </span>
+      )}
+      {children && !icon && !displayLabel && (
+        <span className="text-[11px] font-semibold text-center leading-tight">
+          {children}
         </span>
       )}
     </button>
@@ -144,6 +132,18 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
     setIsExpanded(false)
   }
 
+  // Auto-close / retract menu upwards when user scrolls the page
+  useEffect(() => {
+    if (!isExpanded) return
+
+    const handleScroll = () => {
+      closeMenu()
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [isExpanded])
+
   // Close on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -170,7 +170,7 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
 
       <div 
         ref={menuRef}
-        className="relative w-12 h-12 sm:w-14 sm:h-14 select-none z-50" 
+        className="relative w-[52px] h-[52px] sm:w-14 sm:h-14 select-none z-50" 
         data-expanded={isExpanded}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -178,8 +178,8 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
         {/* Hover area bridge down across the dropdown */}
         {isExpanded && (
           <div 
-            className="absolute -left-4 -right-4 top-0 z-30 pointer-events-auto" 
-            style={{ height: `${childrenArray.length * 58 + 20}px` }} 
+            className="absolute -left-2 -right-2 top-0 z-30 pointer-events-auto" 
+            style={{ height: `${childrenArray.length * 56 + 10}px` }} 
           />
         )}
 
@@ -187,7 +187,7 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
         <div className="relative">
           {/* First item - Trigger button */}
           <div 
-            className="relative w-12 h-12 sm:w-14 sm:h-14 bg-white shadow-md sm:shadow-lg dark:bg-gray-800 cursor-pointer rounded-full group will-change-transform z-50 flex items-center justify-center text-insurance-darkblue border border-slate-200/90 hover:border-insurance-darkblue/40 transition-all duration-300 hover:shadow-xl active:scale-95"
+            className="relative w-[52px] h-[52px] sm:w-14 sm:h-14 bg-white shadow-md sm:shadow-lg dark:bg-gray-800 cursor-pointer rounded-full group will-change-transform z-50 flex items-center justify-center text-insurance-darkblue border border-slate-200/90 hover:border-insurance-darkblue/40 transition-all duration-300 hover:shadow-xl active:scale-95"
             onClick={handleToggle}
             role="button"
             aria-label={isExpanded ? "Close navigation menu" : "Open navigation menu"}
@@ -197,14 +197,14 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Cascading dropdown items */}
-          <div className="absolute top-0 left-0 w-12 sm:w-14 pointer-events-none">
+          <div className="absolute top-0 left-0 w-[52px] sm:w-14 pointer-events-none">
             {childrenArray.slice(1).map((child, index) => {
               const childElement = child as React.ReactElement<MenuItemProps>
               
               return (
                 <div 
                   key={index} 
-                  className={`absolute top-0 left-0 w-12 h-12 sm:w-14 sm:h-14 bg-white shadow-lg dark:bg-gray-800 rounded-full flex items-center justify-center border border-slate-200/90 hover:border-insurance-darkblue/40 hover:shadow-2xl transition-all duration-300 ${
+                  className={`absolute top-0 left-0 w-[52px] h-[52px] sm:w-14 sm:h-14 bg-white shadow-lg dark:bg-gray-800 rounded-full flex flex-col items-center justify-center border border-slate-200/90 hover:border-insurance-darkblue/40 hover:shadow-2xl transition-all duration-300 ${
                     isExpanded ? 'pointer-events-auto opacity-100 scale-100' : 'pointer-events-none opacity-0 scale-75'
                   }`}
                   style={{
