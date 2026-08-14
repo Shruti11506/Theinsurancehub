@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import { NavBar } from '@/components/ui/tubelight-navbar';
-import { Home, Users, HelpCircle, PhoneCall, Briefcase, Phone, Menu as MenuIcon, X, FileText, MessageSquare } from 'lucide-react';
+import { Home, Users, HelpCircle, PhoneCall, Briefcase, Phone, Menu as MenuIcon, X, MessageSquare } from 'lucide-react';
 import { MenuContainer, MenuItem } from '@/components/ui/fluid-menu';
 
 // WhatsApp SVG icon component
@@ -231,15 +231,6 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   if (onNavigate) onNavigate('home', 'contact');
                 }}
                 label="Contact"
-              />
-              <MenuItem 
-                className="text-rose-600 hover:text-rose-800" 
-                icon={<FileText size={18} strokeWidth={2.3} />}
-                onClick={() => {
-                  if (onTabChange) onTabChange('Contact Us');
-                  if (onNavigate) onNavigate('home', 'contact');
-                }}
-                label="Claims"
               />
               <MenuItem 
                 className="text-violet-600 hover:text-violet-800" 
