@@ -35,11 +35,14 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
   ];
 
   return (
-    <motion.header
-      className="sticky top-0 z-[100] w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs"
-      initial={false}
-      animate={{ opacity: introPhase === 'center' ? 0 : 1, pointerEvents: introPhase === 'center' ? 'none' : 'auto' }}
-      transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+    <header
+      className="sticky top-0 z-[100] w-full backdrop-blur-md border-b shadow-xs"
+      style={{
+        backgroundColor: introPhase === 'center' ? 'transparent' : 'rgba(255,255,255,0.95)',
+        borderColor: introPhase === 'center' ? 'transparent' : 'rgba(226,232,240,0.8)',
+        boxShadow: introPhase === 'center' ? 'none' : undefined,
+        transition: introPhase === 'move' ? 'background-color 1.35s cubic-bezier(0.22,1,0.36,1), border-color 1.35s cubic-bezier(0.22,1,0.36,1), box-shadow 1.35s cubic-bezier(0.22,1,0.36,1)' : 'none',
+      }}
     >
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-20 sm:h-24 lg:h-28 flex items-center justify-between relative">
         
@@ -226,6 +229,6 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
 
       </div>
 
-    </motion.header>
+    </header>
   );
 }
