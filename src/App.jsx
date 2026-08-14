@@ -24,7 +24,7 @@ export default function App() {
       const cX = vW / 2;
       const cY = vH / 2;
 
-      const logoEl = document.getElementById('header-logo');
+      const logoEl = document.getElementById('header-logo-wrapper') || document.getElementById('header-logo');
       const qEl = document.getElementById('hero-question');
       const sEl = document.getElementById('hero-statement');
 
@@ -32,6 +32,10 @@ export default function App() {
         const lRect = logoEl.getBoundingClientRect();
         const qRect = qEl.getBoundingClientRect();
         const sRect = sEl.getBoundingClientRect();
+
+        // On mobile, also measure the logo wrapper directly for accurate x centering
+        const logoWrapperEl = document.getElementById('header-logo-wrapper');
+        const lWRect = logoWrapperEl ? logoWrapperEl.getBoundingClientRect() : lRect;
 
         const isSmallMobile = vW < 480;
         const isMobile = vW < 768;
@@ -53,8 +57,9 @@ export default function App() {
 
         setOffsets({
           logo: {
-            x: cX - (lRect.left + lRect.width / 2),
-            y: logoCenter - (lRect.top + lRect.height / 2)
+            // Use wrapper rect (lWRect) — it always has stable dimensions unlike inner img-dependent Logo div
+            x: cX - (lWRect.left + lWRect.width / 2),
+            y: logoCenter - (lWRect.top + lWRect.height / 2)
           },
           question: {
             // On mobile, question spans full width so x is already at cX — force 0 to avoid sub-pixel drift

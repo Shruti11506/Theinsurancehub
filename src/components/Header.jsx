@@ -59,6 +59,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
             className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
           >
             <motion.div
+              id="header-logo-wrapper"
               initial={false}
               animate={
                 introPhase === 'center' && logoOffset
