@@ -426,7 +426,7 @@ export default function App() {
                   <div className="mt-4 flex flex-col gap-3">
                     <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100 group-hover:bg-white group-hover:shadow-sm transition-all">
                       <p className="font-bold text-insurance-orange text-[14px]">Divyesh Adarsh Bafna</p>
-                      <p className="text-[11px] text-slate-600 font-bold text-insurance-darkblue">Mutual Fund Distributor &nbsp;|&nbsp; Chief AP</p>
+                      <p className="text-[11px] text-slate-600 font-bold text-insurance-darkblue">Mutual Fund Distributor &nbsp;|&nbsp; Insurance &amp; Investment Advisor</p>
                       <div className="mt-2 pt-2 border-t border-slate-200 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-semibold">
                          <a href="tel:+919423924568" className="flex items-center gap-1 hover:text-insurance-orange"><Phone className="h-3 w-3"/> 94239 24568</a>
                          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bafnadivyesh405@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-insurance-violet"><Mail className="h-3 w-3 flex-shrink-0"/> bafnadivyesh405@gmail.com</a>
