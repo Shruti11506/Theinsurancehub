@@ -38,106 +38,87 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
     <header
       className="sticky top-0 z-[100] w-full backdrop-blur-md border-b shadow-xs bg-white/95 border-slate-200/80"
     >
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-20 sm:h-24 lg:h-28 flex items-center justify-between relative">
+      <div className="max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6 h-16 sm:h-20 lg:h-28 flex items-center justify-between gap-1.5 sm:gap-3 lg:gap-8">
         
-        {/* Left Side: Logo & Main Navigation */}
-        <div className="flex items-center justify-start gap-4 sm:gap-12 xl:gap-40">
-          <a 
-            id="header-logo-link"
-            href="/" 
-            onClick={(e) => {
-              e.preventDefault();
-              if (onTabChange) onTabChange('Home');
-              if (onNavigate) onNavigate('home');
-            }}
-            className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
-          >
-            <div id="header-logo-wrapper">
-              <Logo id="header-logo" className="h-12 sm:h-14 lg:h-16" />
-            </div>
-          </a>
-          
-          {/* Main Navigation - Tubelight NavBar (Desktop) */}
-          <div className="hidden lg:block scale-90 origin-left relative z-20">
-            <NavBar 
-              items={navItems}
-              activeTab={activeTab}
-              onTabChange={onTabChange}
-            />
+        {/* 1. Left Side: Logo */}
+        <a 
+          id="header-logo-link"
+          href="/" 
+          onClick={(e) => {
+            e.preventDefault();
+            if (onTabChange) onTabChange('Home');
+            if (onNavigate) onNavigate('home');
+          }}
+          className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
+        >
+          <div id="header-logo-wrapper">
+            <Logo id="header-logo" className="h-8 sm:h-12 lg:h-16" />
           </div>
+        </a>
+        
+        {/* 2. Center: Navigation Bar */}
+        <div className="flex items-center justify-center flex-shrink-1 overflow-x-auto no-scrollbar py-1">
+          <NavBar 
+            items={navItems}
+            activeTab={activeTab}
+            onTabChange={onTabChange}
+          />
         </div>
           
-        {/* Right Side: Social Icons & Dropdown Menu */}
-        <div className="flex items-center justify-end gap-2.5 sm:gap-6 relative z-20">
-          {/* Mobile Quick Call Button */}
-          <a 
-            href="tel:+919423924568" 
-            className="sm:hidden p-2.5 rounded-full bg-blue-50 text-insurance-darkblue hover:bg-blue-100 transition-all shadow-sm border border-blue-100 active:scale-95"
-            title="Call Us"
-            aria-label="Call Us Directly"
-          >
-            <Phone className="h-5 w-5" />
-          </a>
-
-          {/* Mobile Quick WhatsApp Action */}
+        {/* 3. Right Side: Social Icons & 3-Icon Menu Button */}
+        <div className="flex items-center justify-end gap-1 sm:gap-2.5 lg:gap-4 flex-shrink-0">
+          
+          {/* WhatsApp */}
           <a 
             href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="sm:hidden p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-sm border border-emerald-100/60 active:scale-95"
+            className="p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:scale-110 transition-all duration-300 shadow-xs border border-emerald-100/50"
             title="Chat on WhatsApp"
             aria-label="Chat on WhatsApp"
           >
-            <WhatsAppIcon className="h-5 w-5" />
+            <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
           </a>
 
-          {/* Social Direct Links (Desktop & Tablet) */}
-          <div className="hidden sm:flex items-center gap-3 md:gap-5">
-            <a 
-              href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:scale-110 transition-all duration-300 shadow-md border border-emerald-100/50"
-              title="Chat on WhatsApp"
-              aria-label="Chat on WhatsApp"
-            >
-              <WhatsAppIcon className="h-6 w-6 lg:h-7 lg:w-7" />
-            </a>
-            <a 
-              href="https://www.instagram.com/theinsurancehub__?utm_source=qr&igsh=bGJzOGM2M3JmaTF1" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="p-2.5 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 hover:scale-110 transition-all duration-300 shadow-md border border-pink-100/50"
-              title="Follow on Instagram"
-              aria-label="Follow on Instagram"
-            >
-              <InstagramIcon className="h-6 w-6 lg:h-7 lg:w-7" />
-            </a>
-            <a 
-              href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="p-2.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-110 transition-all duration-300 shadow-md border border-blue-100/50"
-              title="Get Directions on Google Maps"
-              aria-label="Get Directions on Google Maps"
-            >
-              <LocationPinIcon className="h-6 w-6 lg:h-7 lg:w-7" />
-            </a>
-            <a 
-              href="https://www.linkedin.com/company/the-insurance-hub001/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="p-2.5 rounded-full bg-sky-50 text-sky-600 hover:bg-sky-100 hover:scale-110 transition-all duration-300 shadow-md border border-sky-100/50"
-              title="Follow on LinkedIn"
-              aria-label="Follow on LinkedIn"
-            >
-              <svg className="h-6 w-6 lg:h-7 lg:w-7" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </a>
-          </div>
+          {/* Instagram */}
+          <a 
+            href="https://www.instagram.com/theinsurancehub__?utm_source=qr&igsh=bGJzOGM2M3JmaTF1" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 hover:scale-110 transition-all duration-300 shadow-xs border border-pink-100/50"
+            title="Follow on Instagram"
+            aria-label="Follow on Instagram"
+          >
+            <InstagramIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
+          </a>
 
-          {/* Universal Dropdown & Action Sheet Menu (Mobile & Desktop) */}
+          {/* Google Maps */}
+          <a 
+            href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-110 transition-all duration-300 shadow-xs border border-blue-100/50"
+            title="Get Directions on Google Maps"
+            aria-label="Get Directions on Google Maps"
+          >
+            <LocationPinIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
+          </a>
+
+          {/* LinkedIn */}
+          <a 
+            href="https://www.linkedin.com/company/the-insurance-hub001/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hidden xs:inline-flex p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-sky-50 text-sky-600 hover:bg-sky-100 hover:scale-110 transition-all duration-300 shadow-xs border border-sky-100/50"
+            title="Follow on LinkedIn"
+            aria-label="Follow on LinkedIn"
+          >
+            <svg className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+
+          {/* 4. Three-icon Menu Button (Dropdown / Action Sheet) */}
           <div className="relative flex items-center">
             <MenuContainer>
               <MenuItem
@@ -199,16 +180,6 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
 
         </div>
 
-      </div>
-
-      {/* Mobile & Tablet Floating Tubelight Navigation Bar */}
-      <div className="lg:hidden fixed bottom-2 sm:bottom-3.5 left-1/2 -translate-x-1/2 z-[90] scale-[0.88] sm:scale-100 origin-bottom pointer-events-auto">
-        <NavBar 
-          items={navItems}
-          activeTab={activeTab}
-          onTabChange={onTabChange}
-          className="shadow-xl"
-        />
       </div>
 
     </header>

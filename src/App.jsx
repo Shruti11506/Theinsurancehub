@@ -813,7 +813,7 @@ export default function App() {
       )}
 
       {/* 4. Comprehensive Footer */}
-      <footer className="bg-slate-900 text-slate-400 pt-20 pb-24 sm:pb-28 lg:pb-12 border-t border-slate-800">
+      <footer className="bg-slate-900 text-slate-400 pt-20 pb-12 border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-3 gap-12 pb-16 border-b border-slate-800">
           
           {/* Col 1: About company */}
