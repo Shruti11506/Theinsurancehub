@@ -16,6 +16,7 @@
     font-family: 'Roboto', sans-serif;
     background-color: #f8fafc; /* Slate-50 - premium light bg */
     color: #1e293b; /* Slate-800 - professional dark text */
+    font-size: 87.5%; /* ~14px base — scales all rem units down uniformly */
   }
   
   h1, h2, h3, h4, h5, h6, .font-sans {
