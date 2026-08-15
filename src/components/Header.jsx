@@ -202,12 +202,12 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
       </div>
 
       {/* Mobile & Tablet Floating Tubelight Navigation Bar */}
-      <div className="lg:hidden fixed bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-[90] w-auto max-w-[calc(100vw-16px)] sm:max-w-md px-1 pointer-events-auto">
+      <div className="lg:hidden fixed bottom-2 sm:bottom-3.5 left-1/2 -translate-x-1/2 z-[90] scale-[0.88] sm:scale-100 origin-bottom pointer-events-auto">
         <NavBar 
           items={navItems}
           activeTab={activeTab}
           onTabChange={onTabChange}
-          className="shadow-2xl"
+          className="shadow-xl"
         />
       </div>
 
