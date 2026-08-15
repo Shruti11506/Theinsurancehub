@@ -264,15 +264,15 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
         {/* Trigger Button */}
         <button
           type="button"
-          className="relative w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-blue-50/80 hover:bg-blue-100/80 cursor-pointer rounded-full z-50 flex items-center justify-center text-insurance-darkblue border border-blue-100 transition-all duration-150 hover:shadow-sm active:scale-95 flex-shrink-0 outline-none"
+          className="relative w-7 h-7 xs:w-8 xs:h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 bg-blue-50/80 hover:bg-blue-100/80 cursor-pointer rounded-full z-50 flex items-center justify-center text-insurance-darkblue border border-blue-100/80 transition-all duration-150 hover:shadow-xs active:scale-95 flex-shrink-0 outline-none"
           onClick={handleToggle}
           aria-label={isExpanded ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isExpanded}
         >
           {isExpanded ? (
-            <X className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" strokeWidth={2.4} />
+            <X className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-red-500" strokeWidth={2.3} />
           ) : (
-            <MenuIcon className="w-5 h-5 sm:w-6 sm:h-6 text-insurance-darkblue" strokeWidth={2.4} />
+            <MenuIcon className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-insurance-darkblue" strokeWidth={2.3} />
           )}
         </button>
 

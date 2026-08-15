@@ -65,51 +65,51 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
           />
         </div>
           
-        {/* 3. Right Side: Social Icons & 3-Icon Menu Button */}
-        <div className="flex items-center justify-end gap-1 sm:gap-2.5 lg:gap-4 flex-shrink-0">
+        {/* 3. Right Side: Social Icons (Desktop) & Sleek 3-Line Menu Button */}
+        <div className="flex items-center justify-end gap-1.5 sm:gap-2.5 lg:gap-4 flex-shrink-0">
           
-          {/* WhatsApp */}
+          {/* WhatsApp (Desktop/Tablet only) */}
           <a 
             href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:scale-110 transition-all duration-300 shadow-xs border border-emerald-100/50"
+            className="hidden md:inline-flex p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:scale-110 transition-all duration-300 shadow-xs border border-emerald-100/50"
             title="Chat on WhatsApp"
             aria-label="Chat on WhatsApp"
           >
             <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
           </a>
 
-          {/* Instagram */}
+          {/* Instagram (Desktop/Tablet only - hidden on mobile to give space for navbar) */}
           <a 
             href="https://www.instagram.com/theinsurancehub__?utm_source=qr&igsh=bGJzOGM2M3JmaTF1" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 hover:scale-110 transition-all duration-300 shadow-xs border border-pink-100/50"
+            className="hidden md:inline-flex p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 hover:scale-110 transition-all duration-300 shadow-xs border border-pink-100/50"
             title="Follow on Instagram"
             aria-label="Follow on Instagram"
           >
             <InstagramIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
           </a>
 
-          {/* Google Maps */}
+          {/* Google Maps (Desktop/Tablet only) */}
           <a 
             href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-110 transition-all duration-300 shadow-xs border border-blue-100/50"
+            className="hidden md:inline-flex p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-110 transition-all duration-300 shadow-xs border border-blue-100/50"
             title="Get Directions on Google Maps"
             aria-label="Get Directions on Google Maps"
           >
             <LocationPinIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
           </a>
 
-          {/* LinkedIn */}
+          {/* LinkedIn (Desktop/Tablet only) */}
           <a 
             href="https://www.linkedin.com/company/the-insurance-hub001/" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="hidden xs:inline-flex p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-sky-50 text-sky-600 hover:bg-sky-100 hover:scale-110 transition-all duration-300 shadow-xs border border-sky-100/50"
+            className="hidden lg:inline-flex p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-sky-50 text-sky-600 hover:bg-sky-100 hover:scale-110 transition-all duration-300 shadow-xs border border-sky-100/50"
             title="Follow on LinkedIn"
             aria-label="Follow on LinkedIn"
           >
