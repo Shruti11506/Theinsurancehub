@@ -40,26 +40,38 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
     >
       <div className="max-w-[1600px] mx-auto">
         
-        {/* ── TOP SECTION (Row 1): Logo & Action Icons (Call, WhatsApp, Maps, Instagram, Menu) ── */}
-        <div className="px-3 sm:px-6 h-14 sm:h-16 lg:h-20 flex items-center justify-between border-b border-slate-100/80">
+        {/* ── TOP SECTION (Row 1): Logo (+ Desktop NavBar) & Action Icons ── */}
+        <div className="px-3 sm:px-6 h-14 sm:h-16 lg:h-24 flex items-center justify-between border-b lg:border-b-0 border-slate-100/80">
           
-          {/* Logo */}
-          <a 
-            id="header-logo-link"
-            href="/" 
-            onClick={(e) => {
-              e.preventDefault();
-              if (onTabChange) onTabChange('Home');
-              if (onNavigate) onNavigate('home');
-            }}
-            className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
-          >
-            <div id="header-logo-wrapper">
-              <Logo id="header-logo" className="h-9 sm:h-12 lg:h-14" />
+          {/* Left Side: Logo & Desktop Navigation Bar */}
+          <div className="flex items-center gap-4 sm:gap-8 lg:gap-12 xl:gap-24">
+            {/* Logo */}
+            <a 
+              id="header-logo-link"
+              href="/" 
+              onClick={(e) => {
+                e.preventDefault();
+                if (onTabChange) onTabChange('Home');
+                if (onNavigate) onNavigate('home');
+              }}
+              className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
+            >
+              <div id="header-logo-wrapper">
+                <Logo id="header-logo" className="h-9 sm:h-12 lg:h-15" />
+              </div>
+            </a>
+
+            {/* Desktop Navigation Bar (Beside Logo on Laptop/Desktop only) */}
+            <div className="hidden lg:block relative z-20">
+              <NavBar 
+                items={navItems}
+                activeTab={activeTab}
+                onTabChange={onTabChange}
+              />
             </div>
-          </a>
+          </div>
           
-          {/* Top Right Action Icons: Call, WhatsApp, Map, Instagram & 3-line Menu */}
+          {/* Right Side: Action Icons (Call, WhatsApp, Map, Instagram & 3-line Menu) */}
           <div className="flex items-center gap-1.5 sm:gap-3 lg:gap-4 flex-shrink-0">
             
             {/* Call Icon */}
@@ -172,8 +184,8 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
 
         </div>
 
-        {/* ── BOTTOM SECTION (Row 2): Tubelight Navigation Bar ── */}
-        <div className="px-2 sm:px-4 py-1.5 sm:py-2 flex items-center justify-center bg-slate-50/60 backdrop-blur-sm overflow-x-auto no-scrollbar">
+        {/* ── MOBILE ONLY SECTION (Row 2): Tubelight Navigation Bar ── */}
+        <div className="lg:hidden px-2 sm:px-4 py-1.5 sm:py-2 flex items-center justify-center bg-slate-50/60 backdrop-blur-sm overflow-x-auto no-scrollbar">
           <NavBar 
             items={navItems}
             activeTab={activeTab}
