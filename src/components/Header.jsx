@@ -44,7 +44,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
         <div className="px-3 sm:px-6 h-14 sm:h-16 lg:h-24 flex items-center justify-between border-b lg:border-b-0 border-slate-100/80">
           
           {/* Left Side: Logo & Desktop Navigation Bar */}
-          <div className="flex items-center gap-4 sm:gap-8 lg:gap-12 xl:gap-24">
+          <div className="flex items-center gap-4 sm:gap-8 lg:gap-32 xl:gap-48">
             {/* Logo */}
             <a 
               id="header-logo-link"
@@ -57,7 +57,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
             >
               <div id="header-logo-wrapper">
-                <Logo id="header-logo" className="h-9 sm:h-12 lg:h-15" />
+                <Logo id="header-logo" className="h-9 sm:h-12 lg:h-20" />
               </div>
             </a>
 
