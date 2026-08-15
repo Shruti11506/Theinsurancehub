@@ -3,7 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+    <link rel="apple-touch-icon" href="/logo.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Disable browser scroll restoration so we always start at top
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      // Ensure page starts at top on load and refresh
+      window.scrollTo(0, 0);
+      document.addEventListener('DOMContentLoaded', function() {
+        window.scrollTo(0, 0);
+      });
+      window.addEventListener('pageshow', function() {
+        window.scrollTo(0, 0);
+      });
+    </script>
     
     <!-- Primary Meta Tags -->
     <title>TheInsuranceHub - All Companies, Insurance & Mutual Funds Under One Roof</title>

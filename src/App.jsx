@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Logo from './components/Logo';
 import AboutUsPage from './components/AboutUsPage';
@@ -14,115 +14,60 @@ import TypewriterText from './components/ui/typewriter-text';
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [activeTab, setActiveTab] = useState('Home');
-  const [introPhase, setIntroPhase] = useState('center'); // 'center' -> 'move' -> 'done'
-  const [offsets, setOffsets] = useState(null);
+  // Intro: true = show overlay, false = show main content
+  const [showIntro, setShowIntro] = useState(true);
 
+  // Force scroll to top before anything renders (defeats browser scroll restoration)
   useLayoutEffect(() => {
-    const calculateOffsets = () => {
-      const vW = window.innerWidth;
-      const vH = window.innerHeight;
-      const cX = vW / 2;
-      const cY = vH / 2;
-
-      const logoEl = document.getElementById('header-logo-wrapper') || document.getElementById('header-logo');
-      const qEl = document.getElementById('hero-question');
-      const sEl = document.getElementById('hero-statement');
-
-      if (logoEl && qEl && sEl) {
-        const lRect = logoEl.getBoundingClientRect();
-        const qRect = qEl.getBoundingClientRect();
-        const sRect = sEl.getBoundingClientRect();
-
-        // On mobile, also measure the logo wrapper directly for accurate x centering
-        const logoWrapperEl = document.getElementById('header-logo-wrapper');
-        const lWRect = logoWrapperEl ? logoWrapperEl.getBoundingClientRect() : lRect;
-
-        const isSmallMobile = vW < 480;
-        const isMobile = vW < 768;
-
-        // Full viewport centering — header is hidden during intro so full vH is available
-        // Logo sits comfortably above center, Question in middle, Statement below with clear gaps
-        const logoH = lRect.height;
-        const qH = qRect.height;
-        const sH = sRect.height;
-        const gap = isSmallMobile ? 32 : isMobile ? 40 : 48;
-
-        // Total block height: logo + gap + question + gap + statement
-        const totalH = logoH + gap + qH + gap + sH;
-        const blockTop = cY - totalH / 2;
-
-        const logoCenter = blockTop + logoH / 2;
-        const qCenter = blockTop + logoH + gap + qH / 2;
-        const sCenter = blockTop + logoH + gap + qH + gap + sH / 2;
-
-        setOffsets({
-          logo: {
-            x: cX - (lWRect.left + lWRect.width / 2) - (isMobile ? 30 : 0),
-            y: logoCenter - (lWRect.top + lWRect.height / 2)
-          },
-          question: {
-            // On mobile, question spans full width so x is already at cX — force 0 to avoid sub-pixel drift
-            x: isMobile ? 0 : cX - (qRect.left + qRect.width / 2),
-            y: qCenter - (qRect.top + qRect.height / 2)
-          },
-          statement: {
-            // On mobile, statement spans full width so x is already at cX — force 0 to avoid sub-pixel drift
-            x: isMobile ? 0 : cX - (sRect.left + sRect.width / 2),
-            y: sCenter - (sRect.top + sRect.height / 2)
-          }
-        });
-      }
-    };
-
-    calculateOffsets();
-    window.addEventListener('resize', calculateOffsets);
-
-    // 1. Centered for 2.2s so user can comfortably read
-    // 2. Smooth continuous glide to home begins at 2.2s
-    const moveTimer = setTimeout(() => {
-      setIntroPhase('move');
-    }, 2200);
-
-    // 3. Completes naturally at 3.55s and locks permanently
-    const doneTimer = setTimeout(() => {
-      setIntroPhase('done');
-    }, 3550);
-
-    return () => {
-      clearTimeout(moveTimer);
-      clearTimeout(doneTimer);
-      window.removeEventListener('resize', calculateOffsets);
-    };
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    const onPageShow = () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.addEventListener('pageshow', onPageShow);
+    return () => window.removeEventListener('pageshow', onPageShow);
   }, []);
 
+  // Lock body scroll while intro is showing, release when done
+  useEffect(() => {
+    if (showIntro) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+      // Auto-dismiss intro after 2.8s
+      const timer = setTimeout(() => setShowIntro(false), 2800);
+      return () => {
+        clearTimeout(timer);
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      };
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+  }, [showIntro]);
+
   const handleNavigate = (page, targetId) => {
-    // 1. Immediately update the tab state so the tubelight animates smoothly
     if (page === 'about') {
       setActiveTab('About Us');
     } else if (page === 'home') {
-      if (targetId === 'services') {
-        setActiveTab('Services');
-      } else if (targetId === 'contact') {
-        setActiveTab('Contact Us');
-      } else if (targetId === 'testimonials') {
-        setActiveTab('Feedbacks');
-      } else if (targetId === 'faqs') {
-        setActiveTab('FAQs');
-      } else {
-        setActiveTab('Home');
-      }
+      if (targetId === 'services') setActiveTab('Services');
+      else if (targetId === 'contact') setActiveTab('Contact Us');
+      else if (targetId === 'testimonials') setActiveTab('Feedbacks');
+      else if (targetId === 'faqs') setActiveTab('FAQs');
+      else setActiveTab('Home');
     }
-
-    // 2. Page navigation with smooth scroll
     setTimeout(() => {
       setCurrentPage(page);
-      
       if (page === 'home' && targetId) {
         setTimeout(() => {
           const element = document.getElementById(targetId);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
+          if (element) element.scrollIntoView({ behavior: 'smooth' });
         }, 50);
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -130,26 +75,80 @@ export default function App() {
     }, 250);
   };
 
-  const handleSkipIntro = () => {
-    if (introPhase === 'center') {
-      setIntroPhase('move');
-    }
-  };
-
   return (
-    <div 
-      onClick={handleSkipIntro}
-      className="flex flex-col min-h-screen w-full bg-zinc-50 antialiased font-sans relative"
-    >
-      {/* ── Background Veil Backdrop (Uniform, Clean, Dissolves softly on move) ── */}
-      {introPhase !== 'done' && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: introPhase === 'move' ? 0 : 1 }}
-          transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-20 bg-slate-50/98 backdrop-blur-xl pointer-events-none"
-        />
-      )}
+    <div className="flex flex-col min-h-screen w-full bg-zinc-50 antialiased font-sans relative">
+
+      {/* ── ICICI-style Intro Overlay ── */}
+      <AnimatePresence>
+        {showIntro && (
+          <motion.div
+            key="intro-overlay"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0 } }}
+            className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-white px-6"
+            onClick={() => setShowIntro(false)}
+          >
+            {/* Logo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="mb-8 sm:mb-10"
+            >
+              <Logo className="h-24 sm:h-28 lg:h-32" />
+            </motion.div>
+
+            {/* Tagline Question */}
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
+              className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent uppercase text-center max-w-3xl mb-5"
+            >
+              Confused about choosing the right insurance?
+            </motion.h1>
+
+            {/* Answer */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6, ease: 'easeOut' }}
+              className="text-base sm:text-2xl font-bold text-slate-800 text-center leading-relaxed"
+            >
+              All companies, insurance and mutual funds under one roof.
+            </motion.p>
+
+            {/* Italic Quote */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.9, ease: 'easeOut' }}
+              className="text-sm sm:text-lg italic font-medium text-slate-400 tracking-wide font-serif text-center mt-4"
+            >
+              &ldquo;Secure today, protect tomorrow.&rdquo;
+            </motion.p>
+
+            {/* Loading bar — like ICICI */}
+            <motion.div
+              className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-insurance-darkblue via-insurance-orange to-insurance-green"
+              initial={{ width: '0%' }}
+              animate={{ width: '100%' }}
+              transition={{ duration: 2.6, ease: 'linear' }}
+            />
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2, duration: 0.4 }}
+              className="absolute bottom-4 text-xs text-slate-300 tracking-widest"
+            >
+              tap anywhere to skip
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+
 
       {/* 1. Header Navigation */}
       <Header
@@ -157,8 +156,6 @@ export default function App() {
         currentPage={currentPage}
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        introPhase={introPhase}
-        logoOffset={offsets?.logo}
       />
 
       {currentPage === 'about' ? (
@@ -168,7 +165,7 @@ export default function App() {
       ) : (
         <>
           {/* 2. Hero Section */}
-      <section className="relative z-30 overflow-hidden pt-4 pb-16 lg:pt-8 lg:pb-24 flex-grow flex items-center">
+      <section className="relative z-30 pt-4 pb-16 lg:pt-8 lg:pb-24 flex-grow flex items-center">
         {/* Uniform clean background */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/30 pointer-events-none"></div>
 
@@ -178,61 +175,40 @@ export default function App() {
             {/* LEFT: Question, Answer & Quote */}
             <div id="hero-text-block" className="flex-1 space-y-7 relative z-30 w-full text-center">
               
-              {/* Core Question -> Single-source continuous motion directly into its fixed home position */}
-              <motion.h1
-                id="hero-question"
-                initial={false}
-                animate={
-                  introPhase === 'center' && offsets
-                    ? { x: offsets.question.x, y: offsets.question.y, opacity: 1 }
-                    : { x: 0, y: 0, opacity: 1 }
-                }
-                transition={{
-                  duration: introPhase === 'move' ? 1.35 : 0,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 text-center w-full"
-                style={{ willChange: 'transform' }}
-              >
-                <TypewriterText duration={0.8}>
-                  Confused about choosing the right insurance?
-                </TypewriterText>
-              </motion.h1>
+              {/* Core Question */}
+              <div id="hero-question-anchor" className="w-full">
+                <h1
+                  id="hero-question"
+                  className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 text-center w-full"
+                >
+                  <TypewriterText duration={0.8}>
+                    Confused about choosing the right insurance?
+                  </TypewriterText>
+                </h1>
+              </div>
               
-              {/* Statement Block -> Single-source continuous motion directly into its fixed home position */}
-              <motion.div
-                id="hero-statement"
-                initial={false}
-                animate={
-                  introPhase === 'center' && offsets
-                    ? { x: offsets.statement.x, y: offsets.statement.y, opacity: 1 }
-                    : { x: 0, y: 0, opacity: 1 }
-                }
-                transition={{
-                  duration: introPhase === 'move' ? 1.35 : 0,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-                className="space-y-4 sm:space-y-7 relative z-30 flex flex-col items-center text-center w-full"
-                style={{ willChange: 'transform' }}
-              >
-                {/* Answer */}
-                <p id="hero-answer" className="text-base sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-insurance-orange text-center">
-                  All companies, insurance and mutual funds <br className="hidden sm:inline" />
-                  under one roof.
-                </p>
+              {/* Statement Block */}
+              <div id="hero-statement-anchor" className="w-full">
+                <div
+                  id="hero-statement"
+                  className="space-y-4 sm:space-y-7 relative z-30 flex flex-col items-center text-center w-full"
+                >
+                  {/* Answer */}
+                  <p id="hero-answer" className="text-base sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-insurance-orange text-center">
+                    All companies, insurance and mutual funds <br className="hidden sm:inline" />
+                    under one roof.
+                  </p>
 
-                {/* Italic Quote */}
-                <p id="hero-quote" className="text-[14px] sm:text-[19px] italic font-medium text-slate-500 tracking-wide font-serif text-center">
-                  &ldquo;Secure today, protect tomorrow.&rdquo;
-                </p>
-              </motion.div>
+                  {/* Italic Quote */}
+                  <p id="hero-quote" className="text-[14px] sm:text-[19px] italic font-medium text-slate-500 tracking-wide font-serif text-center">
+                    &ldquo;Secure today, protect tomorrow.&rdquo;
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* RIGHT: Moving Floating Cards Gallery */}
-            <motion.div
-              initial={false}
-              animate={{ opacity: introPhase === 'center' ? 0 : 1 }}
-              transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+            <div
               className="flex-shrink-0 w-full lg:w-[460px] xl:w-[540px] h-[340px] sm:h-[450px] xl:h-[580px] relative overflow-hidden rounded-[32px] sm:rounded-[40px] flex justify-center items-center shadow-2xl shadow-blue-900/10 border-4 sm:border-[8px] border-white/60 bg-white/30 backdrop-blur-3xl"
             >
               {/* Glow background */}
@@ -299,7 +275,7 @@ export default function App() {
                     </div>
                  </Marquee>
               </div>
-            </motion.div>
+            </div>
 
           </div>
         </div>
