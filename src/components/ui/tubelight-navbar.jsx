@@ -15,29 +15,18 @@ import { cn } from "@/lib/utils"
  */
 export function NavBar({ items, className, activeTab: controlledActive, onTabChange }) {
   const [internalActive, setInternalActive] = useState(items[0]?.name)
-  const [isMobile, setIsMobile] = useState(false)
 
   const activeTab = controlledActive || internalActive
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
 
   return (
     <div
       className={cn(
-        "z-50",
+        "z-50 select-none",
         className,
       )}
     >
       <LayoutGroup>
-        <div className="flex items-center gap-4 bg-white/80 border border-slate-200/80 backdrop-blur-lg py-1.5 px-1.5 rounded-full shadow-premium">
+        <div className="flex items-center gap-1 sm:gap-2 md:gap-4 bg-white/90 border border-slate-200/90 backdrop-blur-xl py-1 px-1 sm:py-1.5 sm:px-1.5 rounded-full shadow-xl shadow-slate-900/10">
           {items.map((item) => {
             const Icon = item.icon
             const isActive = activeTab === item.name
@@ -53,29 +42,29 @@ export function NavBar({ items, className, activeTab: controlledActive, onTabCha
                   if (item.onClick) item.onClick()
                 }}
                 className={cn(
-                  "relative cursor-pointer text-[16px] font-bold py-3.5 rounded-full transition-colors flex items-center justify-center gap-2",
-                  "w-[135px] xl:w-[150px]",
+                  "relative cursor-pointer text-xs sm:text-sm md:text-[15px] lg:text-[16px] font-bold py-2 sm:py-2.5 lg:py-3.5 px-2.5 sm:px-3 lg:px-0 rounded-full transition-colors flex items-center justify-center gap-1 sm:gap-1.5 lg:gap-2",
+                  "flex-1 sm:flex-initial sm:min-w-[85px] md:min-w-[105px] lg:w-[135px] xl:w-[150px]",
                   "text-slate-600 hover:text-insurance-darkblue",
-                  isActive && "text-insurance-darkblue",
+                  isActive && "text-insurance-darkblue font-extrabold",
                 )}
               >
-                <Icon size={20} strokeWidth={2.3} className="relative z-10" />
-                <span className="relative z-10 hidden md:inline">{item.name}</span>
+                <Icon size={18} strokeWidth={2.3} className="relative z-10 sm:w-5 sm:h-5 flex-shrink-0" />
+                <span className="relative z-10 inline whitespace-nowrap">{item.name}</span>
                 {isActive && (
                   <motion.div
                     layoutId="tubelight-lamp"
-                    className="absolute inset-0 w-full bg-slate-100 rounded-full z-0"
+                    className="absolute inset-0 w-full bg-slate-100/90 rounded-full z-0 shadow-inner"
                     initial={false}
                     transition={{
                       type: "spring",
-                      stiffness: 300,
-                      damping: 30,
+                      stiffness: 350,
+                      damping: 32,
                     }}
                   >
-                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-8 h-1 bg-insurance-darkblue rounded-t-full z-10">
-                      <div className="absolute w-12 h-6 bg-insurance-darkblue/10 rounded-full blur-md -top-2 -left-2" />
-                      <div className="absolute w-8 h-6 bg-insurance-darkblue/5 rounded-full blur-md -top-1" />
-                      <div className="absolute w-4 h-4 bg-insurance-darkblue/5 rounded-full blur-sm top-0 left-2" />
+                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-6 sm:w-8 h-1 bg-insurance-darkblue rounded-t-full z-10">
+                      <div className="absolute w-8 sm:w-12 h-4 sm:h-6 bg-insurance-darkblue/20 rounded-full blur-md -top-2 -left-1 sm:-left-2" />
+                      <div className="absolute w-6 sm:w-8 h-4 sm:h-6 bg-insurance-darkblue/10 rounded-full blur-md -top-1" />
+                      <div className="absolute w-3 sm:w-4 h-3 sm:h-4 bg-insurance-darkblue/15 rounded-full blur-sm top-0 left-1.5 sm:left-2" />
                     </div>
                   </motion.div>
                 )}
