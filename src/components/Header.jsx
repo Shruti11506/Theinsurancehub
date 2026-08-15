@@ -38,146 +38,147 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
     <header
       className="sticky top-0 z-[100] w-full backdrop-blur-md border-b shadow-xs bg-white/95 border-slate-200/80"
     >
-      <div className="max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6 h-16 sm:h-20 lg:h-28 flex items-center justify-between gap-1.5 sm:gap-3 lg:gap-8">
+      <div className="max-w-[1600px] mx-auto">
         
-        {/* 1. Left Side: Logo */}
-        <a 
-          id="header-logo-link"
-          href="/" 
-          onClick={(e) => {
-            e.preventDefault();
-            if (onTabChange) onTabChange('Home');
-            if (onNavigate) onNavigate('home');
-          }}
-          className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
-        >
-          <div id="header-logo-wrapper">
-            <Logo id="header-logo" className="h-8 sm:h-12 lg:h-16" />
+        {/* ── TOP SECTION (Row 1): Logo & Action Icons (Call, WhatsApp, Maps, Instagram, Menu) ── */}
+        <div className="px-3 sm:px-6 h-14 sm:h-16 lg:h-20 flex items-center justify-between border-b border-slate-100/80">
+          
+          {/* Logo */}
+          <a 
+            id="header-logo-link"
+            href="/" 
+            onClick={(e) => {
+              e.preventDefault();
+              if (onTabChange) onTabChange('Home');
+              if (onNavigate) onNavigate('home');
+            }}
+            className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
+          >
+            <div id="header-logo-wrapper">
+              <Logo id="header-logo" className="h-9 sm:h-12 lg:h-14" />
+            </div>
+          </a>
+          
+          {/* Top Right Action Icons: Call, WhatsApp, Map, Instagram & 3-line Menu */}
+          <div className="flex items-center gap-1.5 sm:gap-3 lg:gap-4 flex-shrink-0">
+            
+            {/* Call Icon */}
+            <a 
+              href="tel:+919423924568" 
+              className="p-1.5 sm:p-2 rounded-full bg-blue-50 text-insurance-darkblue hover:bg-blue-100 transition-all shadow-xs border border-blue-100/60 active:scale-95 flex items-center justify-center"
+              title="Call Us Directly"
+              aria-label="Call Us Directly"
+            >
+              <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
+            </a>
+
+            {/* WhatsApp Icon */}
+            <a 
+              href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-1.5 sm:p-2 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-xs border border-emerald-100/60 active:scale-95 flex items-center justify-center"
+              title="Chat on WhatsApp"
+              aria-label="Chat on WhatsApp"
+            >
+              <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+            </a>
+
+            {/* Google Maps Icon */}
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-1.5 sm:p-2 rounded-full bg-orange-50 text-insurance-orange hover:bg-orange-100 transition-all shadow-xs border border-orange-100/60 active:scale-95 flex items-center justify-center"
+              title="Get Directions on Google Maps"
+              aria-label="Get Directions on Google Maps"
+            >
+              <LocationPinIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+            </a>
+
+            {/* Instagram Icon */}
+            <a 
+              href="https://www.instagram.com/theinsurancehub__?utm_source=qr&igsh=bGJzOGM2M3JmaTF1" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hidden sm:flex p-1.5 sm:p-2 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 transition-all shadow-xs border border-pink-100/60 active:scale-95 items-center justify-center"
+              title="Follow on Instagram"
+              aria-label="Follow on Instagram"
+            >
+              <InstagramIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+            </a>
+
+            {/* 3-line Menu Button (Dropdown / Action Sheet) */}
+            <div className="relative flex items-center ml-0.5">
+              <MenuContainer>
+                <MenuItem
+                  className="text-blue-600 hover:text-blue-800"
+                  icon={<Home size={19} strokeWidth={2.2} />}
+                  onClick={() => {
+                    if (onTabChange) onTabChange('Home');
+                    if (onNavigate) onNavigate('home');
+                  }}
+                  label="Home"
+                />
+                <MenuItem
+                  className="text-emerald-600 hover:text-emerald-800"
+                  icon={<Briefcase size={19} strokeWidth={2.2} />}
+                  onClick={() => {
+                    if (onTabChange) onTabChange('Services');
+                    if (onNavigate) onNavigate('home', 'services');
+                  }}
+                  label="Services"
+                />
+                <MenuItem 
+                  className="text-amber-500 hover:text-amber-700" 
+                  icon={<Users size={19} strokeWidth={2.2} />}
+                  onClick={() => {
+                    if (onTabChange) onTabChange('About Us');
+                    if (onNavigate) onNavigate('about');
+                  }}
+                  label="About Us"
+                />
+                <MenuItem
+                  className="text-indigo-600 hover:text-indigo-800"
+                  icon={<PhoneCall size={19} strokeWidth={2.2} />}
+                  onClick={() => {
+                    if (onTabChange) onTabChange('Contact Us');
+                    if (onNavigate) onNavigate('home', 'contact');
+                  }}
+                  label="Contact Us"
+                />
+                <MenuItem 
+                  className="text-violet-600 hover:text-violet-800" 
+                  icon={<MessageSquare size={19} strokeWidth={2.2} />}
+                  onClick={() => {
+                    if (onTabChange) onTabChange('Feedbacks');
+                    if (onNavigate) onNavigate('home', 'testimonials');
+                  }}
+                  label="Feedbacks"
+                />
+                <MenuItem 
+                  className="text-sky-600 hover:text-sky-800" 
+                  icon={<HelpCircle size={19} strokeWidth={2.2} />}
+                  onClick={() => {
+                    if (onTabChange) onTabChange('FAQs');
+                    if (onNavigate) onNavigate('home', 'faqs');
+                  }}
+                  label="FAQs"
+                />
+              </MenuContainer>
+            </div>
+
           </div>
-        </a>
-        
-        {/* 2. Center: Navigation Bar */}
-        <div className="flex items-center justify-center flex-shrink-1 overflow-x-auto no-scrollbar py-1">
+
+        </div>
+
+        {/* ── BOTTOM SECTION (Row 2): Tubelight Navigation Bar ── */}
+        <div className="px-2 sm:px-4 py-1.5 sm:py-2 flex items-center justify-center bg-slate-50/60 backdrop-blur-sm overflow-x-auto no-scrollbar">
           <NavBar 
             items={navItems}
             activeTab={activeTab}
             onTabChange={onTabChange}
           />
-        </div>
-          
-        {/* 3. Right Side: Social Icons (Desktop) & Sleek 3-Line Menu Button */}
-        <div className="flex items-center justify-end gap-1.5 sm:gap-2.5 lg:gap-4 flex-shrink-0">
-          
-          {/* WhatsApp (Desktop/Tablet only) */}
-          <a 
-            href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hidden md:inline-flex p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:scale-110 transition-all duration-300 shadow-xs border border-emerald-100/50"
-            title="Chat on WhatsApp"
-            aria-label="Chat on WhatsApp"
-          >
-            <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
-          </a>
-
-          {/* Instagram (Desktop/Tablet only - hidden on mobile to give space for navbar) */}
-          <a 
-            href="https://www.instagram.com/theinsurancehub__?utm_source=qr&igsh=bGJzOGM2M3JmaTF1" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hidden md:inline-flex p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 hover:scale-110 transition-all duration-300 shadow-xs border border-pink-100/50"
-            title="Follow on Instagram"
-            aria-label="Follow on Instagram"
-          >
-            <InstagramIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
-          </a>
-
-          {/* Google Maps (Desktop/Tablet only) */}
-          <a 
-            href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hidden md:inline-flex p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 hover:scale-110 transition-all duration-300 shadow-xs border border-blue-100/50"
-            title="Get Directions on Google Maps"
-            aria-label="Get Directions on Google Maps"
-          >
-            <LocationPinIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
-          </a>
-
-          {/* LinkedIn (Desktop/Tablet only) */}
-          <a 
-            href="https://www.linkedin.com/company/the-insurance-hub001/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hidden lg:inline-flex p-1.5 sm:p-2 lg:p-2.5 rounded-full bg-sky-50 text-sky-600 hover:bg-sky-100 hover:scale-110 transition-all duration-300 shadow-xs border border-sky-100/50"
-            title="Follow on LinkedIn"
-            aria-label="Follow on LinkedIn"
-          >
-            <svg className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-          </a>
-
-          {/* 4. Three-icon Menu Button (Dropdown / Action Sheet) */}
-          <div className="relative flex items-center">
-            <MenuContainer>
-              <MenuItem
-                className="text-blue-600 hover:text-blue-800"
-                icon={<Home size={19} strokeWidth={2.2} />}
-                onClick={() => {
-                  if (onTabChange) onTabChange('Home');
-                  if (onNavigate) onNavigate('home');
-                }}
-                label="Home"
-              />
-              <MenuItem
-                className="text-emerald-600 hover:text-emerald-800"
-                icon={<Briefcase size={19} strokeWidth={2.2} />}
-                onClick={() => {
-                  if (onTabChange) onTabChange('Services');
-                  if (onNavigate) onNavigate('home', 'services');
-                }}
-                label="Services"
-              />
-              <MenuItem 
-                className="text-amber-500 hover:text-amber-700" 
-                icon={<Users size={19} strokeWidth={2.2} />}
-                onClick={() => {
-                  if (onTabChange) onTabChange('About Us');
-                  if (onNavigate) onNavigate('about');
-                }}
-                label="About Us"
-              />
-              <MenuItem
-                className="text-indigo-600 hover:text-indigo-800"
-                icon={<PhoneCall size={19} strokeWidth={2.2} />}
-                onClick={() => {
-                  if (onTabChange) onTabChange('Contact Us');
-                  if (onNavigate) onNavigate('home', 'contact');
-                }}
-                label="Contact Us"
-              />
-              <MenuItem 
-                className="text-violet-600 hover:text-violet-800" 
-                icon={<MessageSquare size={19} strokeWidth={2.2} />}
-                onClick={() => {
-                  if (onTabChange) onTabChange('Feedbacks');
-                  if (onNavigate) onNavigate('home', 'testimonials');
-                }}
-                label="Feedbacks"
-              />
-              <MenuItem 
-                className="text-sky-600 hover:text-sky-800" 
-                icon={<HelpCircle size={19} strokeWidth={2.2} />}
-                onClick={() => {
-                  if (onTabChange) onTabChange('FAQs');
-                  if (onNavigate) onNavigate('home', 'faqs');
-                }}
-                label="FAQs"
-              />
-            </MenuContainer>
-          </div>
-
         </div>
 
       </div>
