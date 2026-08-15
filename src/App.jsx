@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Logo from './components/Logo';
 import AboutUsPage from './components/AboutUsPage';
+import ServicesPage from './components/ServicesPage';
+import ContactUsPage from './components/ContactUsPage';
 import { ImageAutoSlider } from './components/ui/image-auto-slider';
 import { Component as Testimonials } from './components/ui/marquee-card';
 import { Phone, Mail, HeartPulse, Award, Car, BarChart2, Building, ShieldCheck, ArrowRight, MessageSquare, Send } from 'lucide-react';
@@ -55,6 +57,10 @@ export default function App() {
   const handleNavigate = (page, targetId) => {
     if (page === 'about') {
       setActiveTab('About Us');
+    } else if (page === 'services') {
+      setActiveTab('Services');
+    } else if (page === 'contact') {
+      setActiveTab('Contact Us');
     } else if (page === 'home') {
       if (targetId === 'services') setActiveTab('Services');
       else if (targetId === 'contact') setActiveTab('Contact Us');
@@ -62,6 +68,7 @@ export default function App() {
       else if (targetId === 'faqs') setActiveTab('FAQs');
       else setActiveTab('Home');
     }
+
     setTimeout(() => {
       setCurrentPage(page);
       if (page === 'home' && targetId) {
@@ -72,7 +79,7 @@ export default function App() {
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-    }, 250);
+    }, 200);
   };
 
   return (
@@ -161,6 +168,20 @@ export default function App() {
       {currentPage === 'about' ? (
         <main className="flex-grow">
           <AboutUsPage onBack={() => { setCurrentPage('home'); setActiveTab('Home'); }} />
+        </main>
+      ) : currentPage === 'services' ? (
+        <main className="flex-grow">
+          <ServicesPage 
+            onBack={() => { setCurrentPage('home'); setActiveTab('Home'); }} 
+            onNavigate={handleNavigate}
+          />
+        </main>
+      ) : currentPage === 'contact' ? (
+        <main className="flex-grow">
+          <ContactUsPage 
+            onBack={() => { setCurrentPage('home'); setActiveTab('Home'); }} 
+            onNavigate={handleNavigate}
+          />
         </main>
       ) : (
         <>
@@ -829,11 +850,11 @@ export default function App() {
           <div className="text-left space-y-4">
             <h4 className="text-white font-bold text-[14px] uppercase tracking-wider">Insurance Categories</h4>
             <ul className="text-[13px] space-y-2.5 font-medium">
-              <li><a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="hover:text-white transition-colors cursor-pointer">Term Life Insurance</a></li>
-              <li><a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="hover:text-white transition-colors cursor-pointer">Health Insurance</a></li>
-              <li><a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="hover:text-white transition-colors cursor-pointer">Car &amp; Motor Insurance</a></li>
-              <li><a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="hover:text-white transition-colors cursor-pointer">Travel Protection</a></li>
-              <li><a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="hover:text-white transition-colors cursor-pointer">Business Coverage</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Health Insurance</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Term Life Insurance</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Car &amp; Motor Insurance</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Mutual Funds &amp; Wealth SIP</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Business &amp; Commercial Coverage</a></li>
             </ul>
           </div>
 

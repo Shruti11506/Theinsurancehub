@@ -29,9 +29,9 @@ const LocationPinIcon = ({ className }) => (
 export default function Header({ onNavigate, currentPage, activeTab = 'Home', onTabChange }) {
   const navItems = [
     { name: 'Home', url: '#', icon: Home, onClick: () => { onTabChange && onTabChange('Home'); onNavigate && onNavigate('home'); } },
-    { name: 'Services', url: '#', icon: Briefcase, onClick: () => { onTabChange && onTabChange('Services'); onNavigate && onNavigate('home', 'services'); } },
+    { name: 'Services', url: '#', icon: Briefcase, onClick: () => { onTabChange && onTabChange('Services'); onNavigate && onNavigate('services'); } },
     { name: 'About Us', url: '#', icon: Users, onClick: () => { onTabChange && onTabChange('About Us'); onNavigate && onNavigate('about'); } },
-    { name: 'Contact Us', url: '#', icon: PhoneCall, onClick: () => { onTabChange && onTabChange('Contact Us'); onNavigate && onNavigate('home', 'contact'); } },
+    { name: 'Contact Us', url: '#', icon: PhoneCall, onClick: () => { onTabChange && onTabChange('Contact Us'); onNavigate && onNavigate('contact'); } },
   ];
 
   return (
@@ -125,7 +125,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   icon={<Briefcase size={19} strokeWidth={2.2} />}
                   onClick={() => {
                     if (onTabChange) onTabChange('Services');
-                    if (onNavigate) onNavigate('home', 'services');
+                    if (onNavigate) onNavigate('services');
                   }}
                   label="Services"
                 />
@@ -143,7 +143,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   icon={<PhoneCall size={19} strokeWidth={2.2} />}
                   onClick={() => {
                     if (onTabChange) onTabChange('Contact Us');
-                    if (onNavigate) onNavigate('home', 'contact');
+                    if (onNavigate) onNavigate('contact');
                   }}
                   label="Contact Us"
                 />
