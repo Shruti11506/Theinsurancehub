@@ -134,12 +134,18 @@ export default function ContactUsPage({ onBack, onNavigate }) {
                     name="category"
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 outline-none focus:border-insurance-darkblue focus:bg-white transition-all font-semibold"
                   >
-                    <option>Health Insurance (Star Health / Floater)</option>
-                    <option>Term Life Insurance (LIC / Pure Protection)</option>
-                    <option>Motor &amp; Car Insurance (Zero Dep)</option>
-                    <option>Mutual Funds &amp; SIP Planning</option>
-                    <option>Claims Assistance Desk Support</option>
-                    <option>Business / Commercial Cover</option>
+                    <option>Fire Insurance</option>
+                    <option>Life Insurance</option>
+                    <option>Motor &amp; Car Insurance</option>
+                    <option>Business Insurance (Fire, Burglary, Shop)</option>
+                    <option>House &amp; Property</option>
+                    <option>Professional Indemnity</option>
+                    <option>Group Policies</option>
+                    <option>Workmen Compensation</option>
+                    <option>Miscellaneous Insurance</option>
+                    <option>Mutual Funds &amp; SIF</option>
+                    <option>PMS &amp; AIF</option>
+                    <option>Claims Assistance Desk</option>
                   </select>
                 </div>
               </div>

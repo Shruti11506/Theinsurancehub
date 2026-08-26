@@ -8,7 +8,7 @@ export default function FAQs() {
         {
             id: 'item-1',
             question: 'What types of insurance policies do you offer?',
-            answer: 'We offer a comprehensive range of insurance policies, including Health Insurance, Term Life Insurance, Motor & Car Insurance, Business Insurance, and Travel Protection, as well as Mutual Funds & SIP planning.',
+            answer: 'We offer an extensive range of financial & insurance solutions including Fire Insurance, Life Insurance, Motor & Car Insurance, Business Insurance (Fire, Burglary & Shop), House & Property Insurance, Professional Indemnity, Group Policies, Workmen Compensation, Miscellaneous Specialty Covers, Mutual Funds & SIF, PMS & AIF, and our dedicated Claims Assistance Desk.',
         },
         {
             id: 'item-2',

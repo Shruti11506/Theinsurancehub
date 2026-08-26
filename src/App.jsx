@@ -7,10 +7,11 @@ import ServicesPage from './components/ServicesPage';
 import ContactUsPage from './components/ContactUsPage';
 import { ImageAutoSlider } from './components/ui/image-auto-slider';
 import { Component as Testimonials } from './components/ui/marquee-card';
-import { Phone, Mail, HeartPulse, Award, Car, BarChart2, Building, ShieldCheck, ArrowRight, MessageSquare, Send } from 'lucide-react';
+import { Phone, Mail, ArrowRight, MessageSquare, Send, CheckCircle2, Sparkles } from 'lucide-react';
 import { Marquee } from './components/ui/marquee';
 import FAQs from './components/ui/faqs-component';
 import TypewriterText from './components/ui/typewriter-text';
+import { servicesList } from './data/servicesData';
 
 
 export default function App() {
@@ -468,128 +469,86 @@ export default function App() {
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            {/* Service 1: Health Insurance */}
-            <div className="group relative bg-slate-50 hover:bg-white rounded-3xl p-8 border border-slate-100 hover:border-blue-200/60 shadow-sm hover:shadow-2xl hover:shadow-blue-100/50 transition-all duration-500 flex flex-col justify-between overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-insurance-darkblue opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div>
-                <div className="w-14 h-14 rounded-2xl bg-blue-50 text-insurance-darkblue flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-blue-100/50">
-                  <HeartPulse size={28} className="stroke-[2.2]" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-insurance-darkblue transition-colors">Health Insurance</h3>
-                <p className="text-[14px] text-slate-500 font-medium leading-relaxed">
-                  Protect yourself and your family against rising medical inflation. Access comprehensive covers including cashless treatments, OPD visits, critical illnesses, and top-up health plans.
-                </p>
-              </div>
-              <div className="mt-8 flex items-center justify-between border-t border-slate-200/50 pt-4">
-                <span className="text-[12px] font-bold text-insurance-darkblue/70">STAR HEALTH</span>
-                <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="text-slate-400 group-hover:text-insurance-darkblue flex items-center gap-1.5 text-xs font-bold transition-colors">
-                  Get Quote <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {servicesList.map((service) => {
+              const Icon = service.icon;
+              return (
+                <div 
+                  key={service.id}
+                  className="group relative bg-slate-50 hover:bg-white rounded-3xl p-7 border border-slate-100 hover:border-slate-200 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between overflow-hidden"
+                >
+                  <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${service.topBarGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                  <div>
+                    <div className="flex items-center justify-between gap-3 mb-5">
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border ${service.iconBg} group-hover:scale-110 transition-transform duration-500 shadow-xs`}>
+                        <Icon size={26} className="stroke-[2.2]" />
+                      </div>
+                      <span className={service.tagColor}>
+                        {service.tag}
+                      </span>
+                    </div>
 
-            {/* Service 2: Term Life Insurance */}
-            <div className="group relative bg-slate-50 hover:bg-white rounded-3xl p-8 border border-slate-100 hover:border-orange-200/60 shadow-sm hover:shadow-2xl hover:shadow-orange-100/50 transition-all duration-500 flex flex-col justify-between overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 to-insurance-orange opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div>
-                <div className="w-14 h-14 rounded-2xl bg-orange-50 text-insurance-orange flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-orange-100/50">
-                  <Award size={28} className="stroke-[2.2]" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-insurance-orange transition-colors">Term Life Insurance</h3>
-                <p className="text-[14px] text-slate-500 font-medium leading-relaxed">
-                  Secure your family's future even in your absence. Compare high-value life protection policies offering high coverage limits at extremely affordable premiums, with custom riders.
-                </p>
-              </div>
-              <div className="mt-8 flex items-center justify-between border-t border-slate-200/50 pt-4">
-                <span className="text-[12px] font-bold text-insurance-orange/70">100% SECURE CLAIM</span>
-                <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="text-slate-400 group-hover:text-insurance-orange flex items-center gap-1.5 text-xs font-bold transition-colors">
-                  Get Quote <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-insurance-darkblue transition-colors">
+                      {service.title}
+                    </h3>
+                    
+                    <p className="text-[14px] text-slate-500 font-medium leading-relaxed mb-4">
+                      {service.description}
+                    </p>
 
-            {/* Service 3: Motor & Car Insurance */}
-            <div className="group relative bg-slate-50 hover:bg-white rounded-3xl p-8 border border-slate-100 hover:border-emerald-200/60 shadow-sm hover:shadow-2xl hover:shadow-emerald-100/50 transition-all duration-500 flex flex-col justify-between overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 to-insurance-green opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div>
-                <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-insurance-green flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-emerald-100/50">
-                  <Car size={28} className="stroke-[2.2]" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-insurance-green transition-colors">Motor &amp; Car Insurance</h3>
-                <p className="text-[14px] text-slate-500 font-medium leading-relaxed">
-                  Fast quotes and complete coverage for private cars, corporate vehicle fleets, two-wheelers, and commercial cargo trucks, featuring bumper-to-bumper and zero-depreciation add-ons.
-                </p>
-              </div>
-              <div className="mt-8 flex items-center justify-between border-t border-slate-200/50 pt-4">
-                <span className="text-[12px] font-bold text-insurance-green/70">INSTANT PAPERLESS ISSUANCE</span>
-                <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="text-slate-400 group-hover:text-insurance-green flex items-center gap-1.5 text-xs font-bold transition-colors">
-                  Get Quote <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
+                    {/* Sub items for Business Insurance */}
+                    {service.subItems && (
+                      <div className="mb-4 bg-white p-3 rounded-2xl border border-slate-200/60 shadow-xs">
+                        <p className="text-[11px] font-black uppercase text-slate-400 tracking-wider mb-2">
+                          Key Coverage Areas:
+                        </p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {service.subItems.map((sub, idx) => (
+                            <span key={idx} className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-900 bg-blue-50 border border-blue-200/60 px-2 py-0.5 rounded-md">
+                              <CheckCircle2 size={11} className="text-insurance-darkblue" /> {sub}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
-            {/* Service 4: Mutual Funds & SIP */}
-            <div className="group relative bg-slate-50 hover:bg-white rounded-3xl p-8 border border-slate-100 hover:border-purple-200/60 shadow-sm hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-500 flex flex-col justify-between overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-400 to-insurance-violet opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div>
-                <div className="w-14 h-14 rounded-2xl bg-purple-50 text-insurance-violet flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-purple-100/50">
-                  <BarChart2 size={28} className="stroke-[2.2]" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-insurance-violet transition-colors">Mutual Funds &amp; SIP</h3>
-                <p className="text-[14px] text-slate-500 font-medium leading-relaxed">
-                  Start building long-term wealth. Our certified mutual fund distribution desk provides smart SIP planning, asset allocation, and personalized portfolio tracking based on your goals.
-                </p>
-              </div>
-              <div className="mt-8 flex items-center justify-between border-t border-slate-200/50 pt-4">
-                <span className="text-[12px] font-bold text-insurance-violet/70">TOP MUTUAL FUNDS AVAILABLE</span>
-                <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="text-slate-400 group-hover:text-insurance-violet flex items-center gap-1.5 text-xs font-bold transition-colors">
-                  Get Quote <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
+                    {/* Highlight pills */}
+                    {service.highlights && (
+                      <div className="flex flex-wrap gap-1.5 mb-6">
+                        {service.highlights.map((item, idx) => (
+                          <span key={idx} className="text-[11px] font-medium text-slate-600 bg-slate-200/50 px-2 py-0.5 rounded-md">
+                            • {item}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
 
-            {/* Service 5: Business & Commercial Cover */}
-            <div className="group relative bg-slate-50 hover:bg-white rounded-3xl p-8 border border-slate-100 hover:border-slate-300 shadow-sm hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 flex flex-col justify-between overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-slate-400 to-slate-800 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div>
-                <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-slate-200/50">
-                  <Building size={28} className="stroke-[2.2]" />
+                  <div className="mt-4 flex items-center justify-between border-t border-slate-200/50 pt-4">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      {service.category}
+                    </span>
+                    <a 
+                      href="#contact" 
+                      onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} 
+                      className="text-slate-600 group-hover:text-insurance-darkblue flex items-center gap-1.5 text-xs font-black transition-colors bg-white group-hover:bg-blue-50 px-3 py-1.5 rounded-xl border border-slate-200/60 group-hover:border-blue-100"
+                    >
+                      {service.actionText} <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform text-insurance-orange" />
+                    </a>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-slate-800 transition-colors">Business Insurance</h3>
-                <p className="text-[14px] text-slate-500 font-medium leading-relaxed">
-                  Mitigate your business liabilities. We distribute marine transit insurance, fire policies, jeweller's block insurance, shopkeepers coverage, employee health covers, and customized general commercial risks.
-                </p>
-              </div>
-              <div className="mt-8 flex items-center justify-between border-t border-slate-200/50 pt-4">
-                <span className="text-[12px] font-bold text-slate-500">COMPLETE BUSINESS RISK COVERS</span>
-                <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="text-slate-400 group-hover:text-slate-800 flex items-center gap-1.5 text-xs font-bold transition-colors">
-                  Get Quote <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
+              );
+            })}
+          </div>
 
-            {/* Service 6: Claims Assistance Desk */}
-            <div className="group relative bg-slate-50 hover:bg-white rounded-3xl p-8 border border-slate-100 hover:border-blue-200/60 shadow-sm hover:shadow-2xl hover:shadow-blue-100/50 transition-all duration-500 flex flex-col justify-between overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div>
-                <div className="w-14 h-14 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-teal-100/50">
-                  <ShieldCheck size={28} className="stroke-[2.2]" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">Claims Assistance Desk</h3>
-                <p className="text-[14px] text-slate-500 font-medium leading-relaxed">
-                  Stuck with a delayed claim? We offer end-to-end guidance to resolve your health, term, and general insurance claims smoothly. Get professional review and transparent support desk help.
-                </p>
-              </div>
-              <div className="mt-8 flex items-center justify-between border-t border-slate-200/50 pt-4">
-                <span className="text-[12px] font-bold text-teal-600">DEDICATED SUPPORT DESK</span>
-                <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} className="text-slate-400 group-hover:text-teal-600 flex items-center gap-1.5 text-xs font-bold transition-colors">
-                  Get Support <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
-
+          {/* View All Services / Dedicated Page CTA Button */}
+          <div className="mt-12 text-center">
+            <button
+              onClick={() => handleNavigate('services')}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-insurance-darkblue hover:bg-blue-900 text-white font-extrabold text-sm transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              Explore Detailed Services Page <ArrowRight size={16} />
+            </button>
           </div>
         </div>
       </section>
@@ -736,14 +695,20 @@ export default function App() {
                     <label className="text-[12px] font-extrabold uppercase tracking-wider text-slate-500">Interest Category</label>
                     <select 
                       name="category"
-                      className="w-full px-5 py-3.5 bg-white border border-slate-200 rounded-2xl text-[14px] text-slate-500 outline-none focus:border-insurance-darkblue transition-all font-semibold"
+                      className="w-full px-5 py-3.5 bg-white border border-slate-200 rounded-2xl text-[14px] text-slate-700 outline-none focus:border-insurance-darkblue transition-all font-semibold"
                     >
-                      <option>Health Insurance</option>
-                      <option>Term Life Insurance</option>
+                      <option>Fire Insurance</option>
+                      <option>Life Insurance</option>
                       <option>Motor &amp; Car Insurance</option>
-                      <option>Mutual Funds &amp; SIP</option>
-                      <option>Claims Assistance</option>
-                      <option>General / Business Insurance</option>
+                      <option>Business Insurance (Fire, Burglary, Shop)</option>
+                      <option>House &amp; Property</option>
+                      <option>Professional Indemnity</option>
+                      <option>Group Policies</option>
+                      <option>Workmen Compensation</option>
+                      <option>Miscellaneous Insurance</option>
+                      <option>Mutual Funds &amp; SIF</option>
+                      <option>PMS &amp; AIF</option>
+                      <option>Claims Assistance Desk</option>
                     </select>
                   </div>
                 </div>
@@ -850,11 +815,12 @@ export default function App() {
           <div className="text-left space-y-4">
             <h4 className="text-white font-bold text-[14px] uppercase tracking-wider">Insurance Categories</h4>
             <ul className="text-[13px] space-y-2.5 font-medium">
-              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Health Insurance</a></li>
-              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Term Life Insurance</a></li>
-              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Car &amp; Motor Insurance</a></li>
-              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Mutual Funds &amp; Wealth SIP</a></li>
-              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Business &amp; Commercial Coverage</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Fire Insurance</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Life Insurance</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Motor &amp; Car Insurance</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Business Insurance (Fire, Burglary, Shop)</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">House &amp; Property</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Mutual Funds &amp; SIF / PMS</a></li>
             </ul>
           </div>
 
