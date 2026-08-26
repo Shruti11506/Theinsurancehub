@@ -7,7 +7,21 @@ import ServicesPage from './components/ServicesPage';
 import ContactUsPage from './components/ContactUsPage';
 import { ImageAutoSlider } from './components/ui/image-auto-slider';
 import { Component as Testimonials } from './components/ui/marquee-card';
-import { Phone, Mail, ArrowRight, MessageSquare, Send, CheckCircle2, Sparkles } from 'lucide-react';
+import { 
+  Phone, 
+  Mail, 
+  HeartPulse, 
+  Award, 
+  Car, 
+  BarChart2, 
+  Building, 
+  ShieldCheck, 
+  ArrowRight, 
+  MessageSquare, 
+  Send, 
+  CheckCircle2, 
+  Sparkles 
+} from 'lucide-react';
 import { Marquee } from './components/ui/marquee';
 import FAQs from './components/ui/faqs-component';
 import TypewriterText from './components/ui/typewriter-text';
