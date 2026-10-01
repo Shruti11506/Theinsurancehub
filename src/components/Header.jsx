@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import { NavBar } from '@/components/ui/tubelight-navbar';
-import { Home, Users, HelpCircle, PhoneCall, Briefcase, Phone, Menu as MenuIcon, X, MessageSquare } from 'lucide-react';
+import { Home, Users, HelpCircle, PhoneCall, Briefcase, Phone, Menu as MenuIcon, X, MessageSquare, Award } from 'lucide-react';
 import { MenuContainer, MenuItem } from '@/components/ui/fluid-menu';
 
 // WhatsApp SVG icon component
@@ -26,12 +26,52 @@ const LocationPinIcon = ({ className }) => (
   </svg>
 );
 
-export default function Header({ onNavigate, currentPage, activeTab = 'Home', onTabChange }) {
+export default function Header({ onNavigate, currentPage, activeTab = 'Home', onTabChange, scrollToSection }) {
+  const handleNavClick = (targetId, tabName) => {
+    if (scrollToSection) {
+      scrollToSection(targetId, tabName);
+    } else {
+      if (onTabChange) onTabChange(tabName);
+      if (onNavigate) onNavigate('home', targetId);
+    }
+  };
+
   const navItems = [
-    { name: 'Home', url: '#', icon: Home, onClick: () => { onTabChange && onTabChange('Home'); onNavigate && onNavigate('home'); } },
-    { name: 'Services', url: '#', icon: Briefcase, onClick: () => { onTabChange && onTabChange('Services'); onNavigate && onNavigate('services'); } },
-    { name: 'About Us', url: '#', icon: Users, onClick: () => { onTabChange && onTabChange('About Us'); onNavigate && onNavigate('about'); } },
-    { name: 'Contact Us', url: '#', icon: PhoneCall, onClick: () => { onTabChange && onTabChange('Contact Us'); onNavigate && onNavigate('contact'); } },
+    { 
+      name: 'Home', 
+      url: '#home', 
+      targetId: 'home', 
+      icon: Home, 
+      onClick: () => handleNavClick('home', 'Home') 
+    },
+    { 
+      name: 'Services Offered', 
+      url: '#services', 
+      targetId: 'services', 
+      icon: Briefcase, 
+      onClick: () => handleNavClick('services', 'Services Offered') 
+    },
+    { 
+      name: 'Why Us', 
+      url: '#why-us', 
+      targetId: 'why-us', 
+      icon: Award, 
+      onClick: () => handleNavClick('why-us', 'Why Us') 
+    },
+    { 
+      name: 'About Us', 
+      url: '#about', 
+      targetId: 'about', 
+      icon: Users, 
+      onClick: () => handleNavClick('about', 'About Us') 
+    },
+    { 
+      name: 'Contact Us', 
+      url: '#contact', 
+      targetId: 'contact', 
+      icon: PhoneCall, 
+      onClick: () => handleNavClick('contact', 'Contact Us') 
+    },
   ];
 
   return (
@@ -51,8 +91,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               href="/" 
               onClick={(e) => {
                 e.preventDefault();
-                if (onTabChange) onTabChange('Home');
-                if (onNavigate) onNavigate('home');
+                handleNavClick('home', 'Home');
               }}
               className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
             >
@@ -127,55 +166,43 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                 <MenuItem
                   className="text-blue-600 hover:text-blue-800"
                   icon={<Home size={19} strokeWidth={2.2} />}
-                  onClick={() => {
-                    if (onTabChange) onTabChange('Home');
-                    if (onNavigate) onNavigate('home');
-                  }}
+                  onClick={() => handleNavClick('home', 'Home')}
                   label="Home"
                 />
                 <MenuItem
                   className="text-emerald-600 hover:text-emerald-800"
                   icon={<Briefcase size={19} strokeWidth={2.2} />}
-                  onClick={() => {
-                    if (onTabChange) onTabChange('Services');
-                    if (onNavigate) onNavigate('services');
-                  }}
-                  label="Services"
+                  onClick={() => handleNavClick('services', 'Services Offered')}
+                  label="Services Offered"
                 />
                 <MenuItem 
                   className="text-amber-500 hover:text-amber-700" 
+                  icon={<Award size={19} strokeWidth={2.2} />}
+                  onClick={() => handleNavClick('why-us', 'Why Us')}
+                  label="Why Us"
+                />
+                <MenuItem 
+                  className="text-orange-600 hover:text-orange-800" 
                   icon={<Users size={19} strokeWidth={2.2} />}
-                  onClick={() => {
-                    if (onTabChange) onTabChange('About Us');
-                    if (onNavigate) onNavigate('about');
-                  }}
+                  onClick={() => handleNavClick('about', 'About Us')}
                   label="About Us"
                 />
                 <MenuItem
                   className="text-indigo-600 hover:text-indigo-800"
                   icon={<PhoneCall size={19} strokeWidth={2.2} />}
-                  onClick={() => {
-                    if (onTabChange) onTabChange('Contact Us');
-                    if (onNavigate) onNavigate('contact');
-                  }}
+                  onClick={() => handleNavClick('contact', 'Contact Us')}
                   label="Contact Us"
                 />
                 <MenuItem 
                   className="text-violet-600 hover:text-violet-800" 
                   icon={<MessageSquare size={19} strokeWidth={2.2} />}
-                  onClick={() => {
-                    if (onTabChange) onTabChange('Feedbacks');
-                    if (onNavigate) onNavigate('home', 'testimonials');
-                  }}
+                  onClick={() => handleNavClick('testimonials', 'Feedbacks')}
                   label="Feedbacks"
                 />
                 <MenuItem 
                   className="text-sky-600 hover:text-sky-800" 
                   icon={<HelpCircle size={19} strokeWidth={2.2} />}
-                  onClick={() => {
-                    if (onTabChange) onTabChange('FAQs');
-                    if (onNavigate) onNavigate('home', 'faqs');
-                  }}
+                  onClick={() => handleNavClick('faqs', 'FAQs')}
                   label="FAQs"
                 />
               </MenuContainer>

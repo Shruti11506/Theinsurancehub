@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Logo from './components/Logo';
@@ -8,6 +8,7 @@ import ContactUsPage from './components/ContactUsPage';
 import { ImageAutoSlider } from './components/ui/image-auto-slider';
 import { Component as Testimonials } from './components/ui/marquee-card';
 import FeedbackForm from './components/FeedbackForm';
+import { servicesList } from './data/servicesData';
 import { 
   Phone, 
   Mail, 
@@ -32,6 +33,145 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('Home');
   // Intro: true = show overlay, false = show main content
   const [showIntro, setShowIntro] = useState(true);
+
+  const isManualScrollRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
+
+  // Smooth scroll to target section with sticky header offset
+  const scrollToSection = (sectionId, tabName) => {
+    if (tabName) {
+      setActiveTab(tabName);
+    }
+
+    if (currentPage !== 'home') {
+      setCurrentPage('home');
+      setTimeout(() => {
+        executeScroll(sectionId);
+      }, 60);
+      return;
+    }
+
+    executeScroll(sectionId);
+  };
+
+  const executeScroll = (sectionId) => {
+    isManualScrollRef.current = true;
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    scrollTimeoutRef.current = setTimeout(() => {
+      isManualScrollRef.current = false;
+    }, 850);
+
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const isMobile = window.innerWidth < 1024;
+      const headerOffset = isMobile ? 115 : 90;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition > 0 ? offsetPosition : 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Scroll-Spy: IntersectionObserver detecting current section
+  useEffect(() => {
+    if (currentPage !== 'home') return;
+
+    // Ordered list of observed sections and their corresponding navbar tab
+    const sectionsToObserve = [
+      { id: 'home', tab: 'Home' },
+      { id: 'services', tab: 'Services Offered' },
+      { id: 'why-us', tab: 'Why Us' },
+      { id: 'about', tab: 'About Us' },
+      { id: 'workspace', tab: 'About Us' },
+      { id: 'testimonials', tab: 'About Us' },
+      { id: 'feedback', tab: 'About Us' },
+      { id: 'faqs', tab: 'About Us' },
+      { id: 'contact', tab: 'Contact Us' }
+    ];
+
+    const entriesMap = new Map();
+
+    const updateActiveTab = () => {
+      if (isManualScrollRef.current) return;
+
+      // 1. Extreme Top: Always Home
+      if (window.scrollY < 120) {
+        setActiveTab('Home');
+        return;
+      }
+
+      // 2. Extreme Bottom: Always Contact Us
+      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+      if (isAtBottom) {
+        setActiveTab('Contact Us');
+        return;
+      }
+
+      // 3. Find intersecting entries
+      const intersecting = [];
+      entriesMap.forEach((entry, id) => {
+        if (entry.isIntersecting) {
+          intersecting.push({ id, rect: entry.boundingClientRect });
+        }
+      });
+
+      if (intersecting.length === 0) return;
+
+      const headerOffset = window.innerWidth < 1024 ? 130 : 110;
+
+      // Filter sections that have scrolled past the sticky header threshold
+      const passedHeader = intersecting.filter(item => item.rect.top <= headerOffset + 50);
+
+      let activeId = null;
+      if (passedHeader.length > 0) {
+        // The active section is the one closest to the top among those that reached or passed the header
+        passedHeader.sort((a, b) => b.rect.top - a.rect.top);
+        activeId = passedHeader[0].id;
+      } else {
+        // If none has passed header yet, take the one closest to the header
+        intersecting.sort((a, b) => a.rect.top - b.rect.top);
+        activeId = intersecting[0].id;
+      }
+
+      const match = sectionsToObserve.find(s => s.id === activeId);
+      if (match && match.tab) {
+        setActiveTab(match.tab);
+      }
+    };
+
+    const handleScroll = () => {
+      updateActiveTab();
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        entriesMap.set(entry.target.id, entry);
+      });
+      updateActiveTab();
+    }, {
+      root: null,
+      rootMargin: '-100px 0px -40% 0px',
+      threshold: [0, 0.1, 0.25, 0.5, 0.75]
+    });
+
+    sectionsToObserve.forEach(sec => {
+      const el = document.getElementById(sec.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
+  }, [currentPage]);
 
   // Force scroll to top before anything renders (defeats browser scroll restoration)
   useLayoutEffect(() => {
@@ -69,35 +209,31 @@ export default function App() {
   }, [showIntro]);
 
   const handleNavigate = (page, targetId) => {
-    if (page === 'about') {
-      setActiveTab('About Us');
-    } else if (page === 'services') {
-      setActiveTab('Services');
-    } else if (page === 'contact') {
-      setActiveTab('Contact Us');
-    } else if (page === 'home') {
-      if (targetId === 'services') {
-        setActiveTab('Services');
-        setCurrentPage('services');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
-      } else if (targetId === 'contact') setActiveTab('Contact Us');
-      else if (targetId === 'testimonials' || targetId === 'feedback') setActiveTab('Feedbacks');
-      else if (targetId === 'faqs') setActiveTab('FAQs');
-      else setActiveTab('Home');
+    if (page === 'services' || targetId === 'services') {
+      scrollToSection('services', 'Services Offered');
+      return;
     }
-
-    setTimeout(() => {
-      setCurrentPage(page);
-      if (page === 'home' && targetId) {
-        setTimeout(() => {
-          const element = document.getElementById(targetId);
-          if (element) element.scrollIntoView({ behavior: 'smooth' });
-        }, 50);
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }, 200);
+    if (page === 'why-us' || targetId === 'why-us') {
+      scrollToSection('why-us', 'Why Us');
+      return;
+    }
+    if (page === 'about' || targetId === 'about') {
+      scrollToSection('about', 'About Us');
+      return;
+    }
+    if (page === 'contact' || targetId === 'contact') {
+      scrollToSection('contact', 'Contact Us');
+      return;
+    }
+    if (targetId === 'testimonials' || targetId === 'feedback') {
+      scrollToSection('testimonials', 'About Us');
+      return;
+    }
+    if (targetId === 'faqs') {
+      scrollToSection('faqs', 'About Us');
+      return;
+    }
+    scrollToSection('home', 'Home');
   };
 
   return (
@@ -181,6 +317,7 @@ export default function App() {
         currentPage={currentPage}
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        scrollToSection={scrollToSection}
       />
 
       {currentPage === 'about' ? (
@@ -204,7 +341,7 @@ export default function App() {
       ) : (
         <>
           {/* 2. Hero Section */}
-      <section className="relative z-30 pt-4 pb-16 lg:pt-8 lg:pb-24 flex-grow flex items-center overflow-hidden w-full">
+      <section id="home" className="relative z-30 pt-4 pb-16 lg:pt-8 lg:pb-24 flex-grow flex items-center overflow-hidden w-full">
         {/* Uniform clean background */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/30 pointer-events-none"></div>
 
@@ -320,13 +457,108 @@ export default function App() {
         </div>
       </section>
 
-      {/* 3. About Us Section */}
-      <section className="relative py-16 sm:py-24 overflow-hidden bg-white/70 backdrop-blur-md">
+      {/* ═══════════════════════════════════════════════════════
+          SERVICES OFFERED SECTION (Home Page)
+          ═══════════════════════════════════════════════════════ */}
+      <section id="services" className="relative py-20 lg:py-24 overflow-hidden bg-white w-full max-w-full border-t border-slate-100">
+        {/* Background glows */}
+        <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-50/50 blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-orange-50/50 blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
+          {/* Section Heading */}
+          <div className="text-center space-y-4 mb-14 sm:mb-16">
+            <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-orange bg-orange-50 border border-orange-100 px-4 py-1.5 rounded-full w-fit mx-auto font-sans">
+              SERVICES OFFERED
+            </h2>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight uppercase font-sans">
+              COMPREHENSIVE COVERAGE <br />
+              <span className="bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent">
+                UNDER ONE ROOF
+              </span>
+            </h1>
+            <p className="text-base sm:text-lg text-slate-600 font-medium max-w-2xl mx-auto font-sans">
+              We partner with all leading providers to offer unbiased advice, complete transparency, and hassle-free claim settlements.
+            </p>
+          </div>
+
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {servicesList.map((service) => {
+              const Icon = service.icon;
+              return (
+                <div 
+                  key={service.id}
+                  className="group relative bg-slate-50 hover:bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 hover:border-slate-200 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between overflow-hidden"
+                >
+                  <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${service.topBarGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                  <div>
+                    <div className="flex items-center justify-between gap-3 mb-5">
+                      <div className={`w-13 h-13 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center border ${service.iconBg} group-hover:scale-110 transition-transform duration-500 shadow-xs flex-shrink-0`}>
+                        <Icon size={25} className="stroke-[2.2]" />
+                      </div>
+                      <span className={service.tagColor}>
+                        {service.tag}
+                      </span>
+                    </div>
+
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2.5 group-hover:text-insurance-darkblue transition-colors font-sans">
+                      {service.title}
+                    </h3>
+                    
+                    <p className="text-[13px] sm:text-[14px] text-slate-500 font-medium leading-relaxed mb-4">
+                      {service.description}
+                    </p>
+
+                    {service.highlights && (
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {service.highlights.map((h, i) => (
+                          <span key={i} className="text-[11px] font-semibold text-slate-600 bg-white border border-slate-200/70 px-2 py-0.5 rounded-md">
+                            • {h}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between border-t border-slate-200/50 pt-4">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      {service.category}
+                    </span>
+                    <button 
+                      onClick={() => scrollToSection('contact', 'Contact Us')}
+                      className="text-slate-600 group-hover:text-insurance-darkblue flex items-center gap-1.5 text-xs font-black transition-colors bg-white group-hover:bg-blue-50 px-3 py-1.5 rounded-xl border border-slate-200/60 group-hover:border-blue-100 cursor-pointer"
+                    >
+                      {service.actionText} <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform text-insurance-orange" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          WHY US SECTION (Home Page)
+          ═══════════════════════════════════════════════════════ */}
+      <section id="why-us" className="relative py-16 sm:py-24 overflow-hidden bg-slate-50/70 border-t border-slate-100">
         {/* Subtle background texture */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 pointer-events-none"></div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-insurance-darkblue via-insurance-orange via-insurance-green to-insurance-violet"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="text-center space-y-4 mb-12 sm:mb-16">
+            <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-orange bg-orange-50 border border-orange-100 px-4 py-1.5 rounded-full w-fit mx-auto font-sans">
+              WHY CHOOSE US
+            </h2>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight uppercase font-sans">
+              PROVEN TRUST &amp; <br />
+              <span className="bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent">
+                UNMATCHED EXPERTISE
+              </span>
+            </h1>
+          </div>
 
           {/* Stats Badges */}
           <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-12 sm:mb-16">
@@ -350,13 +582,32 @@ export default function App() {
           </div>
 
           {/* Description Text */}
-          <div className="max-w-4xl mx-auto text-center mb-16 sm:mb-20">
+          <div className="max-w-4xl mx-auto text-center">
             <p className="text-[15px] sm:text-[19px] leading-[1.8] sm:leading-[1.9] text-slate-700 font-medium font-sans tracking-wide">
               At <span className="font-extrabold text-insurance-darkblue">The Insurance Hub</span>, we are committed to helping individuals, families, and businesses make confident and informed insurance decisions through trusted guidance and years of industry experience. With expertise across life, health, and general insurance, we simplify complex policies and provide honest, transparent advice tailored to every client's unique needs.
             </p>
             <p className="text-[15px] sm:text-[19px] leading-[1.8] sm:leading-[1.9] text-slate-700 font-medium font-sans tracking-wide mt-4 sm:mt-6">
               Our team works with reputed insurance providers to offer unbiased plan comparisons, personalized recommendations, and complete support from choosing the right policy to claim assistance. We believe insurance is not just about coverage, but about protecting what matters most and building long-term trust through <span className="font-extrabold text-insurance-orange">clarity</span>, <span className="font-extrabold text-insurance-green">reliability</span>, and <span className="font-extrabold text-insurance-violet">dedicated service</span>.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          ABOUT US SECTION (Home Page)
+          ═══════════════════════════════════════════════════════ */}
+      <section id="about" className="relative py-16 sm:py-24 overflow-hidden bg-white/70 backdrop-blur-md border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="text-center space-y-4 mb-12 sm:mb-16">
+            <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-darkblue bg-blue-50 border border-blue-100 px-4 py-1.5 rounded-full w-fit mx-auto font-sans">
+              ABOUT OUR LEADERSHIP
+            </h2>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight uppercase font-sans">
+              MEET THE ADVISORS <br />
+              <span className="bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent">
+                BEHIND YOUR PROTECTION
+              </span>
+            </h1>
           </div>
 
           {/* Profile Cards */}
@@ -493,7 +744,7 @@ export default function App() {
       {/* ═══════════════════════════════════════════════════════
           OUR HUB SECTION (Home Page)
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative py-20 overflow-hidden bg-slate-900 w-full max-w-full">
+      <section id="workspace" className="relative py-20 overflow-hidden bg-slate-900 w-full max-w-full">
         {/* Background decorative blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-insurance-darkblue/10 blur-3xl"></div>
