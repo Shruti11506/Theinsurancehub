@@ -112,12 +112,12 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
           </div>
           
           {/* Right Side: Action Icons (Call, WhatsApp, Map, Instagram & 3-line Menu) */}
-          <div className="flex items-center gap-1.5 sm:gap-3 lg:gap-4 flex-shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 lg:gap-3 flex-shrink-0">
             
             {/* Call Icon */}
             <a 
               href="tel:+919423924568" 
-              className="p-1.5 sm:p-2 rounded-full bg-blue-50 text-insurance-darkblue hover:bg-blue-100 transition-all shadow-xs border border-blue-100/60 active:scale-95 flex items-center justify-center"
+              className="p-2 sm:p-2.5 rounded-full bg-blue-50 text-insurance-darkblue hover:bg-blue-100 transition-all shadow-xs border border-blue-100/60 active:scale-95 flex items-center justify-center"
               title="Call Us Directly"
               aria-label="Call Us Directly"
             >
@@ -129,7 +129,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="p-1.5 sm:p-2 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-xs border border-emerald-100/60 active:scale-95 flex items-center justify-center"
+              className="p-2 sm:p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-xs border border-emerald-100/60 active:scale-95 flex items-center justify-center"
               title="Chat on WhatsApp"
               aria-label="Chat on WhatsApp"
             >
@@ -141,7 +141,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="p-1.5 sm:p-2 rounded-full bg-orange-50 text-insurance-orange hover:bg-orange-100 transition-all shadow-xs border border-orange-100/60 active:scale-95 flex items-center justify-center"
+              className="p-2 sm:p-2.5 rounded-full bg-orange-50 text-insurance-orange hover:bg-orange-100 transition-all shadow-xs border border-orange-100/60 active:scale-95 flex items-center justify-center"
               title="Get Directions on Google Maps"
               aria-label="Get Directions on Google Maps"
             >
@@ -153,7 +153,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               href="https://www.instagram.com/theinsurancehub__?utm_source=qr&igsh=bGJzOGM2M3JmaTF1" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hidden sm:flex p-1.5 sm:p-2 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 transition-all shadow-xs border border-pink-100/60 active:scale-95 items-center justify-center"
+              className="p-2 sm:p-2.5 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 transition-all shadow-xs border border-pink-100/60 active:scale-95 flex items-center justify-center"
               title="Follow on Instagram"
               aria-label="Follow on Instagram"
             >

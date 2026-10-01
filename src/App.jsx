@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Logo from './components/Logo';
 import AboutUsPage from './components/AboutUsPage';
+import AdarshJourneyRoadmap from './components/AdarshJourneyRoadmap';
 import ServicesPage from './components/ServicesPage';
 import ContactUsPage from './components/ContactUsPage';
 import { ImageAutoSlider } from './components/ui/image-auto-slider';
@@ -738,6 +739,9 @@ export default function App() {
             </div>
 
           </div>
+
+          {/* Adarsh Bafna Inspiring Journey Roadmap */}
+          <AdarshJourneyRoadmap />
         </div>
       </section>
 
