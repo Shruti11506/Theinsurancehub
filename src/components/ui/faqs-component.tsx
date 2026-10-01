@@ -33,8 +33,10 @@ export default function FAQs() {
     ]
 
     return (
-        <section id="faqs" className="bg-white py-16 md:py-24 relative overflow-hidden border-t border-slate-100">
-            <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-blue-50/50 blur-3xl pointer-events-none"></div>
+        <section id="faqs" className="bg-white py-16 md:py-24 relative overflow-hidden border-t border-slate-100 w-full max-w-full">
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-blue-50/50 blur-3xl"></div>
+            </div>
             <div className="mx-auto max-w-5xl px-6 relative z-10">
                 <div className="text-center space-y-4 mb-12">
                     <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-orange bg-orange-50 border border-orange-100 px-4 py-1.5 rounded-full w-fit mx-auto">

@@ -199,15 +199,17 @@ export default function AboutUsPage({ onBack }) {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-slate-50/50 pt-4 pb-20 px-4 sm:px-6 relative overflow-hidden">
+    <div className="w-full max-w-full min-h-screen bg-slate-50/50 pt-4 pb-20 relative overflow-hidden">
     
       {/* Background Decorative Blobs */}
-      <div className="absolute top-[10%] right-[-10%] w-[400px] h-[400px] rounded-full bg-blue-100/30 blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-purple-100/20 blur-3xl pointer-events-none"></div>
-      <div className="absolute top-[50%] left-[20%] w-[350px] h-[350px] rounded-full bg-orange-100/20 blur-3xl pointer-events-none"></div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[10%] right-[-10%] w-[400px] h-[400px] rounded-full bg-blue-100/30 blur-3xl"></div>
+        <div className="absolute bottom-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-purple-100/20 blur-3xl"></div>
+        <div className="absolute top-[50%] left-[20%] w-[350px] h-[350px] rounded-full bg-orange-100/20 blur-3xl"></div>
+      </div>
 
       {/* Navigation & Back Button */}
-      <div className="flex justify-start px-4 sm:px-6 mb-4 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-4 relative z-10 flex justify-start">
         <button 
           onClick={onBack}
           className="group flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-slate-900 hover:text-white rounded-full text-slate-700 font-bold text-[15px] shadow-sm border border-slate-200/60 transition-all duration-300 hover:-translate-x-1"
@@ -217,7 +219,7 @@ export default function AboutUsPage({ onBack }) {
         </button>
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
         {/* Header Heading */}
         <div className="text-left space-y-4 mb-12">

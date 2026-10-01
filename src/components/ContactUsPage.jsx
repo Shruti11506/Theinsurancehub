@@ -31,12 +31,14 @@ export default function ContactUsPage({ onBack, onNavigate }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
+    <div className="min-h-screen w-full max-w-full overflow-x-clip bg-slate-50 font-sans text-slate-800 pb-20">
       
       {/* ── 1. Top Hero Header ── */}
-      <div className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-blue-950 text-white pt-10 pb-20 px-4 sm:px-6 overflow-hidden">
-        <div className="absolute top-0 right-[-10%] w-[500px] h-[500px] bg-insurance-orange/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-[-10%] w-[500px] h-[500px] bg-insurance-darkblue/40 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-blue-950 text-white pt-10 pb-20 px-4 sm:px-6 overflow-hidden w-full max-w-full">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-[-10%] w-[500px] h-[500px] bg-insurance-orange/15 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-[-10%] w-[500px] h-[500px] bg-insurance-darkblue/40 rounded-full blur-3xl"></div>
+        </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
           

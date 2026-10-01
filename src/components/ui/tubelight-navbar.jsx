@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils"
  *   activeTab?: string  (controlled active tab from parent)
  *   onTabChange?: (name: string) => void
  */
-export function NavBar({ items, className, activeTab: controlledActive, onTabChange }) {
+export function NavBar({ items, className, activeTab: controlledActive, onTabChange, layoutIdPrefix = "tubelight" }) {
   const [internalActive, setInternalActive] = useState(items[0]?.name)
 
   const activeTab = controlledActive || internalActive
@@ -25,7 +25,7 @@ export function NavBar({ items, className, activeTab: controlledActive, onTabCha
         className,
       )}
     >
-      <LayoutGroup>
+      <LayoutGroup id={layoutIdPrefix}>
         <div className="flex items-center gap-1 sm:gap-2 md:gap-3 bg-white/95 border border-slate-200/90 backdrop-blur-xl py-1 px-1 sm:py-1.5 sm:px-2 rounded-full shadow-xs">
           {items.map((item) => {
             const Icon = item.icon
@@ -42,16 +42,16 @@ export function NavBar({ items, className, activeTab: controlledActive, onTabCha
                   if (item.onClick) item.onClick()
                 }}
                 className={cn(
-                  "relative cursor-pointer text-xs sm:text-sm md:text-[15px] font-bold py-1.5 px-2.5 sm:py-2 sm:px-4 lg:px-6 rounded-full transition-colors flex items-center justify-center gap-1.5 sm:gap-2",
+                  "relative cursor-pointer text-[11px] sm:text-sm md:text-[15px] font-bold py-1 px-2 sm:py-2 sm:px-4 lg:px-6 rounded-full transition-colors flex items-center justify-center gap-1 sm:gap-2",
                   "text-slate-600 hover:text-insurance-darkblue",
                   isActive && "text-insurance-darkblue font-extrabold",
                 )}
               >
-                <Icon size={15} strokeWidth={2.3} className="relative z-10 sm:w-[18px] sm:h-[18px] flex-shrink-0" />
+                <Icon size={14} strokeWidth={2.3} className="relative z-10 sm:w-[18px] sm:h-[18px] flex-shrink-0" />
                 <span className="relative z-10 inline whitespace-nowrap">{item.name}</span>
                 {isActive && (
                   <motion.div
-                    layoutId="tubelight-lamp"
+                    layoutId={`${layoutIdPrefix}-lamp`}
                     className="absolute inset-0 w-full bg-slate-100/90 rounded-full z-0 shadow-inner"
                     initial={false}
                     transition={{

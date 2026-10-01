@@ -38,13 +38,13 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
     <header
       className="sticky top-0 z-[100] w-full backdrop-blur-md border-b shadow-xs bg-white/95 border-slate-200/80"
     >
-      <div className="max-w-[1600px] mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* ── TOP SECTION (Row 1): Logo (+ Desktop NavBar) & Action Icons ── */}
-        <div className="px-3 sm:px-6 h-14 sm:h-16 lg:h-24 flex items-center justify-between border-b lg:border-b-0 border-slate-100/80">
+        <div className="h-14 sm:h-16 lg:h-20 flex items-center justify-between border-b lg:border-b-0 border-slate-100/80 w-full">
           
           {/* Left Side: Logo & Desktop Navigation Bar */}
-          <div className="flex items-center gap-4 sm:gap-8 lg:gap-32 xl:gap-48">
+          <div className="flex items-center gap-3 sm:gap-6 lg:gap-8 xl:gap-12 min-w-0">
             {/* Logo */}
             <a 
               id="header-logo-link"
@@ -57,16 +57,17 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
             >
               <div id="header-logo-wrapper">
-                <Logo id="header-logo" className="h-9 sm:h-12 lg:h-20" />
+                <Logo id="header-logo" className="h-9 sm:h-12 lg:h-16" />
               </div>
             </a>
 
             {/* Desktop Navigation Bar (Beside Logo on Laptop/Desktop only) */}
-            <div className="hidden lg:block relative z-20">
+            <div className="hidden lg:block relative z-20 flex-shrink-0">
               <NavBar 
                 items={navItems}
                 activeTab={activeTab}
                 onTabChange={onTabChange}
+                layoutIdPrefix="desktop-tubelight"
               />
             </div>
           </div>
@@ -190,6 +191,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
             items={navItems}
             activeTab={activeTab}
             onTabChange={onTabChange}
+            layoutIdPrefix="mobile-tubelight"
           />
         </div>
 

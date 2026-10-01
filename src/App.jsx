@@ -7,6 +7,7 @@ import ServicesPage from './components/ServicesPage';
 import ContactUsPage from './components/ContactUsPage';
 import { ImageAutoSlider } from './components/ui/image-auto-slider';
 import { Component as Testimonials } from './components/ui/marquee-card';
+import FeedbackForm from './components/FeedbackForm';
 import { 
   Phone, 
   Mail, 
@@ -25,8 +26,6 @@ import {
 import { Marquee } from './components/ui/marquee';
 import FAQs from './components/ui/faqs-component';
 import TypewriterText from './components/ui/typewriter-text';
-import { servicesList } from './data/servicesData';
-
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -77,9 +76,13 @@ export default function App() {
     } else if (page === 'contact') {
       setActiveTab('Contact Us');
     } else if (page === 'home') {
-      if (targetId === 'services') setActiveTab('Services');
-      else if (targetId === 'contact') setActiveTab('Contact Us');
-      else if (targetId === 'testimonials') setActiveTab('Feedbacks');
+      if (targetId === 'services') {
+        setActiveTab('Services');
+        setCurrentPage('services');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      } else if (targetId === 'contact') setActiveTab('Contact Us');
+      else if (targetId === 'testimonials' || targetId === 'feedback') setActiveTab('Feedbacks');
       else if (targetId === 'faqs') setActiveTab('FAQs');
       else setActiveTab('Home');
     }
@@ -98,7 +101,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-zinc-50 antialiased font-sans relative">
+    <div className="flex flex-col min-h-screen w-full max-w-full overflow-x-clip bg-zinc-50 antialiased font-sans relative">
 
       {/* ── ICICI-style Intro Overlay ── */}
       <AnimatePresence>
@@ -201,21 +204,21 @@ export default function App() {
       ) : (
         <>
           {/* 2. Hero Section */}
-      <section className="relative z-30 pt-4 pb-16 lg:pt-8 lg:pb-24 flex-grow flex items-center">
+      <section className="relative z-30 pt-4 pb-16 lg:pt-8 lg:pb-24 flex-grow flex items-center overflow-hidden w-full">
         {/* Uniform clean background */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/30 pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
 
             {/* LEFT: Question, Answer & Quote */}
-            <div id="hero-text-block" className="flex-1 space-y-7 relative z-30 w-full text-center">
+            <div id="hero-text-block" className="flex-1 space-y-6 sm:space-y-7 relative z-30 w-full text-center lg:text-left">
               
               {/* Core Question */}
               <div id="hero-question-anchor" className="w-full">
                 <h1
                   id="hero-question"
-                  className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 text-center w-full"
+                  className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-tight font-serif bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent pb-2 uppercase relative z-30 text-center lg:text-left w-full"
                 >
                   <TypewriterText duration={0.8}>
                     Confused about choosing the right insurance?
@@ -227,16 +230,16 @@ export default function App() {
               <div id="hero-statement-anchor" className="w-full">
                 <div
                   id="hero-statement"
-                  className="space-y-4 sm:space-y-7 relative z-30 flex flex-col items-center text-center w-full"
+                  className="space-y-4 sm:space-y-5 relative z-30 flex flex-col items-center lg:items-start text-center lg:text-left w-full"
                 >
                   {/* Answer */}
-                  <p id="hero-answer" className="text-base sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-insurance-orange text-center">
+                  <p id="hero-answer" className="text-base sm:text-2xl lg:text-3xl font-bold text-black leading-relaxed font-sans border-insurance-orange text-center lg:text-left">
                     All companies, insurance and mutual funds <br className="hidden sm:inline" />
                     under one roof.
                   </p>
 
                   {/* Italic Quote */}
-                  <p id="hero-quote" className="text-[14px] sm:text-[19px] italic font-medium text-slate-500 tracking-wide font-serif text-center">
+                  <p id="hero-quote" className="text-[14px] sm:text-[19px] italic font-medium text-slate-500 tracking-wide font-serif text-center lg:text-left">
                     &ldquo;Secure today, protect tomorrow.&rdquo;
                   </p>
                 </div>
@@ -245,15 +248,15 @@ export default function App() {
 
             {/* RIGHT: Moving Floating Cards Gallery */}
             <div
-              className="flex-shrink-0 w-full lg:w-[460px] xl:w-[540px] h-[340px] sm:h-[450px] xl:h-[580px] relative overflow-hidden rounded-[32px] sm:rounded-[40px] flex justify-center items-center shadow-2xl shadow-blue-900/10 border-4 sm:border-[8px] border-white/60 bg-white/30 backdrop-blur-3xl"
+              className="flex-shrink-0 w-full lg:w-[460px] xl:w-[520px] h-[390px] sm:h-[450px] lg:h-[500px] xl:h-[540px] relative overflow-hidden rounded-[32px] sm:rounded-[40px] flex justify-center items-center shadow-2xl shadow-blue-900/10 border-4 sm:border-[8px] border-white/60 bg-white/30 backdrop-blur-3xl"
             >
               {/* Glow background */}
               <div className="absolute inset-0 bg-gradient-to-br from-insurance-darkblue/20 via-insurance-orange/10 to-insurance-green/20 blur-3xl z-0"></div>
               
               <div className="relative z-10 flex gap-2 sm:gap-4 w-full h-full p-2 sm:p-4">
-                 {/* Left Column (Moves Up) */}
-                 <Marquee vertical className="w-1/2 h-full" repeat={3} pauseOnHover>
-                    <div className="w-full h-[200px] sm:h-[280px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
+                  {/* Left Column (Moves Up) */}
+                  <Marquee vertical className="w-1/2 h-full" repeat={3} pauseOnHover>
+                    <div onClick={() => handleNavigate('services')} className="w-full h-[175px] sm:h-[210px] lg:h-[235px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
                       <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
                         <img src="/health_card.png" alt="Health Guard" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
@@ -266,7 +269,7 @@ export default function App() {
                         </div>
                       </div>
                     </div>
-                    <div className="w-full h-[200px] sm:h-[280px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
+                    <div onClick={() => handleNavigate('services')} className="w-full h-[175px] sm:h-[210px] lg:h-[235px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
                       <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
                         <img src="/wealth_card.png" alt="Wealth SIP" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
@@ -279,11 +282,11 @@ export default function App() {
                         </div>
                       </div>
                     </div>
-                 </Marquee>
+                  </Marquee>
 
-                 {/* Right Column (Moves Down) */}
-                 <Marquee vertical reverse className="w-1/2 h-full" repeat={3} pauseOnHover>
-                    <div className="w-full h-[200px] sm:h-[280px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
+                  {/* Right Column (Moves Down) */}
+                  <Marquee vertical reverse className="w-1/2 h-full" repeat={3} pauseOnHover>
+                    <div onClick={() => handleNavigate('services')} className="w-full h-[175px] sm:h-[210px] lg:h-[235px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
                       <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
                         <img src="/life_card.png" alt="Life Shield" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
@@ -296,7 +299,7 @@ export default function App() {
                         </div>
                       </div>
                     </div>
-                    <div className="w-full h-[200px] sm:h-[280px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
+                    <div onClick={() => handleNavigate('services')} className="w-full h-[175px] sm:h-[210px] lg:h-[235px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
                       <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
                         <img src="/motor_card.png" alt="Motor Safe" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
@@ -309,7 +312,7 @@ export default function App() {
                         </div>
                       </div>
                     </div>
-                 </Marquee>
+                  </Marquee>
               </div>
             </div>
 
@@ -329,19 +332,19 @@ export default function App() {
           <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-12 sm:mb-16">
             {/* 25 Years Badge */}
             <div className="relative group">
-              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-br from-insurance-darkblue to-blue-700 flex flex-col items-center justify-center shadow-2xl shadow-blue-300/40 border-4 border-white ring-4 ring-insurance-darkblue/10 transition-transform duration-500 group-hover:scale-105">
-                <span className="text-4xl sm:text-5xl font-black text-white leading-none">25+</span>
+              <div className="w-[144px] h-[144px] sm:w-44 sm:h-44 rounded-full bg-gradient-to-br from-insurance-darkblue to-blue-700 flex flex-col items-center justify-center shadow-2xl shadow-blue-300/40 border-4 border-white ring-4 ring-insurance-darkblue/10 transition-transform duration-500 group-hover:scale-105 p-2">
+                <span className="text-3xl sm:text-5xl font-black text-white leading-none">25+</span>
                 <span className="text-[11px] sm:text-sm font-bold text-blue-100 tracking-wider uppercase mt-1">Years</span>
-                <span className="text-[9px] sm:text-[10px] font-semibold text-blue-200 uppercase tracking-widest">Experience</span>
+                <span className="text-[8.5px] sm:text-[10px] font-bold text-blue-200 uppercase tracking-wider text-center">Experience</span>
               </div>
             </div>
 
             {/* 5 Crore+ Portfolio Badge */}
             <div className="relative group">
-              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-br from-insurance-orange to-amber-600 flex flex-col items-center justify-center shadow-2xl shadow-orange-300/40 border-4 border-white ring-4 ring-insurance-orange/10 transition-transform duration-500 group-hover:scale-105">
-                <span className="text-3xl sm:text-4xl font-black text-white leading-none">5 Cr+</span>
+              <div className="w-[144px] h-[144px] sm:w-44 sm:h-44 rounded-full bg-gradient-to-br from-insurance-orange to-amber-600 flex flex-col items-center justify-center shadow-2xl shadow-orange-300/40 border-4 border-white ring-4 ring-insurance-orange/10 transition-transform duration-500 group-hover:scale-105 p-2">
+                <span className="text-2xl sm:text-4xl font-black text-white leading-none">5 Cr+</span>
                 <span className="text-[11px] sm:text-sm font-bold text-orange-100 tracking-wider uppercase mt-1">Portfolio</span>
-                <span className="text-[9px] sm:text-[10px] font-semibold text-orange-200 uppercase tracking-widest">Under Management</span>
+                <span className="text-[8px] sm:text-[9.5px] font-bold text-orange-200 uppercase tracking-wider text-center leading-tight">Under Management</span>
               </div>
             </div>
           </div>
@@ -357,212 +360,132 @@ export default function App() {
           </div>
 
           {/* Profile Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch max-w-[90rem] mx-auto lg:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch max-w-7xl mx-auto">
 
             {/* Card 1 - Adarsh & Vaishali Bafna */}
-            <div className="relative w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100 flex flex-col lg:flex-row group hover:shadow-2xl hover:shadow-blue-200/80 hover:bg-blue-50/20 transition-all duration-500">
-              {/* Gradient top accent bar */}
-              <div className="absolute top-0 left-0 right-0 lg:bottom-0 lg:right-auto lg:w-1 lg:h-full h-1 bg-gradient-to-r lg:bg-gradient-to-b from-insurance-darkblue to-insurance-orange z-10"></div>
+            <div className="relative w-full h-full bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl border border-slate-100 flex flex-col sm:flex-row group hover:bg-blue-50/10 transition-all duration-500">
+              {/* Gradient top/side accent bar */}
+              <div className="absolute top-0 left-0 right-0 sm:bottom-0 sm:right-auto sm:w-1.5 sm:h-full h-1.5 bg-gradient-to-r sm:bg-gradient-to-b from-insurance-darkblue to-insurance-orange z-10"></div>
 
               {/* Photo */}
-              <div className="w-full lg:w-[260px] xl:w-[290px] flex-shrink-0 relative overflow-hidden bg-slate-50 flex items-center justify-center">
+              <div className="w-full sm:w-[220px] md:w-[240px] xl:w-[260px] flex-shrink-0 relative overflow-hidden bg-slate-100 flex items-center justify-center min-h-[260px] sm:min-h-full">
                 <img
                   src="/founders_new.jpg"
                   alt="Adarsh and Vaishali Bafna"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-[320px] sm:h-[380px] lg:h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full min-h-[260px] sm:min-h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
 
               {/* Info */}
-              <div className="flex-1 p-5 xl:p-6 flex flex-col justify-center">
-                  <div className="inline-flex items-center gap-1.5 bg-blue-50 text-insurance-darkblue text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3 w-fit border border-blue-100">
+              <div className="flex-1 min-w-0 p-5 sm:p-6 lg:p-7 flex flex-col justify-between">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 bg-blue-50 text-insurance-darkblue text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full mb-2.5 w-fit border border-blue-100/80">
                     Founders
                   </div>
                   <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight font-sans">
                     Adarsh &amp; Vaishali Bafna
                   </h2>
-                  <div className="mt-2.5 w-10 h-1 rounded-full bg-gradient-to-r from-insurance-darkblue to-insurance-orange"></div>
+                  <div className="mt-2 w-12 h-1 rounded-full bg-gradient-to-r from-insurance-darkblue to-insurance-orange"></div>
+                </div>
                   
-                  <div className="mt-4 flex flex-col gap-3">
-                    {/* Adarsh */}
-                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100 group-hover:bg-white group-hover:shadow-sm transition-all">
-                      <p className="font-bold text-insurance-darkblue text-[14px]">Adarsh G. Bafna</p>
-                      <p className="text-[11px] text-slate-600 font-bold text-insurance-orange">Insurance Advisor &nbsp;|&nbsp; 25+ yrs Exp</p>
-                      <div className="mt-2 pt-2 border-t border-slate-200 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-semibold">
-                         <a href="tel:+919175033300" className="flex items-center gap-1 hover:text-insurance-darkblue"><Phone className="h-3 w-3"/> 91750 33300</a>
-                         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=theinsurancehub70@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-insurance-orange"><Mail className="h-3 w-3 flex-shrink-0"/> theinsurancehub70@gmail.com</a>
-                      </div>
-                    </div>
+                <div className="mt-4 flex flex-col gap-3">
+                  {/* Adarsh Profile */}
+                  <div className="bg-slate-50 p-3 sm:p-3.5 rounded-2xl border border-slate-100 group-hover:bg-white group-hover:shadow-xs transition-all">
+                    <p className="font-bold text-insurance-darkblue text-[14px] sm:text-[15px]">Adarsh G. Bafna</p>
+                    <p className="text-[11px] sm:text-[11.5px] font-bold text-insurance-orange">Insurance Advisor &nbsp;|&nbsp; 25+ yrs Exp</p>
                     
-                    {/* Vaishali */}
-                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100 group-hover:bg-white group-hover:shadow-sm transition-all">
-                      <p className="font-bold text-insurance-darkblue text-[14px]">Vaishali A. Bafna</p>
-                      <p className="text-[11px] text-slate-600 font-bold text-insurance-orange">Senior Sales Manager &nbsp;|&nbsp; 15+ yrs Exp</p>
-                      <div className="mt-2 pt-2 border-t border-slate-200 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-semibold">
-                         <a href="tel:+919112063150" className="flex items-center gap-1 hover:text-insurance-darkblue"><Phone className="h-3 w-3"/> 91120 63150</a>
-                         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bafana.vaishali@starinsurance.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-insurance-orange"><Mail className="h-3 w-3 flex-shrink-0"/> bafana.vaishali@starinsurance.in</a>
-                      </div>
+                    <div className="mt-2 pt-2 border-t border-slate-200/60 flex flex-col gap-1.5 text-[11px] sm:text-[12px] font-semibold">
+                      <a href="tel:+919175033300" className="inline-flex items-center gap-2 text-slate-700 hover:text-insurance-darkblue transition-colors">
+                        <Phone className="h-3.5 w-3.5 text-insurance-darkblue flex-shrink-0" />
+                        <span>+91 91750 33300</span>
+                      </a>
+                      <a href="mailto:theinsurancehub70@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-slate-600 hover:text-insurance-orange transition-colors min-w-0 max-w-full">
+                        <Mail className="h-3.5 w-3.5 text-insurance-orange flex-shrink-0" />
+                        <span className="truncate text-[11px] sm:text-[11.5px] font-medium" title="theinsurancehub70@gmail.com">theinsurancehub70@gmail.com</span>
+                      </a>
                     </div>
                   </div>
+                  
+                  {/* Vaishali Profile */}
+                  <div className="bg-slate-50 p-3 sm:p-3.5 rounded-2xl border border-slate-100 group-hover:bg-white group-hover:shadow-xs transition-all">
+                    <p className="font-bold text-insurance-darkblue text-[14px] sm:text-[15px]">Vaishali A. Bafna</p>
+                    <p className="text-[11px] sm:text-[11.5px] font-bold text-insurance-orange">Senior Sales Manager &nbsp;|&nbsp; 15+ yrs Exp</p>
+                    
+                    <div className="mt-2 pt-2 border-t border-slate-200/60 flex flex-col gap-1.5 text-[11px] sm:text-[12px] font-semibold">
+                      <a href="tel:+919112063150" className="inline-flex items-center gap-2 text-slate-700 hover:text-insurance-darkblue transition-colors">
+                        <Phone className="h-3.5 w-3.5 text-insurance-darkblue flex-shrink-0" />
+                        <span>+91 91120 63150</span>
+                      </a>
+                      <a href="mailto:bafana.vaishali@starinsurance.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-slate-600 hover:text-insurance-orange transition-colors min-w-0 max-w-full">
+                        <Mail className="h-3.5 w-3.5 text-insurance-orange flex-shrink-0" />
+                        <span className="truncate text-[11px] sm:text-[11.5px] font-medium" title="bafana.vaishali@starinsurance.in">bafana.vaishali@starinsurance.in</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Card 2 - Divyesh Bafna */}
-            <div className="relative w-full bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-100 flex flex-col lg:flex-row group hover:shadow-2xl hover:shadow-orange-200/80 hover:bg-orange-50/20 transition-all duration-500">
-              {/* Gradient top accent bar */}
-              <div className="absolute top-0 left-0 right-0 lg:bottom-0 lg:right-auto lg:w-1 lg:h-full h-1 bg-gradient-to-r lg:bg-gradient-to-b from-insurance-orange to-insurance-violet z-10"></div>
+            <div className="relative w-full h-full bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl border border-slate-100 flex flex-col sm:flex-row group hover:bg-orange-50/10 transition-all duration-500">
+              {/* Gradient top/side accent bar */}
+              <div className="absolute top-0 left-0 right-0 sm:bottom-0 sm:right-auto sm:w-1.5 sm:h-full h-1.5 bg-gradient-to-r sm:bg-gradient-to-b from-insurance-orange to-insurance-violet z-10"></div>
 
               {/* Photo */}
-              <div className="w-full lg:w-[260px] xl:w-[290px] flex-shrink-0 relative overflow-hidden bg-slate-50 flex items-center justify-center">
+              <div className="w-full sm:w-[220px] md:w-[240px] xl:w-[260px] flex-shrink-0 relative overflow-hidden bg-slate-100 flex items-center justify-center min-h-[260px] sm:min-h-full">
                 <img
                   src="/divyesh_new.jpg"
                   alt="Divyesh Bafna"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-[320px] sm:h-[380px] lg:h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full min-h-[260px] sm:min-h-full object-cover object-[50%_10%] group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
 
               {/* Info */}
-              <div className="flex-1 p-5 xl:p-6 flex flex-col justify-center">
-                  <div className="inline-flex items-center gap-1.5 bg-orange-50 text-insurance-orange text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3 w-fit border border-orange-100">
+              <div className="flex-1 min-w-0 p-5 sm:p-6 lg:p-7 flex flex-col justify-between">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 bg-orange-50 text-insurance-orange text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full mb-2.5 w-fit border border-orange-100/80">
                     Director
                   </div>
                   <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight font-sans">
                     Divyesh Bafna
                   </h2>
-                  <div className="mt-2.5 w-10 h-1 rounded-full bg-gradient-to-r from-insurance-orange to-insurance-violet"></div>
+                  <div className="mt-2 w-12 h-1 rounded-full bg-gradient-to-r from-insurance-orange to-insurance-violet"></div>
+                </div>
                   
-                  <div className="mt-4 flex flex-col gap-3">
-                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100 group-hover:bg-white group-hover:shadow-sm transition-all">
-                      <p className="font-bold text-insurance-orange text-[14px]">Divyesh Adarsh Bafna</p>
-                      <p className="text-[11px] text-slate-600 font-bold text-insurance-darkblue">Mutual Fund Distributor &nbsp;|&nbsp; Insurance &amp; Investment Advisor</p>
-                      <div className="mt-2 pt-2 border-t border-slate-200 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-semibold">
-                         <a href="tel:+919423924568" className="flex items-center gap-1 hover:text-insurance-orange"><Phone className="h-3 w-3"/> 94239 24568</a>
-                         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bafnadivyesh405@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-insurance-violet"><Mail className="h-3 w-3 flex-shrink-0"/> bafnadivyesh405@gmail.com</a>
-                      </div>
+                <div className="mt-4 flex flex-col gap-3">
+                  <div className="bg-slate-50 p-3 sm:p-3.5 rounded-2xl border border-slate-100 group-hover:bg-white group-hover:shadow-xs transition-all">
+                    <p className="font-bold text-insurance-orange text-[14px] sm:text-[15px]">Divyesh Adarsh Bafna</p>
+                    <p className="text-[11px] sm:text-[11.5px] font-bold text-insurance-darkblue">Mutual Fund Distributor &nbsp;|&nbsp; Investment Advisor</p>
+                    
+                    <div className="mt-2 pt-2 border-t border-slate-200/60 flex flex-col gap-1.5 text-[11px] sm:text-[12px] font-semibold">
+                      <a href="tel:+919423924568" className="inline-flex items-center gap-2 text-slate-700 hover:text-insurance-orange transition-colors">
+                        <Phone className="h-3.5 w-3.5 text-insurance-orange flex-shrink-0" />
+                        <span>+91 94239 24568</span>
+                      </a>
+                      <a href="mailto:bafnadivyesh405@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-slate-600 hover:text-insurance-violet transition-colors min-w-0 max-w-full">
+                        <Mail className="h-3.5 w-3.5 text-insurance-violet flex-shrink-0" />
+                        <span className="truncate text-[11px] sm:text-[11.5px] font-medium" title="bafnadivyesh405@gmail.com">bafnadivyesh405@gmail.com</span>
+                      </a>
                     </div>
                   </div>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="text-[11px] font-semibold text-insurance-darkblue bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">Strategy</span>
-                    <span className="text-[11px] font-semibold text-insurance-violet bg-purple-50 px-3 py-1.5 rounded-full border border-purple-100">Digital Innovation</span>
+
+                  {/* Core Investment Specializations Box */}
+                  <div className="bg-slate-50 p-3 sm:p-3.5 rounded-2xl border border-slate-100 group-hover:bg-white group-hover:shadow-xs transition-all">
+                    <p className="font-bold text-slate-800 text-[12px] sm:text-[13px] uppercase tracking-wider">Investment Specializations</p>
+                    <div className="flex flex-wrap gap-1.5 mt-2">
+                      <span className="text-[10px] sm:text-[11px] font-bold text-insurance-darkblue bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">Mutual Funds &amp; SIP</span>
+                      <span className="text-[10px] sm:text-[11px] font-bold text-insurance-orange bg-orange-50 px-2.5 py-1 rounded-lg border border-orange-100">PMS &amp; AIF Advisory</span>
+                      <span className="text-[10px] sm:text-[11px] font-bold text-insurance-violet bg-purple-50 px-2.5 py-1 rounded-lg border border-purple-100">Financial Planning</span>
+                    </div>
                   </div>
+                </div>
               </div>
             </div>
 
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          SERVICES SECTION (Home Page)
-          ═══════════════════════════════════════════════════════ */}
-      <section id="services" className="relative py-24 overflow-hidden bg-white">
-        {/* Subtle background glow */}
-        <div className="absolute top-[30%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-50/50 blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-orange-50/50 blur-3xl pointer-events-none"></div>
-        
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          
-          {/* Section Heading */}
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-orange bg-orange-50 border border-orange-100 px-4 py-1.5 rounded-full w-fit mx-auto">
-              OUR SERVICES
-            </h2>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight uppercase">
-              COMPREHENSIVE COVERAGE <br />
-              <span className="bg-gradient-to-r from-insurance-darkblue to-insurance-orange bg-clip-text text-transparent">
-                UNDER ONE ROOF
-              </span>
-            </h1>
-            <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">
-              We partner with all leading providers to offer unbiased advice, complete transparency, and hassle-free claim settlements.
-            </p>
-          </div>
-
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {servicesList.map((service) => {
-              const Icon = service.icon;
-              return (
-                <div 
-                  key={service.id}
-                  className="group relative bg-slate-50 hover:bg-white rounded-3xl p-7 border border-slate-100 hover:border-slate-200 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between overflow-hidden"
-                >
-                  <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${service.topBarGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-                  <div>
-                    <div className="flex items-center justify-between gap-3 mb-5">
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border ${service.iconBg} group-hover:scale-110 transition-transform duration-500 shadow-xs`}>
-                        <Icon size={26} className="stroke-[2.2]" />
-                      </div>
-                      <span className={service.tagColor}>
-                        {service.tag}
-                      </span>
-                    </div>
-
-                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-insurance-darkblue transition-colors">
-                      {service.title}
-                    </h3>
-                    
-                    <p className="text-[14px] text-slate-500 font-medium leading-relaxed mb-4">
-                      {service.description}
-                    </p>
-
-                    {/* Sub items for Business Insurance */}
-                    {service.subItems && (
-                      <div className="mb-4 bg-white p-3 rounded-2xl border border-slate-200/60 shadow-xs">
-                        <p className="text-[11px] font-black uppercase text-slate-400 tracking-wider mb-2">
-                          Key Coverage Areas:
-                        </p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {service.subItems.map((sub, idx) => (
-                            <span key={idx} className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-900 bg-blue-50 border border-blue-200/60 px-2 py-0.5 rounded-md">
-                              <CheckCircle2 size={11} className="text-insurance-darkblue" /> {sub}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Highlight pills */}
-                    {service.highlights && (
-                      <div className="flex flex-wrap gap-1.5 mb-6">
-                        {service.highlights.map((item, idx) => (
-                          <span key={idx} className="text-[11px] font-medium text-slate-600 bg-slate-200/50 px-2 py-0.5 rounded-md">
-                            • {item}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between border-t border-slate-200/50 pt-4">
-                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                      {service.category}
-                    </span>
-                    <a 
-                      href="#contact" 
-                      onClick={(e) => { e.preventDefault(); handleNavigate('home', 'contact'); }} 
-                      className="text-slate-600 group-hover:text-insurance-darkblue flex items-center gap-1.5 text-xs font-black transition-colors bg-white group-hover:bg-blue-50 px-3 py-1.5 rounded-xl border border-slate-200/60 group-hover:border-blue-100"
-                    >
-                      {service.actionText} <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform text-insurance-orange" />
-                    </a>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* View All Services / Dedicated Page CTA Button */}
-          <div className="mt-12 text-center">
-            <button
-              onClick={() => handleNavigate('services')}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-insurance-darkblue hover:bg-blue-900 text-white font-extrabold text-sm transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 cursor-pointer"
-            >
-              Explore Detailed Services Page <ArrowRight size={16} />
-            </button>
           </div>
         </div>
       </section>
@@ -570,13 +493,15 @@ export default function App() {
       {/* ═══════════════════════════════════════════════════════
           OUR HUB SECTION (Home Page)
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative py-20 overflow-hidden bg-slate-900">
+      <section className="relative py-20 overflow-hidden bg-slate-900 w-full max-w-full">
         {/* Background decorative blobs */}
-        <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-insurance-darkblue/10 blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-insurance-orange/10 blur-3xl pointer-events-none"></div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-insurance-darkblue/10 blur-3xl"></div>
+          <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-insurance-orange/10 blur-3xl"></div>
+        </div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-insurance-green via-insurance-darkblue to-insurance-violet"></div>
         
-        <div className="text-center space-y-4 mb-14 relative z-10 px-6">
+        <div className="text-center space-y-4 mb-14 relative z-10 px-6 max-w-7xl mx-auto">
           <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-green bg-green-950/60 border border-green-800/50 px-4 py-1.5 rounded-full w-fit mx-auto">
             OUR HUB
           </h2>
@@ -591,7 +516,7 @@ export default function App() {
           </p>
         </div>
         
-        <div className="relative z-10">
+        <div className="relative z-10 w-full max-w-full overflow-hidden">
           <ImageAutoSlider />
         </div>
       </section>
@@ -600,12 +525,14 @@ export default function App() {
       {/* ═══════════════════════════════════════════════════════
           TESTIMONIALS SECTION (Home Page)
           ═══════════════════════════════════════════════════════ */}
-      <section id="testimonials" className="relative py-24 overflow-hidden bg-zinc-50 border-t border-b border-slate-100">
+      <section id="testimonials" className="relative py-24 overflow-hidden bg-zinc-50 border-t border-b border-slate-100 w-full max-w-full">
         {/* Background decorative elements */}
-        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-blue-100/20 blur-3xl animate-blob"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-orange-100/20 blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-blue-100/20 blur-3xl animate-blob"></div>
+          <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-orange-100/20 blur-3xl animate-blob animation-delay-2000"></div>
+        </div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
           {/* Section Heading */}
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-orange bg-orange-50 border border-orange-100 px-4 py-1.5 rounded-full w-fit mx-auto font-sans">
@@ -627,6 +554,11 @@ export default function App() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
+          CUSTOMER FEEDBACK SECTION ("Share Your Experience")
+          ═══════════════════════════════════════════════════════ */}
+      <FeedbackForm />
+
+      {/* ═══════════════════════════════════════════════════════
           FAQS SECTION (Home Page)
           ═══════════════════════════════════════════════════════ */}
       <FAQs />
@@ -634,10 +566,12 @@ export default function App() {
       {/* ═══════════════════════════════════════════════════════
           CONTACT US SECTION (Home Page)
           ═══════════════════════════════════════════════════════ */}
-      <section id="contact" className="relative py-24 overflow-hidden bg-white">
+      <section id="contact" className="relative py-24 overflow-hidden bg-white w-full max-w-full">
         {/* Decorative elements */}
-        <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] rounded-full bg-violet-50/50 blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-[20%] right-[-10%] w-[450px] h-[450px] rounded-full bg-blue-50/50 blur-3xl pointer-events-none"></div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] rounded-full bg-violet-50/50 blur-3xl"></div>
+          <div className="absolute bottom-[20%] right-[-10%] w-[450px] h-[450px] rounded-full bg-blue-50/50 blur-3xl"></div>
+        </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           
@@ -748,59 +682,80 @@ export default function App() {
             </div>
 
             {/* Right side: Contact Cards & Info */}
-            <div className="w-full lg:w-[400px] flex flex-col justify-between gap-6">
+            <div className="w-full lg:w-[420px] flex flex-col justify-between gap-5">
               
               {/* Call desk */}
-              <div className="bg-slate-50 border border-slate-100 p-6 rounded-3xl hover:shadow-lg transition-all">
+              <div className="bg-slate-50 border border-slate-100 p-5 sm:p-6 rounded-3xl hover:shadow-lg transition-all">
                 <h4 className="text-xs font-black uppercase text-insurance-orange tracking-widest mb-3">Direct Call Desk</h4>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center text-[14px] font-bold text-slate-800 border-b border-slate-200/60 pb-2.5">
+                <div className="space-y-3.5">
+                  <div className="flex justify-between items-center text-[13.5px] sm:text-[14px] font-bold text-slate-800 border-b border-slate-200/60 pb-2">
                     <span>Adarsh Bafna</span>
-                    <a href="tel:+919175033300" className="text-insurance-darkblue hover:underline">+91 91750 33300</a>
+                    <a href="tel:+919175033300" className="text-insurance-darkblue hover:underline font-extrabold">+91 91750 33300</a>
                   </div>
-                  <div className="flex justify-between items-center text-[14px] font-bold text-slate-800 border-b border-slate-200/60 pb-2.5">
+                  <div className="flex justify-between items-center text-[13.5px] sm:text-[14px] font-bold text-slate-800 border-b border-slate-200/60 pb-2">
                     <span>Vaishali Bafna</span>
-                    <a href="tel:+919112063150" className="text-insurance-darkblue hover:underline">+91 91120 63150</a>
+                    <a href="tel:+919112063150" className="text-insurance-darkblue hover:underline font-extrabold">+91 91120 63150</a>
                   </div>
-                  <div className="flex justify-between items-center text-[14px] font-bold text-slate-800">
+                  <div className="flex justify-between items-center text-[13.5px] sm:text-[14px] font-bold text-slate-800">
                     <span>Divyesh Bafna</span>
-                    <a href="tel:+919423924568" className="text-insurance-orange hover:underline">+91 94239 24568</a>
+                    <a href="tel:+919423924568" className="text-insurance-orange hover:underline font-extrabold">+91 94239 24568</a>
                   </div>
                 </div>
               </div>
 
               {/* Email Card */}
-              <div className="bg-slate-50 border border-slate-100 p-6 rounded-3xl hover:shadow-lg transition-all flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-blue-50 text-insurance-darkblue flex items-center justify-center border border-blue-100/50">
-                  <Mail size={22} className="stroke-[2.2]" />
+              <div className="bg-slate-50 border border-slate-100 p-5 sm:p-6 rounded-3xl hover:shadow-lg transition-all flex items-center gap-4">
+                <div className="w-11 h-11 rounded-2xl bg-blue-50 text-insurance-darkblue flex items-center justify-center border border-blue-100/50 flex-shrink-0">
+                  <Mail size={20} className="stroke-[2.2]" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <h4 className="text-[11px] font-black uppercase text-slate-400 tracking-wider">Email Us</h4>
-                  <a href="mailto:theinsurancehub70@gmail.com" className="text-[15px] font-extrabold text-slate-800 hover:text-insurance-darkblue truncate block">
+                  <a href="mailto:theinsurancehub70@gmail.com" className="text-[14px] sm:text-[15px] font-extrabold text-slate-800 hover:text-insurance-darkblue truncate block">
                     theinsurancehub70@gmail.com
                   </a>
                 </div>
               </div>
 
               {/* Address Card */}
-              <div className="bg-slate-50 border border-slate-100 p-6 rounded-3xl hover:shadow-lg transition-all flex items-start gap-4 flex-1">
-                <div className="w-12 h-12 rounded-2xl bg-orange-50 text-insurance-orange flex items-center justify-center border border-orange-100/50 flex-shrink-0">
-                  <Building size={22} className="stroke-[2.2]" />
+              <div className="bg-slate-50 border border-slate-100 p-5 sm:p-6 rounded-3xl hover:shadow-lg transition-all flex items-start gap-4">
+                <div className="w-11 h-11 rounded-2xl bg-orange-50 text-insurance-orange flex items-center justify-center border border-orange-100/50 flex-shrink-0">
+                  <Building size={20} className="stroke-[2.2]" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <h4 className="text-[11px] font-black uppercase text-slate-400 tracking-wider">Registered Corporate Office</h4>
-                  <p className="text-[13px] font-bold text-slate-800 mt-1 leading-relaxed">
+                  <p className="text-[12.5px] sm:text-[13px] font-bold text-slate-800 mt-1 leading-relaxed">
                     The Insurance Hub, Shop no. 57, Sanman Prestige, Beside Zilla Parishad, Railway station road, Nanded - 431601
                   </p>
                   <a 
                     href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="inline-flex items-center gap-1.5 text-xs font-black text-insurance-orange mt-3 hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-black text-insurance-orange mt-2.5 hover:underline"
                   >
                     Open in Google Maps <ArrowRight size={12} />
                   </a>
                 </div>
+              </div>
+
+              {/* Fast-Track Claims Card */}
+              <div className="bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-teal-500/10 border border-emerald-200/80 p-4 sm:p-5 rounded-3xl flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm shadow-emerald-500/20">
+                    <ShieldCheck size={20} />
+                  </div>
+                  <div className="min-w-0">
+                    <h4 className="text-[11px] sm:text-[12px] font-extrabold uppercase text-emerald-800 tracking-wider">Claims Assistance Desk</h4>
+                    <p className="text-[11px] text-slate-600 font-medium truncate">Direct insurer coordination &amp; claim settlement</p>
+                  </div>
+                </div>
+                <a
+                  href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1 flex-shrink-0 shadow-xs"
+                >
+                  WhatsApp
+                </a>
               </div>
 
             </div>

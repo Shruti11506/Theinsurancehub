@@ -44,9 +44,9 @@ export const ImageAutoSlider = () => {
         }
       `}</style>
 
-      <div className="w-full relative overflow-hidden py-4">
+      <div className="w-full max-w-full relative overflow-hidden py-4">
         {/* Scrolling strip */}
-        <div className="hub-scroll-container w-full overflow-hidden">
+        <div className="hub-scroll-container w-full max-w-full overflow-hidden">
           <div className="hub-infinite-scroll flex gap-5 w-max">
             {duplicatedImages.map((image, index) => (
               <div

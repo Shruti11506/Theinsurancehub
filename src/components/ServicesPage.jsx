@@ -29,13 +29,15 @@ export default function ServicesPage({ onBack, onNavigate }) {
     : servicesList.filter(s => s.category === selectedFilter);
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-16">
+    <div className="min-h-screen w-full max-w-full overflow-x-clip bg-slate-50 font-sans text-slate-800 pb-16">
       
       {/* ── 1. Top Header Banner ── */}
-      <div className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-insurance-darkblue text-white pt-8 pb-20 px-4 sm:px-6 overflow-hidden">
+      <div className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-insurance-darkblue text-white pt-8 pb-20 px-4 sm:px-6 overflow-hidden w-full max-w-full">
         {/* Subtle Brand Glows */}
-        <div className="absolute top-0 right-[-10%] w-[500px] h-[500px] bg-insurance-orange/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-[-10%] w-[500px] h-[500px] bg-insurance-orange/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/15 rounded-full blur-3xl"></div>
+        </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
           
@@ -43,13 +45,13 @@ export default function ServicesPage({ onBack, onNavigate }) {
           <div className="flex items-center justify-between gap-4 mb-6">
             <button 
               onClick={onBack}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold backdrop-blur-md border border-white/10 transition-all active:scale-95 cursor-pointer shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold backdrop-blur-md border border-white/15 transition-all active:scale-95 cursor-pointer shadow-xs"
             >
-              <ArrowLeft size={14} /> Back to Home
+              <ArrowLeft size={15} /> Back to Home
             </button>
 
-            <span className="text-xs text-slate-400 font-semibold">
-              Home &nbsp;/&nbsp; <span className="text-insurance-orange">Services</span>
+            <span className="text-xs sm:text-sm text-slate-400 font-medium">
+              <button onClick={onBack} className="hover:text-white transition-colors cursor-pointer">Home</button> &nbsp;/&nbsp; <span className="text-insurance-orange font-semibold">Services</span>
             </span>
           </div>
 
@@ -175,22 +177,22 @@ export default function ServicesPage({ onBack, onNavigate }) {
         <div className="bg-insurance-darkblue rounded-3xl p-6 sm:p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-80 h-80 bg-insurance-orange/15 rounded-full blur-3xl pointer-events-none"></div>
           
-          <div className="space-y-1.5 text-center sm:text-left relative z-10">
-            <h3 className="text-xl sm:text-2xl font-black tracking-tight">Need Tailored Insurance or Investment Advice?</h3>
-            <p className="text-blue-100 text-xs sm:text-sm max-w-lg">
+          <div className="space-y-2 text-center sm:text-left relative z-10">
+            <h3 className="text-xl sm:text-2xl font-bold font-sans tracking-tight text-white">Need Insurance or Investment Advice?</h3>
+            <p className="text-blue-100/90 text-xs sm:text-sm max-w-lg font-sans font-normal leading-relaxed">
               Talk directly with our experienced advisors for customized policy comparisons, corporate covers, and portfolio consultations.
             </p>
           </div>
           <div className="flex items-center gap-3 flex-shrink-0 relative z-10">
             <a
               href="tel:+919423924568"
-              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-extrabold text-xs border border-white/20 transition-all flex items-center gap-1.5"
+              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20 transition-all flex items-center gap-1.5"
             >
               <Phone size={14} /> Call +91 94239 24568
             </a>
             <button
               onClick={() => onNavigate && onNavigate('contact')}
-              className="px-5 py-2.5 rounded-xl bg-insurance-orange hover:bg-orange-600 text-white font-extrabold text-xs transition-all shadow-md active:scale-95 cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-insurance-orange hover:bg-orange-600 text-white font-bold text-xs transition-all shadow-md active:scale-95 cursor-pointer"
             >
               Get Free Consultation
             </button>
