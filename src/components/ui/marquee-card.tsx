@@ -5,33 +5,50 @@ import { Marquee } from "@/components/ui/marquee";
 import { Button } from "@/components/ui/button";
 
 const initialTestimonials = [
+  // CUSTOMER 1: Real Customer Testimonial
   {
-    name: "Rajesh Sharma",
-    role: "Business Owner",
-    content: "The Insurance Hub helped us find the perfect commercial cover for our fleet. Their team handles everything from comparison to claims, making the process incredibly seamless.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80",
+    name: "Ritesh Ramesh Patil",
+    role: "Businessman • Dharmabad",
+    content: "Hi, my name is Kirti Patil. When my dad, Ramesh Patil, needed hospitalization in Hyderabad, Adarsh Bafna from Star Health Nanded explained everything in detail on how to proceed. From documentation to cashless processing, he helped us smoothly. If you ever need to buy a policy, you can contact Adarsh Bafna.",
+    avatar: "https://ui-avatars.com/api/?name=Ritesh+Patil&background=0f172a&color=ffffff&bold=true",
     rating: 5,
+    isQuote: true,
   },
+  // CUSTOMER 2: DRAFT — CUSTOMER APPROVAL REQUIRED
   {
-    name: "Priya Patel",
-    role: "Software Engineer",
-    content: "Securing term life and health insurance for my family was a breeze. They explained all the fine print clearly and gave unbiased advice. Highly recommended!",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80",
+    name: "Ishwar Dhoka",
+    role: "Anand Travels • General Service",
+    content: "Ishwar Dhoka, associated with Anand Travels, has received professional and dependable service from The Insurance Hub.",
+    avatar: "https://ui-avatars.com/api/?name=Ishwar+Dhoka&background=f28b24&color=ffffff&bold=true",
     rating: 5,
+    isQuote: false, // DRAFT — CUSTOMER APPROVAL REQUIRED
   },
+  // CUSTOMER 3: DRAFT — CUSTOMER APPROVAL REQUIRED
   {
-    name: "Vikram Malhotra",
-    role: "Retired Professional",
-    content: "When my health insurance claim was delayed by the provider, the Claims Assistance Desk at The Insurance Hub stepped in and got it settled in no time. Truly a lifesaver!",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150&q=80",
+    name: "Sunil Bhandari",
+    role: "Businessman • General Service",
+    content: "Sunil Bhandari, businessman, receives professional guidance and dependable general service from The Insurance Hub.",
+    avatar: "https://ui-avatars.com/api/?name=Sunil+Bhandari&background=2563eb&color=ffffff&bold=true",
     rating: 5,
+    isQuote: false, // DRAFT — CUSTOMER APPROVAL REQUIRED
   },
+  // CUSTOMER 4: DRAFT — CUSTOMER APPROVAL REQUIRED
   {
-    name: "Ananya Sen",
-    role: "Home Maker",
-    content: "The SIP and Mutual Fund advice from Divyesh has helped us plan our daughter's higher education fund. Extremely knowledgeable and trustworthy team.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&h=150&q=80",
+    name: "Keshav Gaddam",
+    role: "Chairman, NPS",
+    content: "Keshav Gaddam, Chairman of NPS, receives dependable consultation and professional service from The Insurance Hub.",
+    avatar: "https://ui-avatars.com/api/?name=Keshav+Gaddam&background=16a34a&color=ffffff&bold=true",
     rating: 5,
+    isQuote: false, // DRAFT — CUSTOMER APPROVAL REQUIRED
+  },
+  // CUSTOMER 5: DRAFT — CUSTOMER APPROVAL REQUIRED
+  {
+    name: "Sachin Toshniwal",
+    role: "Sachin Seeds Company",
+    content: "Sachin Toshniwal, associated with Sachin Seeds Company, receives prompt consultation and professional service from The Insurance Hub.",
+    avatar: "https://ui-avatars.com/api/?name=Sachin+Toshniwal&background=7c3aed&color=ffffff&bold=true",
+    rating: 5,
+    isQuote: false, // DRAFT — CUSTOMER APPROVAL REQUIRED
   },
 ];
 
@@ -64,8 +81,12 @@ export const Component = () => {
                       <p className="text-xs text-insurance-darkblue font-semibold">{testimonial.role}</p>
                     </div>
                   </div>
-                  <p className="mb-3 text-[13px] leading-relaxed text-slate-600 font-medium italic">
-                    &ldquo;{testimonial.content}&rdquo;
+                  <p className={`mb-3 text-[13px] leading-relaxed text-slate-600 font-medium ${testimonial.isQuote ? 'italic' : ''}`}>
+                    {testimonial.isQuote ? (
+                      <>&ldquo;{testimonial.content}&rdquo;</>
+                    ) : (
+                      testimonial.content
+                    )}
                   </p>
                 </div>
                 <div className="flex space-x-1 mt-auto pt-2 border-t border-slate-100">
