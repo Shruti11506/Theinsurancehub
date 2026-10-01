@@ -19,7 +19,7 @@ import {
  * Replace this URL with your deployed Google Apps Script Web App URL.
  * Example: "https://script.google.com/macros/s/AKfycbx.../exec"
  */
-export const GOOGLE_SCRIPT_URL = "YOUR_WEB_APP_URL";
+export const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwrH_C0J2UOz2ZQwLIN1eJCSKNMwHjjp-JoxqMHmQXjuJLFPdUaklAbIfimwcXX1Ymj/exec";
 
 export default function FeedbackForm() {
   const initialFormState = {
