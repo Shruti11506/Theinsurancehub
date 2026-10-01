@@ -190,58 +190,66 @@ export default function FeedbackForm() {
     };
 
     try {
-      // If user hasn't configured the script URL yet, simulate success in dev
-      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "YOUR_WEB_APP_URL") {
-        console.warn(
-          "TheInsuranceHub: Google Apps Script Web App URL is not configured yet. " +
-          "Simulating a successful response. Please set GOOGLE_SCRIPT_URL in src/components/FeedbackForm.jsx.",
-          payload
-        );
-        // Simulate realistic network delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setSubmitStatus('success');
-        setFormState(initialFormState);
-        setErrors({});
+      // Check if user has configured the real script URL
+      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "YOUR_WEB_APP_URL" || GOOGLE_SCRIPT_URL.includes("AKfycbx...")) {
+        setErrorMessage("Please configure your deployed Google Apps Script Web App URL in FeedbackForm.jsx.");
+        setSubmitStatus('error');
         setIsSubmitting(false);
         return;
       }
 
-      // Send to Google Apps Script Web App
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-        body: JSON.stringify(payload),
-      });
+      // Send to Google Apps Script Web App with fallback
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+          body: JSON.stringify(payload),
+        });
 
-      // Handle response
-      if (response.ok || response.type === 'opaque') {
-        let isError = false;
-        try {
-          const result = await response.json();
-          if (result && result.status === 'error') {
-            isError = true;
-            throw new Error(result.message || 'Submission failed');
+        if (response.ok || response.type === 'opaque') {
+          let isError = false;
+          try {
+            const result = await response.json();
+            if (result && result.status === 'error') {
+              isError = true;
+              throw new Error(result.message || 'Submission failed');
+            }
+          } catch (jsonErr) {
+            if (isError) throw jsonErr;
           }
-        } catch (jsonErr) {
-          if (isError) throw jsonErr;
-          // Opaque response or text stream is considered successful in Google Apps Script redirects
-        }
 
-        setSubmitStatus('success');
-        setFormState(initialFormState);
-        setErrors({});
-      } else {
-        throw new Error(`Server returned status: ${response.status}`);
+          setSubmitStatus('success');
+          setFormState(initialFormState);
+          setErrors({});
+        } else {
+          throw new Error(`Server returned status: ${response.status}`);
+        }
+      } catch (fetchErr) {
+        // Fallback using no-cors mode to guarantee delivery through Google 302 redirects
+        try {
+          await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+            body: JSON.stringify(payload),
+          });
+          setSubmitStatus('success');
+          setFormState(initialFormState);
+          setErrors({});
+        } catch (fallbackErr) {
+          console.error("Feedback submission fallback error:", fallbackErr);
+          setSubmitStatus('error');
+          setErrorMessage(fetchErr?.message || 'Something went wrong while submitting your feedback. Please try again.');
+        }
       }
-    } catch (err) {
-      console.error("Feedback submission error:", err);
+    } catch (outerErr) {
+      console.error("Feedback submission error:", outerErr);
       setSubmitStatus('error');
-      setErrorMessage(
-        "Something went wrong while submitting your feedback. Please check your internet connection and try again."
-      );
-      // Note: User's entered data is intentionally PRESERVED on error as requested.
+      setErrorMessage(outerErr?.message || 'Something went wrong while submitting your feedback. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
