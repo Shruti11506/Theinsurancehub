@@ -39,6 +39,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
   const navItems = [
     { 
       name: 'Home', 
+      shortName: 'Home',
       url: '#home', 
       targetId: 'home', 
       icon: Home, 
@@ -46,6 +47,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
     },
     { 
       name: 'Services Offered', 
+      shortName: 'Services',
       url: '#services', 
       targetId: 'services', 
       icon: Briefcase, 
@@ -53,6 +55,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
     },
     { 
       name: 'Why Us', 
+      shortName: 'Why Us',
       url: '#why-us', 
       targetId: 'why-us', 
       icon: Award, 
@@ -60,6 +63,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
     },
     { 
       name: 'About Us', 
+      shortName: 'About',
       url: '#about', 
       targetId: 'about', 
       icon: Users, 
@@ -72,6 +76,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
     },
     { 
       name: 'Contact Us', 
+      shortName: 'Contact',
       url: '#contact', 
       targetId: 'contact', 
       icon: PhoneCall, 
@@ -85,12 +90,11 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
     >
       <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         
-        {/* ── TOP SECTION (Row 1): Logo (+ Desktop NavBar) & Action Icons ── */}
-        <div className="h-14 sm:h-16 lg:h-20 flex items-center justify-between border-b lg:border-b-0 border-slate-100/80 w-full">
+        {/* ── TOP SECTION (Row 1): Logo, Centered Desktop NavBar & Action Icons ── */}
+        <div className="h-14 sm:h-16 lg:h-20 flex items-center justify-between border-b lg:border-b-0 border-slate-100/80 w-full relative">
           
-          {/* Left Side: Logo & Desktop Navigation Bar */}
-          <div className="flex items-center gap-3 sm:gap-6 lg:gap-6 xl:gap-10 min-w-0">
-            {/* Logo */}
+          {/* Left Side: Logo */}
+          <div className="flex items-center flex-shrink-0 z-30">
             <a 
               id="header-logo-link"
               href="/" 
@@ -98,26 +102,27 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                 e.preventDefault();
                 handleNavClick('home', 'Home');
               }}
-              className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
+              className="hover:opacity-95 transition-opacity flex-shrink-0"
             >
               <div id="header-logo-wrapper">
                 <Logo id="header-logo" className="h-8 xs:h-9 sm:h-12 lg:h-16" />
               </div>
             </a>
+          </div>
 
-            {/* Desktop Navigation Bar (Beside Logo on Laptop/Desktop only) */}
-            <div className="hidden lg:block relative z-20 flex-shrink-0">
-              <NavBar 
-                items={navItems}
-                activeTab={activeTab}
-                onTabChange={onTabChange}
-                layoutIdPrefix="desktop-tubelight"
-              />
-            </div>
+          {/* Center: Desktop Navigation Bar (Centrally Aligned in Viewport) */}
+          <div className="hidden lg:flex items-center justify-center absolute left-1/2 -translate-x-1/2 z-20 pointer-events-auto">
+            <NavBar 
+              items={navItems}
+              activeTab={activeTab}
+              onTabChange={onTabChange}
+              layoutIdPrefix="desktop-tubelight"
+              isMobile={false}
+            />
           </div>
           
           {/* Right Side: Action Icons (Call, WhatsApp, Map, Instagram & 3-line Menu) */}
-          <div className="flex items-center gap-1 xs:gap-1.5 sm:gap-2.5 lg:gap-3 flex-shrink-0">
+          <div className="flex items-center gap-1 xs:gap-1.5 sm:gap-2.5 lg:gap-3 flex-shrink-0 z-30">
             
             {/* Call Icon */}
             <a 
@@ -227,6 +232,17 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
 
           </div>
 
+        </div>
+
+        {/* ── MOBILE NAVIGATION ROW: Small, centered, and covers all sections ── */}
+        <div className="lg:hidden w-full pb-2 pt-0.5 px-0.5 xs:px-1 sm:px-2 flex items-center justify-center">
+          <NavBar 
+            items={navItems}
+            activeTab={activeTab}
+            onTabChange={onTabChange}
+            layoutIdPrefix="mobile-tubelight"
+            isMobile={true}
+          />
         </div>
 
       </div>
