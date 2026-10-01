@@ -5,45 +5,50 @@ import { Marquee } from "@/components/ui/marquee";
 import { Button } from "@/components/ui/button";
 
 const initialTestimonials = [
-  // CUSTOMER 1: Real Customer Testimonial
+  // CUSTOMER 1: Real Customer Testimonial (Has quotation marks)
   {
     name: "Ritesh Ramesh Patil",
     role: "Businessman • Dharmabad",
     content: "Hi, my name is Kirti Patil. When my dad, Ramesh Patil, needed hospitalization in Hyderabad, Adarsh Bafna from Star Health Nanded explained everything in detail on how to proceed. From documentation to cashless processing, he helped us smoothly. If you ever need to buy a policy, you can contact Adarsh Bafna.",
     avatar: "https://ui-avatars.com/api/?name=Ritesh+Patil&background=0f172a&color=ffffff&bold=true",
     rating: 5,
+    isQuote: true,
   },
-  // CUSTOMER 2: First-Person Review Draft
+  // CUSTOMER 2: DRAFT — CUSTOMER APPROVAL REQUIRED (First-person, no quotation marks)
   {
     name: "Ishwar Dhoka",
     role: "Anand Travels • General Service",
-    content: "Running Anand Travels requires dependable support, and The Insurance Hub has always provided us with prompt, professional, and reliable general service whenever we needed it.",
+    content: "At Anand Travels, I have received professional and dependable general service from The Insurance Hub.",
     avatar: "https://ui-avatars.com/api/?name=Ishwar+Dhoka&background=f28b24&color=ffffff&bold=true",
     rating: 5,
+    isQuote: false,
   },
-  // CUSTOMER 3: First-Person Review Draft
+  // CUSTOMER 3: DRAFT — CUSTOMER APPROVAL REQUIRED (First-person, no quotation marks)
   {
     name: "Sunil Bhandari",
     role: "Businessman • General Service",
-    content: "As a businessman, I truly value quick response and clarity. The Insurance Hub has given me dependable general service and clear guidance without any hassle.",
+    content: "As a businessman, I receive dependable general service and prompt guidance from The Insurance Hub.",
     avatar: "https://ui-avatars.com/api/?name=Sunil+Bhandari&background=2563eb&color=ffffff&bold=true",
     rating: 5,
+    isQuote: false,
   },
-  // CUSTOMER 4: First-Person Review Draft
+  // CUSTOMER 4: DRAFT — CUSTOMER APPROVAL REQUIRED (First-person, no quotation marks)
   {
     name: "Keshav Gaddam",
     role: "Chairman, NPS",
-    content: "At NPS, we prioritize trust and professionalism. The Insurance Hub has consistently provided us with dependable advisory and reliable service coordination.",
+    content: "As Chairman of NPS, I receive dependable consultation and professional service coordination from The Insurance Hub.",
     avatar: "https://ui-avatars.com/api/?name=Keshav+Gaddam&background=16a34a&color=ffffff&bold=true",
     rating: 5,
+    isQuote: false,
   },
-  // CUSTOMER 5: First-Person Review Draft
+  // CUSTOMER 5: DRAFT — CUSTOMER APPROVAL REQUIRED (First-person, no quotation marks)
   {
     name: "Sachin Toshniwal",
     role: "Sachin Seeds Company",
-    content: "For our operations at Sachin Seeds Company, timely assistance is essential. The Insurance Hub has delivered dependable consultation and prompt, professional service throughout.",
+    content: "At Sachin Seeds Company, I receive prompt consultation and dependable service from The Insurance Hub.",
     avatar: "https://ui-avatars.com/api/?name=Sachin+Toshniwal&background=7c3aed&color=ffffff&bold=true",
     rating: 5,
+    isQuote: false,
   },
 ];
 
@@ -76,8 +81,12 @@ export const Component = () => {
                       <p className="text-xs text-insurance-darkblue font-semibold">{testimonial.role}</p>
                     </div>
                   </div>
-                  <p className="mb-3 text-[13px] leading-relaxed text-slate-600 font-medium italic">
-                    &ldquo;{testimonial.content}&rdquo;
+                  <p className={`mb-3 text-[13px] leading-relaxed text-slate-600 font-medium ${testimonial.isQuote ? 'italic' : ''}`}>
+                    {testimonial.isQuote ? (
+                      <>&ldquo;{testimonial.content}&rdquo;</>
+                    ) : (
+                      testimonial.content
+                    )}
                   </p>
                 </div>
                 <div className="flex space-x-1 mt-auto pt-2 border-t border-slate-100">
