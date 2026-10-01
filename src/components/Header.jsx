@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import { NavBar } from '@/components/ui/tubelight-navbar';
-import { Home, Users, HelpCircle, PhoneCall, Briefcase, Phone, Menu as MenuIcon, X, MessageSquare, Award } from 'lucide-react';
+import { Home, Users, HelpCircle, PhoneCall, Briefcase, Phone, Menu as MenuIcon, X, MessageSquare, Award, Sparkles, Building } from 'lucide-react';
 import { MenuContainer, MenuItem } from '@/components/ui/fluid-menu';
 
 // WhatsApp SVG icon component
@@ -63,7 +63,12 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
       url: '#about', 
       targetId: 'about', 
       icon: Users, 
-      onClick: () => handleNavClick('about', 'About Us') 
+      onClick: () => handleNavClick('about', 'About Us'),
+      subItems: [
+        { name: 'Meet Leadership', url: '#about', onClick: () => handleNavClick('about', 'About Us') },
+        { name: 'Our Inspiring Story', url: '#journey', onClick: () => handleNavClick('journey', 'About Us') },
+        { name: 'Inside The Hub', url: '#workspace', onClick: () => handleNavClick('workspace', 'About Us') },
+      ]
     },
     { 
       name: 'Contact Us', 
@@ -78,13 +83,13 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
     <header
       className="sticky top-0 z-[100] w-full backdrop-blur-md border-b shadow-xs bg-white/95 border-slate-200/80"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         
         {/* ── TOP SECTION (Row 1): Logo (+ Desktop NavBar) & Action Icons ── */}
         <div className="h-14 sm:h-16 lg:h-20 flex items-center justify-between border-b lg:border-b-0 border-slate-100/80 w-full">
           
           {/* Left Side: Logo & Desktop Navigation Bar */}
-          <div className="flex items-center gap-3 sm:gap-6 lg:gap-8 xl:gap-12 min-w-0">
+          <div className="flex items-center gap-3 sm:gap-6 lg:gap-6 xl:gap-10 min-w-0">
             {/* Logo */}
             <a 
               id="header-logo-link"
@@ -96,7 +101,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               className="hover:opacity-95 transition-opacity flex-shrink-0 relative z-50"
             >
               <div id="header-logo-wrapper">
-                <Logo id="header-logo" className="h-9 sm:h-12 lg:h-16" />
+                <Logo id="header-logo" className="h-8 xs:h-9 sm:h-12 lg:h-16" />
               </div>
             </a>
 
@@ -112,16 +117,16 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
           </div>
           
           {/* Right Side: Action Icons (Call, WhatsApp, Map, Instagram & 3-line Menu) */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 lg:gap-3 flex-shrink-0">
+          <div className="flex items-center gap-1 xs:gap-1.5 sm:gap-2.5 lg:gap-3 flex-shrink-0">
             
             {/* Call Icon */}
             <a 
               href="tel:+919423924568" 
-              className="p-2 sm:p-2.5 rounded-full bg-blue-50 text-insurance-darkblue hover:bg-blue-100 transition-all shadow-xs border border-blue-100/60 active:scale-95 flex items-center justify-center"
+              className="p-1.5 xs:p-2 sm:p-2.5 rounded-full bg-blue-50 text-insurance-darkblue hover:bg-blue-100 transition-all shadow-xs border border-blue-100/60 active:scale-95 flex items-center justify-center flex-shrink-0"
               title="Call Us Directly"
               aria-label="Call Us Directly"
             >
-              <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
+              <Phone className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
             </a>
 
             {/* WhatsApp Icon */}
@@ -129,11 +134,11 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               href="https://wa.me/message/WXX5A5BNS2LBL1?src=qr" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="p-2 sm:p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-xs border border-emerald-100/60 active:scale-95 flex items-center justify-center"
+              className="p-1.5 xs:p-2 sm:p-2.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-xs border border-emerald-100/60 active:scale-95 flex items-center justify-center flex-shrink-0"
               title="Chat on WhatsApp"
               aria-label="Chat on WhatsApp"
             >
-              <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+              <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
             </a>
 
             {/* Google Maps Icon */}
@@ -141,11 +146,11 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               href="https://www.google.com/maps/search/?api=1&query=The+Insurance+Hub,+Shop+no.+57,+Sanman+Prestige,+Beside+Zilla+Parishad,+Railway+Station+Road,+Nanded+431601" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="p-2 sm:p-2.5 rounded-full bg-orange-50 text-insurance-orange hover:bg-orange-100 transition-all shadow-xs border border-orange-100/60 active:scale-95 flex items-center justify-center"
+              className="p-1.5 xs:p-2 sm:p-2.5 rounded-full bg-orange-50 text-insurance-orange hover:bg-orange-100 transition-all shadow-xs border border-orange-100/60 active:scale-95 flex items-center justify-center flex-shrink-0"
               title="Get Directions on Google Maps"
               aria-label="Get Directions on Google Maps"
             >
-              <LocationPinIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+              <LocationPinIcon className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
             </a>
 
             {/* Instagram Icon */}
@@ -153,11 +158,11 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
               href="https://www.instagram.com/theinsurancehub__?utm_source=qr&igsh=bGJzOGM2M3JmaTF1" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="p-2 sm:p-2.5 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 transition-all shadow-xs border border-pink-100/60 active:scale-95 flex items-center justify-center"
+              className="p-1.5 xs:p-2 sm:p-2.5 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 transition-all shadow-xs border border-pink-100/60 active:scale-95 flex items-center justify-center flex-shrink-0"
               title="Follow on Instagram"
               aria-label="Follow on Instagram"
             >
-              <InstagramIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+              <InstagramIcon className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
             </a>
 
             {/* 3-line Menu Button (Dropdown / Action Sheet) */}
@@ -173,7 +178,7 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   className="text-emerald-600 hover:text-emerald-800"
                   icon={<Briefcase size={19} strokeWidth={2.2} />}
                   onClick={() => handleNavClick('services', 'Services Offered')}
-                  label="Services Offered"
+                  label="Services"
                 />
                 <MenuItem 
                   className="text-amber-500 hover:text-amber-700" 
@@ -187,8 +192,20 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                   onClick={() => handleNavClick('about', 'About Us')}
                   label="About Us"
                 />
+                <MenuItem 
+                  className="text-indigo-600 hover:text-indigo-800" 
+                  icon={<Sparkles size={19} strokeWidth={2.2} />}
+                  onClick={() => handleNavClick('journey', 'About Us')}
+                  label="Our Journey"
+                />
+                <MenuItem 
+                  className="text-teal-600 hover:text-teal-800" 
+                  icon={<Building size={19} strokeWidth={2.2} />}
+                  onClick={() => handleNavClick('workspace', 'About Us')}
+                  label="Inside The Hub"
+                />
                 <MenuItem
-                  className="text-indigo-600 hover:text-indigo-800"
+                  className="text-blue-600 hover:text-blue-800"
                   icon={<PhoneCall size={19} strokeWidth={2.2} />}
                   onClick={() => handleNavClick('contact', 'Contact Us')}
                   label="Contact Us"
@@ -196,13 +213,13 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
                 <MenuItem 
                   className="text-violet-600 hover:text-violet-800" 
                   icon={<MessageSquare size={19} strokeWidth={2.2} />}
-                  onClick={() => handleNavClick('testimonials', 'Feedbacks')}
+                  onClick={() => handleNavClick('testimonials', 'About Us')}
                   label="Feedbacks"
                 />
                 <MenuItem 
                   className="text-sky-600 hover:text-sky-800" 
                   icon={<HelpCircle size={19} strokeWidth={2.2} />}
-                  onClick={() => handleNavClick('faqs', 'FAQs')}
+                  onClick={() => handleNavClick('faqs', 'About Us')}
                   label="FAQs"
                 />
               </MenuContainer>
@@ -210,16 +227,6 @@ export default function Header({ onNavigate, currentPage, activeTab = 'Home', on
 
           </div>
 
-        </div>
-
-        {/* ── MOBILE ONLY SECTION (Row 2): Tubelight Navigation Bar ── */}
-        <div className="lg:hidden px-2 sm:px-4 py-1.5 sm:py-2 flex items-center justify-center bg-slate-50/60 backdrop-blur-sm overflow-x-auto no-scrollbar">
-          <NavBar 
-            items={navItems}
-            activeTab={activeTab}
-            onTabChange={onTabChange}
-            layoutIdPrefix="mobile-tubelight"
-          />
         </div>
 
       </div>

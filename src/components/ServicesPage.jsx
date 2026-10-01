@@ -39,7 +39,7 @@ export default function ServicesPage({ onBack, onNavigate }) {
           <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/15 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           
           {/* Back to Home & Breadcrumbs */}
           <div className="flex items-center justify-between gap-4 mb-6">
@@ -92,8 +92,8 @@ export default function ServicesPage({ onBack, onNavigate }) {
       </div>
 
       {/* ── 2. Services Cards Grid ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 -mt-10 relative z-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+      <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 -mt-10 relative z-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-7">
           {filteredServices.map((service) => {
             const Icon = service.icon;
             return (
@@ -173,7 +173,7 @@ export default function ServicesPage({ onBack, onNavigate }) {
       </div>
 
       {/* ── 3. Bottom Consultation Banner (Solid Dark Blue + Orange Button) ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-14">
+      <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 mt-14">
         <div className="bg-insurance-darkblue rounded-3xl p-6 sm:p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-80 h-80 bg-insurance-orange/15 rounded-full blur-3xl pointer-events-none"></div>
           

@@ -40,7 +40,7 @@ export default function ContactUsPage({ onBack, onNavigate }) {
           <div className="absolute bottom-0 left-[-10%] w-[500px] h-[500px] bg-insurance-darkblue/40 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           
           {/* Back to Home & Breadcrumb */}
           <div className="flex items-center justify-between gap-4 mb-8">
@@ -76,7 +76,7 @@ export default function ContactUsPage({ onBack, onNavigate }) {
       </div>
 
       {/* ── 2. Main Contact Cards & Form Container ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 -mt-10 relative z-20">
+      <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 -mt-10 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* LEFT: Callback Request Form (7 cols) */}
@@ -280,7 +280,7 @@ export default function ContactUsPage({ onBack, onNavigate }) {
       </div>
 
       {/* ── 3. WhatsApp Direct Quick CTA ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-16">
+      <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 mt-16">
         <div className="bg-emerald-600 rounded-3xl p-8 sm:p-10 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl shadow-emerald-700/20">
           <div className="flex items-center gap-4 text-center sm:text-left">
             <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-md flex-shrink-0">

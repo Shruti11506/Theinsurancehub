@@ -209,7 +209,7 @@ export default function AboutUsPage({ onBack }) {
       </div>
 
       {/* Navigation & Back Button */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-4 relative z-10 flex justify-start">
+      <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 mb-4 relative z-10 flex justify-start">
         <button 
           onClick={onBack}
           className="group flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-slate-900 hover:text-white rounded-full text-slate-700 font-bold text-[15px] shadow-sm border border-slate-200/60 transition-all duration-300 hover:-translate-x-1"
@@ -219,7 +219,7 @@ export default function AboutUsPage({ onBack }) {
         </button>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
 
         {/* Header Heading */}
         <div className="text-left space-y-4 mb-12">

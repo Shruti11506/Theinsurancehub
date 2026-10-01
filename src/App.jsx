@@ -88,6 +88,7 @@ export default function App() {
       { id: 'services', tab: 'Services Offered' },
       { id: 'why-us', tab: 'Why Us' },
       { id: 'about', tab: 'About Us' },
+      { id: 'journey', tab: 'About Us' },
       { id: 'workspace', tab: 'About Us' },
       { id: 'testimonials', tab: 'About Us' },
       { id: 'feedback', tab: 'About Us' },
@@ -226,6 +227,14 @@ export default function App() {
       scrollToSection('contact', 'Contact Us');
       return;
     }
+    if (page === 'journey' || targetId === 'journey') {
+      scrollToSection('journey', 'About Us');
+      return;
+    }
+    if (page === 'workspace' || targetId === 'workspace') {
+      scrollToSection('workspace', 'About Us');
+      return;
+    }
     if (targetId === 'testimonials' || targetId === 'feedback') {
       scrollToSection('testimonials', 'About Us');
       return;
@@ -346,7 +355,7 @@ export default function App() {
         {/* Uniform clean background */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/30 pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
+        <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
 
             {/* LEFT: Question, Answer & Quote */}
@@ -386,7 +395,7 @@ export default function App() {
 
             {/* RIGHT: Moving Floating Cards Gallery */}
             <div
-              className="flex-shrink-0 w-full lg:w-[460px] xl:w-[520px] h-[390px] sm:h-[450px] lg:h-[500px] xl:h-[540px] relative overflow-hidden rounded-[32px] sm:rounded-[40px] flex justify-center items-center shadow-2xl shadow-blue-900/10 border-4 sm:border-[8px] border-white/60 bg-white/30 backdrop-blur-3xl"
+              className="flex-shrink-0 w-full lg:w-[460px] xl:w-[520px] 2xl:w-[580px] h-[390px] sm:h-[450px] lg:h-[500px] xl:h-[540px] 2xl:h-[580px] relative overflow-hidden rounded-[32px] sm:rounded-[40px] flex justify-center items-center shadow-2xl shadow-blue-900/10 border-4 sm:border-[8px] border-white/60 bg-white/30 backdrop-blur-3xl"
             >
               {/* Glow background */}
               <div className="absolute inset-0 bg-gradient-to-br from-insurance-darkblue/20 via-insurance-orange/10 to-insurance-green/20 blur-3xl z-0"></div>
@@ -466,7 +475,7 @@ export default function App() {
         <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-50/50 blur-3xl pointer-events-none"></div>
         <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-orange-50/50 blur-3xl pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
+        <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           {/* Section Heading */}
           <div className="text-center space-y-4 mb-14 sm:mb-16">
             <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-orange bg-orange-50 border border-orange-100 px-4 py-1.5 rounded-full w-fit mx-auto font-sans">
@@ -484,7 +493,7 @@ export default function App() {
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-7 xl:gap-8">
             {servicesList.map((service) => {
               const Icon = service.icon;
               return (
@@ -548,7 +557,7 @@ export default function App() {
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 pointer-events-none"></div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-insurance-darkblue via-insurance-orange via-insurance-green to-insurance-violet"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           <div className="text-center space-y-4 mb-12 sm:mb-16">
             <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-orange bg-orange-50 border border-orange-100 px-4 py-1.5 rounded-full w-fit mx-auto font-sans">
               WHY CHOOSE US
@@ -583,7 +592,7 @@ export default function App() {
           </div>
 
           {/* Description Text */}
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto text-center">
             <p className="text-[15px] sm:text-[19px] leading-[1.8] sm:leading-[1.9] text-slate-700 font-medium font-sans tracking-wide">
               At <span className="font-extrabold text-insurance-darkblue">The Insurance Hub</span>, we are committed to helping individuals, families, and businesses make confident and informed insurance decisions through trusted guidance and years of industry experience. With expertise across life, health, and general insurance, we simplify complex policies and provide honest, transparent advice tailored to every client's unique needs.
             </p>
@@ -598,7 +607,7 @@ export default function App() {
           ABOUT US SECTION (Home Page)
           ═══════════════════════════════════════════════════════ */}
       <section id="about" className="relative py-16 sm:py-24 overflow-hidden bg-white/70 backdrop-blur-md border-t border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           <div className="text-center space-y-4 mb-12 sm:mb-16">
             <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-darkblue bg-blue-50 border border-blue-100 px-4 py-1.5 rounded-full w-fit mx-auto font-sans">
               ABOUT OUR LEADERSHIP
@@ -612,7 +621,7 @@ export default function App() {
           </div>
 
           {/* Profile Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-12 items-stretch w-full mx-auto">
 
             {/* Card 1 - Adarsh & Vaishali Bafna */}
             <div className="relative w-full h-full bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl border border-slate-100 flex flex-col sm:flex-row group hover:bg-blue-50/10 transition-all duration-500">
@@ -620,7 +629,7 @@ export default function App() {
               <div className="absolute top-0 left-0 right-0 sm:bottom-0 sm:right-auto sm:w-1.5 sm:h-full h-1.5 bg-gradient-to-r sm:bg-gradient-to-b from-insurance-darkblue to-insurance-orange z-10"></div>
 
               {/* Photo */}
-              <div className="w-full sm:w-[220px] md:w-[240px] xl:w-[260px] flex-shrink-0 relative overflow-hidden bg-slate-100 flex items-center justify-center min-h-[260px] sm:min-h-full">
+              <div className="w-full sm:w-[220px] md:w-[240px] xl:w-[260px] 2xl:w-[280px] flex-shrink-0 relative overflow-hidden bg-slate-100 flex items-center justify-center min-h-[260px] sm:min-h-full">
                 <img
                   src="/founders_new.jpg"
                   alt="Adarsh and Vaishali Bafna"
@@ -686,7 +695,7 @@ export default function App() {
               <div className="absolute top-0 left-0 right-0 sm:bottom-0 sm:right-auto sm:w-1.5 sm:h-full h-1.5 bg-gradient-to-r sm:bg-gradient-to-b from-insurance-orange to-insurance-violet z-10"></div>
 
               {/* Photo */}
-              <div className="w-full sm:w-[220px] md:w-[240px] xl:w-[260px] flex-shrink-0 relative overflow-hidden bg-slate-100 flex items-center justify-center min-h-[260px] sm:min-h-full">
+              <div className="w-full sm:w-[220px] md:w-[240px] xl:w-[260px] 2xl:w-[280px] flex-shrink-0 relative overflow-hidden bg-slate-100 flex items-center justify-center min-h-[260px] sm:min-h-full">
                 <img
                   src="/divyesh_new.jpg"
                   alt="Divyesh Bafna"
@@ -756,7 +765,7 @@ export default function App() {
         </div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-insurance-green via-insurance-darkblue to-insurance-violet"></div>
         
-        <div className="text-center space-y-4 mb-14 relative z-10 px-6 max-w-7xl mx-auto">
+        <div className="text-center space-y-4 mb-14 relative z-10 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto">
           <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-green bg-green-950/60 border border-green-800/50 px-4 py-1.5 rounded-full w-fit mx-auto">
             OUR HUB
           </h2>
@@ -787,7 +796,7 @@ export default function App() {
           <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-orange-100/20 blur-3xl animate-blob animation-delay-2000"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
+        <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           {/* Section Heading */}
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-insurance-orange bg-orange-50 border border-orange-100 px-4 py-1.5 rounded-full w-fit mx-auto font-sans">
@@ -828,7 +837,7 @@ export default function App() {
           <div className="absolute bottom-[20%] right-[-10%] w-[450px] h-[450px] rounded-full bg-blue-50/50 blur-3xl"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           
           {/* Header */}
           <div className="text-left space-y-4 mb-16">
@@ -846,7 +855,7 @@ export default function App() {
             </p>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-12 items-stretch">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 xl:gap-14 items-stretch">
             
             {/* Left side: Contact Form */}
             <div className="flex-1 bg-slate-50/80 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/50">
@@ -937,7 +946,7 @@ export default function App() {
             </div>
 
             {/* Right side: Contact Cards & Info */}
-            <div className="w-full lg:w-[420px] flex flex-col justify-between gap-5">
+            <div className="w-full lg:w-[420px] xl:w-[460px] 2xl:w-[480px] flex flex-col justify-between gap-5">
               
               {/* Call desk */}
               <div className="bg-slate-50 border border-slate-100 p-5 sm:p-6 rounded-3xl hover:shadow-lg transition-all">
@@ -1024,7 +1033,7 @@ export default function App() {
 
       {/* 4. Comprehensive Footer */}
       <footer className="bg-slate-900 text-slate-400 pt-20 pb-12 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-3 gap-12 pb-16 border-b border-slate-800">
+        <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 grid md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 pb-16 border-b border-slate-800">
           
           {/* Col 1: About company */}
           <div className="lg:col-span-1 space-y-6 text-left">

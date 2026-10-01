@@ -157,7 +157,7 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
 
   // Lock body scroll when mobile sheet is open
   useEffect(() => {
-    if (isExpanded && window.innerWidth < 768) {
+    if (isExpanded && window.innerWidth < 1024) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
@@ -170,7 +170,7 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
     <>
       {/* Backdrop overlay */}
       <div
-        className={`md:hidden fixed inset-0 bg-slate-900/50 backdrop-blur-[2px] transition-opacity duration-300 ${
+        className={`lg:hidden fixed inset-0 bg-slate-900/50 backdrop-blur-[2px] transition-opacity duration-300 ${
           isExpanded ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         style={{ zIndex: 9998 }}
@@ -180,7 +180,7 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
 
       {/* Bottom Sheet Drawer */}
       <div
-        className={`md:hidden fixed bottom-0 left-0 right-0 bg-white rounded-t-[32px] border-t border-slate-200 shadow-2xl p-5 pb-8 transition-all duration-300 ease-out max-w-lg mx-auto ${
+        className={`lg:hidden fixed bottom-0 left-0 right-0 bg-white rounded-t-[32px] border-t border-slate-200 shadow-2xl p-5 pb-8 transition-all duration-300 ease-out max-w-lg mx-auto max-h-[90vh] overflow-y-auto ${
           isExpanded ? 'translate-y-0 opacity-100 pointer-events-auto' : 'translate-y-full opacity-0 pointer-events-none'
         }`}
         style={{ zIndex: 9999 }}
@@ -278,7 +278,7 @@ export function MenuContainer({ children }: { children: React.ReactNode }) {
 
         {/* Desktop Dropdown */}
         <div
-          className={`hidden md:block absolute right-0 top-[calc(100%+10px)] w-56 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.18)] border border-slate-200 rounded-2xl p-2 z-50 origin-top-right transition-all duration-150 ease-out space-y-1 ${
+          className={`hidden lg:block absolute right-0 top-[calc(100%+10px)] w-56 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.18)] border border-slate-200 rounded-2xl p-2 z-50 origin-top-right transition-all duration-150 ease-out space-y-1 ${
             isExpanded
               ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
               : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'

@@ -197,7 +197,7 @@ export default function AdarshJourneyRoadmap() {
   }, []);
 
   return (
-    <div className="w-full relative mt-16 sm:mt-24 pt-12 sm:pt-16 border-t border-slate-200/80">
+    <div id="journey" className="w-full relative mt-16 sm:mt-24 pt-12 sm:pt-16 border-t border-slate-200/80 scroll-mt-24">
       
       {/* Roadmap Section Header */}
       <div className="text-center space-y-4 mb-12 sm:mb-16">
@@ -340,7 +340,7 @@ export default function AdarshJourneyRoadmap() {
                 {/* ── Content Card ── */}
                 <div
                   className={`
-                    relative w-[calc(100%-2.6rem)] ml-auto md:ml-0 md:w-[43%]
+                    relative w-[calc(100%-54px)] ml-auto md:ml-0 md:w-[44%] lg:w-[43%]
                     ${isEven ? 'md:ml-[2%]' : 'md:mr-[2%]'}
                   `}
                 >
