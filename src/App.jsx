@@ -472,8 +472,10 @@ export default function App() {
           ═══════════════════════════════════════════════════════ */}
       <section id="services" className="relative py-20 lg:py-24 overflow-hidden bg-white w-full max-w-full border-t border-slate-100">
         {/* Background glows */}
-        <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-50/50 blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-orange-50/50 blur-3xl pointer-events-none"></div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-blue-50/50 blur-3xl"></div>
+          <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-orange-50/50 blur-3xl"></div>
+        </div>
 
         <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           {/* Section Heading */}
