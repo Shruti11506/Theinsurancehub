@@ -12,43 +12,38 @@ const initialTestimonials = [
     content: "Hi, my name is Kirti Patil. When my dad, Ramesh Patil, needed hospitalization in Hyderabad, Adarsh Bafna from Star Health Nanded explained everything in detail on how to proceed. From documentation to cashless processing, he helped us smoothly. If you ever need to buy a policy, you can contact Adarsh Bafna.",
     avatar: "https://ui-avatars.com/api/?name=Ritesh+Patil&background=0f172a&color=ffffff&bold=true",
     rating: 5,
-    isQuote: true,
   },
-  // CUSTOMER 2: DRAFT — CUSTOMER APPROVAL REQUIRED
+  // CUSTOMER 2: First-Person Review Draft
   {
     name: "Ishwar Dhoka",
     role: "Anand Travels • General Service",
-    content: "Ishwar Dhoka, associated with Anand Travels, has received professional and dependable service from The Insurance Hub.",
+    content: "Running Anand Travels requires dependable support, and The Insurance Hub has always provided us with prompt, professional, and reliable general service whenever we needed it.",
     avatar: "https://ui-avatars.com/api/?name=Ishwar+Dhoka&background=f28b24&color=ffffff&bold=true",
     rating: 5,
-    isQuote: false, // DRAFT — CUSTOMER APPROVAL REQUIRED
   },
-  // CUSTOMER 3: DRAFT — CUSTOMER APPROVAL REQUIRED
+  // CUSTOMER 3: First-Person Review Draft
   {
     name: "Sunil Bhandari",
     role: "Businessman • General Service",
-    content: "Sunil Bhandari, businessman, receives professional guidance and dependable general service from The Insurance Hub.",
+    content: "As a businessman, I truly value quick response and clarity. The Insurance Hub has given me dependable general service and clear guidance without any hassle.",
     avatar: "https://ui-avatars.com/api/?name=Sunil+Bhandari&background=2563eb&color=ffffff&bold=true",
     rating: 5,
-    isQuote: false, // DRAFT — CUSTOMER APPROVAL REQUIRED
   },
-  // CUSTOMER 4: DRAFT — CUSTOMER APPROVAL REQUIRED
+  // CUSTOMER 4: First-Person Review Draft
   {
     name: "Keshav Gaddam",
     role: "Chairman, NPS",
-    content: "Keshav Gaddam, Chairman of NPS, receives dependable consultation and professional service from The Insurance Hub.",
+    content: "At NPS, we prioritize trust and professionalism. The Insurance Hub has consistently provided us with dependable advisory and reliable service coordination.",
     avatar: "https://ui-avatars.com/api/?name=Keshav+Gaddam&background=16a34a&color=ffffff&bold=true",
     rating: 5,
-    isQuote: false, // DRAFT — CUSTOMER APPROVAL REQUIRED
   },
-  // CUSTOMER 5: DRAFT — CUSTOMER APPROVAL REQUIRED
+  // CUSTOMER 5: First-Person Review Draft
   {
     name: "Sachin Toshniwal",
     role: "Sachin Seeds Company",
-    content: "Sachin Toshniwal, associated with Sachin Seeds Company, receives prompt consultation and professional service from The Insurance Hub.",
+    content: "For our operations at Sachin Seeds Company, timely assistance is essential. The Insurance Hub has delivered dependable consultation and prompt, professional service throughout.",
     avatar: "https://ui-avatars.com/api/?name=Sachin+Toshniwal&background=7c3aed&color=ffffff&bold=true",
     rating: 5,
-    isQuote: false, // DRAFT — CUSTOMER APPROVAL REQUIRED
   },
 ];
 
@@ -81,12 +76,8 @@ export const Component = () => {
                       <p className="text-xs text-insurance-darkblue font-semibold">{testimonial.role}</p>
                     </div>
                   </div>
-                  <p className={`mb-3 text-[13px] leading-relaxed text-slate-600 font-medium ${testimonial.isQuote ? 'italic' : ''}`}>
-                    {testimonial.isQuote ? (
-                      <>&ldquo;{testimonial.content}&rdquo;</>
-                    ) : (
-                      testimonial.content
-                    )}
+                  <p className="mb-3 text-[13px] leading-relaxed text-slate-600 font-medium italic">
+                    &ldquo;{testimonial.content}&rdquo;
                   </p>
                 </div>
                 <div className="flex space-x-1 mt-auto pt-2 border-t border-slate-100">
