@@ -1,0 +1,18 @@
+# Server-side scripts & backend
+backend/
+api/
+google_apps_script.js
+extract_images.cjs
+optimize_images.cjs
+start-website.bat
+requirements.txt
+*.py
+*.bat
+
+# Git & Editor
+.git/
+.vscode/
+.idea/
+
+# Environment
+.env*

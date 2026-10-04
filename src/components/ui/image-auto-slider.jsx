@@ -3,14 +3,14 @@ import React from 'react';
 export const ImageAutoSlider = () => {
   // Client-provided office photos
     const images = [
-      "/hub_real_desk.jpg",
-      "/hub_real_wall.jpg",
-      "/hub_real_meeting.jpg",
-      "/hub_real_entrance.jpg",
-      "/hub_map_wall.jpg",
-      "/hub_office_cabin.jpg",
-      "/hub_art_wall.jpg",
-      "/hub_cards.jpg"
+      "/hub_real_desk.webp",
+      "/hub_real_wall.webp",
+      "/hub_real_meeting.webp",
+      "/hub_real_entrance.webp",
+      "/hub_map_wall.webp",
+      "/hub_office_cabin.webp",
+      "/hub_art_wall.webp",
+      "/hub_cards.webp"
     ];
 
   // Duplicate for seamless infinite loop

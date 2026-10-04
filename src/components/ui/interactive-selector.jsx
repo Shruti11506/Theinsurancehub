@@ -9,25 +9,25 @@ const InteractiveSelector = () => {
     {
       title: "Executive Cabin",
       description: "Modern professional setup",
-      image: "/hub_real_desk.jpg",
+      image: "/hub_real_desk.webp",
       icon: <Briefcase size={24} className="text-white" />
     },
     {
       title: "Wall of Fame",
       description: "Celebrating milestones and trust",
-      image: "/hub_real_wall.jpg",
+      image: "/hub_real_wall.webp",
       icon: <Trophy size={24} className="text-white" />
     },
     {
       title: "Client Desk",
       description: "Comfortable discussion area",
-      image: "/hub_real_meeting.jpg",
+      image: "/hub_real_meeting.webp",
       icon: <Users size={24} className="text-white" />
     },
     {
       title: "Grand Entrance",
       description: "Welcoming clients with warmth",
-      image: "/hub_real_entrance.jpg",
+      image: "/hub_real_entrance.webp",
       icon: <Building size={24} className="text-white" />
     }
   ];

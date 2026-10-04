@@ -30,10 +30,18 @@
     <meta property="og:title" content="TheInsuranceHub - All Companies, Insurance & Mutual Funds Under One Roof" />
     <meta property="og:description" content="Confused about choosing the right insurance? Compare and secure health, life, car plans, and mutual funds side-by-side with 100% transparency." />
     
-    <!-- Google Fonts Preconnect & Optimized Fonts -->
+    <!-- Preload Critical Hero Visuals -->
+    <link rel="preload" as="image" href="/health_card.webp" type="image/webp" />
+    <link rel="preload" as="image" href="/wealth_card.webp" type="image/webp" />
+
+    <!-- Google Fonts Preconnect & High-Performance Asynchronous Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Roboto:wght@400;500;700&display=swap" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Roboto:wght@400;500;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Roboto:wght@400;500;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Roboto:wght@400;500;700&display=swap" />
+    </noscript>
   </head>
   <body class="bg-slate-50 antialiased text-slate-800">
     <div id="root"></div>

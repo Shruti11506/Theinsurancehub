@@ -405,7 +405,7 @@ export default function App() {
                   <Marquee vertical className="w-1/2 h-full" repeat={3} pauseOnHover>
                     <div onClick={() => handleNavigate('services')} className="w-full h-[175px] sm:h-[210px] lg:h-[235px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
                       <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
-                        <img src="/health_card.png" alt="Health Guard" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <img src="/health_card.webp" alt="Health Guard" loading="eager" fetchPriority="high" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
                         <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5">
                            <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-blue-500/30 backdrop-blur-md flex items-center justify-center mb-1.5 sm:mb-3 border border-blue-400/30">
@@ -418,7 +418,7 @@ export default function App() {
                     </div>
                     <div onClick={() => handleNavigate('services')} className="w-full h-[175px] sm:h-[210px] lg:h-[235px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
                       <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
-                        <img src="/wealth_card.png" alt="Wealth SIP" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <img src="/wealth_card.webp" alt="Wealth SIP" loading="eager" fetchPriority="high" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
                         <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5">
                            <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-purple-500/30 backdrop-blur-md flex items-center justify-center mb-1.5 sm:mb-3 border border-purple-400/30">
@@ -435,7 +435,7 @@ export default function App() {
                   <Marquee vertical reverse className="w-1/2 h-full" repeat={3} pauseOnHover>
                     <div onClick={() => handleNavigate('services')} className="w-full h-[175px] sm:h-[210px] lg:h-[235px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
                       <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
-                        <img src="/life_card.png" alt="Life Shield" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <img src="/life_card.webp" alt="Life Shield" loading="eager" fetchPriority="high" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
                         <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5">
                            <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-orange-500/30 backdrop-blur-md flex items-center justify-center mb-1.5 sm:mb-3 border border-orange-400/30">
@@ -448,7 +448,7 @@ export default function App() {
                     </div>
                     <div onClick={() => handleNavigate('services')} className="w-full h-[175px] sm:h-[210px] lg:h-[235px] bg-white p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 group overflow-hidden relative cursor-pointer">
                       <div className="w-full h-full relative rounded-xl sm:rounded-2xl overflow-hidden">
-                        <img src="/motor_card.png" alt="Motor Safe" loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <img src="/motor_card.webp" alt="Motor Safe" loading="eager" fetchPriority="high" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
                         <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5">
                            <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-emerald-500/30 backdrop-blur-md flex items-center justify-center mb-1.5 sm:mb-3 border border-emerald-400/30">
@@ -633,7 +633,7 @@ export default function App() {
               {/* Photo */}
               <div className="w-full sm:w-[220px] md:w-[240px] xl:w-[260px] 2xl:w-[280px] flex-shrink-0 relative overflow-hidden bg-slate-100 flex items-center justify-center min-h-[260px] sm:min-h-full">
                 <img
-                  src="/founders_new.jpg"
+                  src="/founders_new.webp"
                   alt="Adarsh and Vaishali Bafna"
                   loading="lazy"
                   decoding="async"
@@ -699,7 +699,7 @@ export default function App() {
               {/* Photo */}
               <div className="w-full sm:w-[220px] md:w-[240px] xl:w-[260px] 2xl:w-[280px] flex-shrink-0 relative overflow-hidden bg-slate-100 flex items-center justify-center min-h-[260px] sm:min-h-full">
                 <img
-                  src="/divyesh_new.jpg"
+                  src="/divyesh_new.webp"
                   alt="Divyesh Bafna"
                   loading="lazy"
                   decoding="async"

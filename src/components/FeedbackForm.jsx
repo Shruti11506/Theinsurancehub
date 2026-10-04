@@ -240,16 +240,14 @@ export default function FeedbackForm() {
           setSubmitStatus('success');
           setFormState(initialFormState);
           setErrors({});
-        } catch (fallbackErr) {
-          console.error("Feedback submission fallback error:", fallbackErr);
+        } catch (_fallbackErr) {
           setSubmitStatus('error');
           setErrorMessage(fetchErr?.message || 'Something went wrong while submitting your feedback. Please try again.');
         }
       }
-    } catch (outerErr) {
-      console.error("Feedback submission error:", outerErr);
+    } catch (_outerErr) {
       setSubmitStatus('error');
-      setErrorMessage(outerErr?.message || 'Something went wrong while submitting your feedback. Please try again.');
+      setErrorMessage('Something went wrong while submitting your feedback. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
