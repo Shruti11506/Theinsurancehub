@@ -32,14 +32,14 @@ const initialTestimonials = [
     rating: 5,
     isQuote: false,
   },
-  // CUSTOMER 4: DRAFT — CUSTOMER APPROVAL REQUIRED (First-person, no quotation marks)
+  // CUSTOMER 4: Real Customer Testimonial (Has quotation marks)
   {
     name: "Keshav Gaddam",
     role: "Chairman, NPS",
-    content: "As Chairman of NPS, I receive dependable consultation and professional service coordination from The Insurance Hub.",
+    content: "I have been a customer of The Insurance Hub for almost 10 years and have always received excellent service. Adarsh has personally supported me with both vehicle accident and health insurance claims, making the entire process smooth and hassle free. His prompt assistance and genuine support are highly appreciated. Highly recommended!",
     avatar: "https://ui-avatars.com/api/?name=Keshav+Gaddam&background=16a34a&color=ffffff&bold=true",
     rating: 5,
-    isQuote: false,
+    isQuote: true,
   },
   // CUSTOMER 5: DRAFT — CUSTOMER APPROVAL REQUIRED (First-person, no quotation marks)
   {
