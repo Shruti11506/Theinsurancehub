@@ -41,15 +41,6 @@ const initialTestimonials = [
     rating: 5,
     isQuote: true,
   },
-  // CUSTOMER 5: DRAFT — CUSTOMER APPROVAL REQUIRED (First-person, no quotation marks)
-  {
-    name: "Sachin Toshniwal",
-    role: "Sachin Seeds Company",
-    content: "At Sachin Seeds Company, I receive prompt consultation and dependable service from The Insurance Hub.",
-    avatar: "https://ui-avatars.com/api/?name=Sachin+Toshniwal&background=7c3aed&color=ffffff&bold=true",
-    rating: 5,
-    isQuote: false,
-  },
 ];
 
 export const Component = () => {

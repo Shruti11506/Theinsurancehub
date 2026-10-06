@@ -495,13 +495,16 @@ export default function App() {
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-7 xl:gap-8">
-            {servicesList.map((service) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 xl:gap-8">
+            {servicesList.map((service, index) => {
               const Icon = service.icon;
+              const isThirteenthCard = index === 12;
               return (
                 <div 
                   key={service.id}
-                  className="group relative bg-slate-50 hover:bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 hover:border-slate-200 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between overflow-hidden"
+                  className={`group relative bg-slate-50 hover:bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 hover:border-slate-200 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between overflow-hidden ${
+                    isThirteenthCard ? 'sm:col-span-2 sm:max-w-md sm:mx-auto sm:w-full lg:col-span-1 lg:col-start-2 lg:max-w-none' : ''
+                  }`}
                 >
                   <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${service.topBarGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
                   <div>

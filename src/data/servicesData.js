@@ -10,10 +10,25 @@ import {
   Layers,
   TrendingUp,
   PieChart,
-  ShieldCheck
+  ShieldCheck,
+  HeartPulse
 } from 'lucide-react';
 
 export const servicesList = [
+  {
+    id: 'health-insurance',
+    title: 'Health Insurance',
+    category: 'Health Insurance',
+    icon: HeartPulse,
+    tag: 'CASHLESS HOSPITALIZATION',
+    iconBg: 'bg-red-50 text-red-600 border-red-200/60',
+    hoverBorder: 'hover:border-red-300',
+    topBarGradient: 'from-red-500 to-rose-600',
+    tagColor: 'text-red-700 font-bold text-xs bg-red-50 px-2.5 py-1 rounded-full border border-red-200/60',
+    description: 'Comprehensive medical safeguard for you and your family. Cashless hospitalization across 10,000+ top network hospitals, pre and post-hospitalization cover, critical illness protection, and hassle-free claim settlement.',
+    highlights: ['Cashless Hospitalization', 'Critical Illness Cover', 'Family Floater & Top-Up'],
+    actionText: 'Get Quote'
+  },
   {
     id: 'fire-insurance',
     title: 'Fire Insurance',

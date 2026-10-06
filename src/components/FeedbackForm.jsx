@@ -51,8 +51,11 @@ export default function FeedbackForm() {
   ];
 
   const services = [
+    'Health Insurance',
+    'Fire Insurance',
+    'Life Insurance',
+    'Motor & Car Insurance',
     'Business Insurance',
-    'Insurance',
     'House & Property',
     'Professional Indemnity',
     'Group Policies',

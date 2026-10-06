@@ -14,6 +14,7 @@ export default function ServicesPage({ onBack, onNavigate }) {
 
   const categories = [
     'All',
+    'Health Insurance',
     'General Insurance',
     'Life & Savings',
     'Commercial & Retail',
@@ -93,13 +94,16 @@ export default function ServicesPage({ onBack, onNavigate }) {
 
       {/* ── 2. Services Cards Grid ── */}
       <div className="w-full max-w-[1440px] xl:max-w-[1536px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 -mt-10 relative z-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-7">
-          {filteredServices.map((service) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+          {filteredServices.map((service, index) => {
             const Icon = service.icon;
+            const isThirteenthCard = selectedFilter === 'All' && index === 12;
             return (
               <div 
                 key={service.id}
-                className="bg-white rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-2xl border border-slate-100 hover:border-slate-200 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+                className={`bg-white rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-2xl border border-slate-100 hover:border-slate-200 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden ${
+                  isThirteenthCard ? 'sm:col-span-2 sm:max-w-md sm:mx-auto sm:w-full lg:col-span-1 lg:col-start-2 lg:max-w-none' : ''
+                }`}
               >
                 {/* Gradient Top Line on hover */}
                 <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${service.topBarGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
