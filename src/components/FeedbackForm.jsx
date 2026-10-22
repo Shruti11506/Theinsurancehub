@@ -13,13 +13,7 @@ import {
   Sparkles,
   HelpCircle
 } from 'lucide-react';
-
-/**
- * GOOGLE_SCRIPT_URL
- * Replace this URL with your deployed Google Apps Script Web App URL.
- * Example: "https://script.google.com/macros/s/AKfycbx.../exec"
- */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwrH_C0J2UOz2ZQwLIN1eJCSKNMwHjjp-JoxqMHmQXjuJLFPdUaklAbIfimwcXX1Ymj/exec";
+import { GOOGLE_SCRIPT_URL } from '../services/visitorTracker';
 
 export default function FeedbackForm() {
   const initialFormState = {
@@ -182,6 +176,7 @@ export default function FeedbackForm() {
     const { cleaned: sanitizedPhone } = validatePhone(formState.phone.trim());
 
     const payload = {
+      action: 'submit_feedback',
       fullName: formState.fullName.trim(),
       email: formState.email.trim(),
       phone: sanitizedPhone,

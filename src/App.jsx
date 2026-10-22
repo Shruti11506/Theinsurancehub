@@ -28,6 +28,7 @@ import {
 import { Marquee } from './components/ui/marquee';
 import FAQs from './components/ui/faqs-component';
 import TypewriterText from './components/ui/typewriter-text';
+import { trackPageView } from './services/visitorTracker';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -37,6 +38,11 @@ export default function App() {
 
   const isManualScrollRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
+
+  // Automatically track page views and log to backend Google Spreadsheet
+  useEffect(() => {
+    trackPageView(currentPage === 'home' ? 'Home' : currentPage);
+  }, [currentPage]);
 
   // Smooth scroll to target section with sticky header offset
   const scrollToSection = (sectionId, tabName) => {
@@ -914,6 +920,7 @@ export default function App() {
                       name="category"
                       className="w-full px-5 py-3.5 bg-white border border-slate-200 rounded-2xl text-[14px] text-slate-700 outline-none focus:border-insurance-darkblue transition-all font-semibold"
                     >
+                      <option>Health Insurance</option>
                       <option>Fire Insurance</option>
                       <option>Life Insurance</option>
                       <option>Motor &amp; Car Insurance</option>
@@ -1053,6 +1060,7 @@ export default function App() {
           <div className="text-left space-y-4">
             <h4 className="text-white font-bold text-[14px] uppercase tracking-wider">Insurance Categories</h4>
             <ul className="text-[13px] space-y-2.5 font-medium">
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Health Insurance</a></li>
               <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Fire Insurance</a></li>
               <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Life Insurance</a></li>
               <li><a href="#services" onClick={(e) => { e.preventDefault(); handleNavigate('services'); }} className="hover:text-white transition-colors cursor-pointer">Motor &amp; Car Insurance</a></li>

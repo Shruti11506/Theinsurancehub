@@ -161,3 +161,42 @@ def process_subscription(request: SubscriptionRequest):
         "status": "success",
         "message": "Subscription active! You will now receive exclusive tax-saving quote updates."
     }
+
+class PageViewRequest(BaseModel):
+    action: Optional[str] = "track_pageview"
+    visitorId: Optional[str] = None
+    sessionId: Optional[str] = None
+    visitorType: Optional[str] = "New Visitor"
+    page: Optional[str] = "Home"
+    referrer: Optional[str] = "Direct"
+    device: Optional[str] = "Desktop"
+    browser: Optional[str] = None
+    screenResolution: Optional[str] = None
+    language: Optional[str] = "en"
+
+# In-memory visitor count for Python backend
+_visitor_stats = {
+    "total_pageviews": 0,
+    "unique_visitors": set()
+}
+
+@app.post("/api/pageview")
+def track_pageview(request: PageViewRequest):
+    _visitor_stats["total_pageviews"] += 1
+    if request.visitorId:
+        _visitor_stats["unique_visitors"].add(request.visitorId)
+    return {
+        "status": "success",
+        "total_pageviews": _visitor_stats["total_pageviews"],
+        "unique_visitors": len(_visitor_stats["unique_visitors"]),
+        "message": "Page view logged successfully."
+    }
+
+@app.get("/api/pageview")
+def get_pageviews():
+    return {
+        "status": "online",
+        "total_pageviews": _visitor_stats["total_pageviews"],
+        "unique_visitors": len(_visitor_stats["unique_visitors"])
+    }
+

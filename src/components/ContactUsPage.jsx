@@ -136,6 +136,7 @@ export default function ContactUsPage({ onBack, onNavigate }) {
                     name="category"
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 outline-none focus:border-insurance-darkblue focus:bg-white transition-all font-semibold"
                   >
+                    <option>Health Insurance</option>
                     <option>Fire Insurance</option>
                     <option>Life Insurance</option>
                     <option>Motor &amp; Car Insurance</option>
